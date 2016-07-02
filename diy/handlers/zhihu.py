@@ -14,6 +14,7 @@ class ZhihuHandler(ZhihuBaseHandler):
     @tornado.gen.coroutine
     def get(self):
         client = tornado.httpclient.AsyncHTTPClient()
+        client.configure(None, max_clients=100)
         response = yield client.fetch(ZHIHU_URL)
         if not response.code == 200:
             self.redirect("/")
