@@ -1,95 +1,98 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-    <head>
-        <meta charset="utf-8"/>
-        <title>RSS Factory</title>
-        <meta name="description" content="微博，微信公众号，知乎日报 RSS。"/>
-        <meta name="robots" content="index, follow"/>
-        <link rel="stylesheet" href="{{static_url('bootstrap.min.css')}}"/>
-        <link rel="stylesheet" href="{{static_url('all.css')}}"/>
-    </head>
-    <body>
-        <div class="site-wrapper">
-            <header class="site-header">
-                <div class="site-title"><a href="/">RSS Factory</a></div>
-            </header>
-            <div class="content">
+<head>
+    <meta charset="utf-8"/>
+    <title>RSS Factory</title>
+    <meta name="description" content="微信公众号，知乎日报, 自定义网站 RSS。"/>
+    <meta name="robots" content="index, follow"/>
+    <link rel="stylesheet" href="{{static_url('bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{static_url('all.css')}}"/>
+</head>
+<body>
+<div class="site-wrapper">
+    <header class="site-header">
+        <div class="site-title"><a href="/">RSS Factory</a></div>
+    </header>
+    <div class="content">
 
 
-<p class="lead">
-    RSS Factory 是一个用来生成微博，微信公众号，知乎日报 <strong>RSS</strong> 的Web APP。
-</p>
+        <p class="lead">
+            RSS Factory 是一个用来生成微信公众号,知乎日报,自定义网站 <strong>RSS</strong> 的Web APP。
+        </p>
 
-<div class="input-group">
-    <input type="text" class="form-control" placeholder="微博uid 或 微信公众号openid">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="微信公众号">
     <span class="input-group-btn">
         <button class="btn btn-default" type="button">Go</button>
     </span>
-</div>
-<br />
-
-<div id='board' class="gittip alert alert-info hide" style="padding: 20px;">
-</div>
-
-<div class="gittip alert alert-info" style="padding: 20px;">
-    <p>
-        知乎日报: <a href='http://{{ host }}/zhihu' target='_blank'>http://{{ host }}/zhihu</a>
-    </p>
-</div>
-
-<p>
-    <a href='http://blog.sina.com.cn/s/blog_4a0f0a740100y5gw.html' target='_blank'>获取新浪微博uid方法</a>
-    <br />
-    获取微信公众号openid方法:
-    <ul>
-        <li><a href='http://weixin.sogou.com/' target='_blank'>搜狗</a>搜索喜欢的微信公众号</li>
-        <li>通过URL获取openid,如:<br/>http://weixin.sogou.com/gzh?openid=<strong>oIWsFt86NKeSGd_BQKp1GcDkYpv0</strong></li>
-    </ul>
-</ul>
-</p>
-
-
-
-            </div>
-            <footer class="site-footer">
-                <p class="credits">
-                    Released under the <a href="/">MIT Public License</a>.<br/>
-                    &copy; 2014, <a href="https://github.com/zhu327/rss" target="_blank">Timmy Chu</a>.
-                </p>
-                <div class="powered-by">
-                    Powered by <a href="http://bozpy.sinaapp.com/" target="_blank">Timmy</a>
-                </div>
-            </footer>
-            <script src="{{static_url('jquery.min.js')}}"></script>
-            <script src="{{static_url('bootstrap.min.js')}}"></script>
-            <script>
-            function isDigit(s) {
-                var patrn=/^[0-9]{1,20}$/;
-                if (!patrn.exec(s)) return false;
-                return true;
-            };
-
-            $(function() {
-                $('.input-group').on('click', 'button', function() {
-                    var input = $('input').val();
-                    if (input.length == 10 && isDigit(input)) {
-                        var a = $("<a target='_blank' href='http://{{ host }}/weibo?uid="+input+"'>http://{{ host }}/weibo?uid="+input+"</a>");
-                        var p = $("<p>微博:<br/></p>");
-                        p.append(a);
-                    } else if (input.length == 28) {
-                        var a = $("<a target='_blank' href='http://{{ host }}/weixin?id="+input+"'>http://{{ host }}/weixin?id="+input+"</a>");
-                        var p = $("<p>微信公众号:<br/></p>");
-                        p.append(a);
-                    } else {
-                        var p = $('<p>请输入正确的微博uid或微信公众号openid.</p>');
-                    };
-                    var board = $('#board');
-                    board.empty();
-                    board.append(p);
-                    board.removeClass('hide');
-                });
-            });
-            </script>
         </div>
-    </body>
+        <br />
+
+        <div id='board' class="gittip alert alert-info hide" style="padding: 20px;">
+        </div>
+
+        <div class="gittip alert alert-info" style="padding: 20px;">
+            <p>
+                知乎日报: <a href='http://{{ host }}/zhihu' target='_blank'>http://{{ host }}/zhihu</a>
+            </p>
+            <p>
+                阿里聚安全-技术研究: <a href='http://{{ host }}/jaq_tech' target='_blank'>http://{{ host }}/jaq_tech</a>
+            </p>
+            <p>
+                阿里聚安全-资讯: <a href='http://{{ host }}/jaq_news' target='_blank'>http://{{ host }}/jaq_news</a>
+            </p>
+        </div>
+
+        <p>
+            获取微信公众号订阅的方法:
+        <ul>
+            <li><a href='http://weixin.sogou.com/' target='_blank'>搜狗</a>搜索喜欢的微信公众号</li>
+            <li>或者在你的手机里的订阅公众号</li>
+            <li><strong>看到公众号信息的id,如学习学习再学习的订阅号:xiaolai-xuexi</strong></li>
+            <li>那么你将订阅的RSS信息就是:</li>
+            <li><a href='http://{{ host }}/weixin?id=xiaolai-xuexi' target='_blank'>http://{{ host }}/weixin?id=xiaolai-xuexi</a></li>
+            <li>功能尚不完善,目前搜索无效,根据此操作示意可成功!</li>
+        </ul>
+        </p>
+
+
+
+    </div>
+    <footer class="site-footer">
+        <p class="credits">
+            Released under the <a href="/">MIT Public License</a>.<br/>
+            &copy; 2016, <a href="https://github.com/Sendarg/all2rss" target="_blank">Sendarg Devid</a>.
+        </p>
+        <div class="powered-by">
+            Powered by <a href="https://openshift.redhat.com" target="_blank">Sendarg</a>
+        </div>
+    </footer>
+    <script src="{{static_url('jquery.min.js')}}"></script>
+    <script src="{{static_url('bootstrap.min.js')}}"></script>
+    <script>
+        function isDigit(s) {
+            var patrn=/^[0-9]{1,20}$/;
+            if (!patrn.exec(s)) return false;
+            return true;
+        };
+
+        $(function() {
+            $('.input-group').on('click', 'button', function() {
+                var input = $('input').val();
+                if (input.length > 3) {
+                    var a = $("<a target='_blank' href='http://{{ host }}/weixin?id="+input+"'>http://{{ host }}/weixin?id="+input+"</a>");
+                    var p = $("<p>微信公众号:<br/></p>");
+                    p.append(a);
+                } else {
+                    var p = $('<p>请输入正确的微信公众号.</p>');
+                };
+                var board = $('#board');
+                board.empty();
+                board.append(p);
+                board.removeClass('hide');
+            });
+        });
+    </script>
+</div>
+</body>
 </html>
