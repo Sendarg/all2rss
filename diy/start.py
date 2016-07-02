@@ -15,10 +15,10 @@ from urls import urls
 from task import mc
 
 
-# IP = os.environ['OPENSHIFT_DIY_IP']
-# PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
-IP = '127.0.0.1'
-PORT = '2102'
+IP = os.environ['OPENSHIFT_DIY_IP']
+PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
+# IP = '127.0.0.1'
+# PORT = '2102'
 
 
 class Application(tornado.web.Application):

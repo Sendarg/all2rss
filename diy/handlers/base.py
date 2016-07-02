@@ -2,7 +2,7 @@
 
 import tornado.web
 
-from diy.configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES
+from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES
 
 
 class BaseHandler(tornado.web.RequestHandler):
