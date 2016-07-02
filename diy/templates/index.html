@@ -7,6 +7,9 @@
     <meta name="robots" content="index, follow"/>
     <link rel="stylesheet" href="{{static_url('bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{static_url('all.css')}}"/>
+    <!--<link rel="stylesheet" href="../static/bootstrap.min.css"/>-->
+    <!--<link rel="stylesheet" href="../static/all.css"/>-->
+
 </head>
 <body>
 <div class="site-wrapper">
@@ -36,10 +39,12 @@
                 知乎日报: <a href='http://{{ host }}/zhihu' target='_blank'>http://{{ host }}/zhihu</a>
             </p>
             <p>
-                阿里聚安全-技术研究: <a href='http://{{ host }}/jaq_tech' target='_blank'>http://{{ host }}/jaq_tech</a>
+                阿里聚安全-技术研究: </p>
+            <p><a href='http://{{ host }}/jaq_tech' target='_blank'>http://{{ host }}/jaq_tech</a>
             </p>
             <p>
-                阿里聚安全-资讯: <a href='http://{{ host }}/jaq_news' target='_blank'>http://{{ host }}/jaq_news</a>
+                阿里聚安全-安全资讯: </p>
+            <p><a href='http://{{ host }}/jaq_news' target='_blank'>http://{{ host }}/jaq_news</a>
             </p>
         </div>
 
@@ -51,7 +56,9 @@
             <li><strong>看到公众号信息的id,如学习学习再学习的订阅号:xiaolai-xuexi</strong></li>
             <li>那么你将订阅的RSS信息就是:</li>
             <li><a href='http://{{ host }}/weixin?id=xiaolai-xuexi' target='_blank'>http://{{ host }}/weixin?id=xiaolai-xuexi</a></li>
-            <li>功能尚不完善,目前搜索无效,根据此操作示意可成功!</li>
+            <li>1:功能尚不完善,目前搜索无效,根据此操作示意可成功!</li>
+            <li>2:有获取失败的可能,重试即可.</li>
+            <li>3:延迟10秒左右,具体情况根据网络和内容而定...</li>
         </ul>
         </p>
 
