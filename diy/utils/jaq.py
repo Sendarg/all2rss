@@ -35,13 +35,18 @@ def process_content(html,item_dict):
     item_dict['cover'] = None
     imgs = root.xpath('//img[@src]')
     if imgs:
-        img=imgs[0].attrib['src'].strip()
-        if img[-3:].lower() in ['jpg','png','gif'] :
-            item_dict['cover']='http:'+img
-            # 生成封面
-            coverelement = Element('img')
-            coverelement.set('src', item_dict['cover'])
-            content.insert(0, coverelement)
+        for img in imgs:
+            src=img.attrib['src'].strip()
+            if src[-3:].lower() in ['jpg','png','gif'] :
+                item_dict['cover']='http:'+src
+                # 生成封面
+                coverelement = Element('img')
+                coverelement.set('src', item_dict['cover'])
+                content.insert(0, coverelement)
+            elif src[:22]=="data:image/png;base64,":
+                img.set("src","")
+            else:
+                pass
 
 
     item_dict['content'] = Xhtml.tostring(content, encoding='unicode')

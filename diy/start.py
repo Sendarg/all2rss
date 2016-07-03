@@ -14,7 +14,7 @@ from urls import urls
 import memcache
 
 IP = '127.0.0.1'
-PORT = '2103'
+PORT = '2102'
 IP = os.environ['OPENSHIFT_DIY_IP']
 PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
 

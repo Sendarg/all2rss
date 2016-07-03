@@ -18,8 +18,10 @@ class jaqHandler(jaqBaseHandler):
         # 生成api url
         if 'tech' in self.request.uri:
             url = JAQ_URL.format(catid=4)
+            title="阿里聚安全-技术研究"
         elif 'news' in self.request.uri:
             url = JAQ_URL.format(catid=17)
+            title = "阿里聚安全-安全资讯"
         else:
             url=''
             self.redirect("/")
@@ -49,7 +51,7 @@ class jaqHandler(jaqBaseHandler):
 
 
         pubdate = items[0]['created']
-        title = description = items[0]['author']
+        description = items[0]['author']
 
         self.set_header("Content-Type", "application/xml")
         self.render("rss.xml", title=title, description=description, items=items, pubdate=pubdate, link=url)
