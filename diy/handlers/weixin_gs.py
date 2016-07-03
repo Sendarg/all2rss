@@ -33,6 +33,7 @@ class WeixinHandler(WeixinBaseHandler):
 
         if items:
             # 获取每一个文章的封面
+            # for xinshengdaxue on openshift Code 500? ???
             coverResponses = yield [client.fetch(WEIXIN_COVER_URL.format(hash=i['img']),
                                                  # raise_error=False,
                                                  # connect_timeout=TIMEOUT,
