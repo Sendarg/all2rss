@@ -33,9 +33,10 @@ class WeixinHandler(WeixinBaseHandler):
         if items:
             # 获取每一个文章的封面
             coverResponses = yield [client.fetch(WEIXIN_COVER_URL.format(hash=i['img']),
-                                                 connect_timeout=TIMEOUT,
-                                                 request_timeout=TIMEOUT,
-                                                 headers=WEIXIN_HEADERS
+                                                 raise_error=False,
+                                                 # connect_timeout=TIMEOUT,
+                                                 # request_timeout=TIMEOUT,
+                                                 # headers=WEIXIN_HEADERS
                                                  ) for i in items]
             for i, response in enumerate(coverResponses):
                 coverurl = None
