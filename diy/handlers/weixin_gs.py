@@ -22,7 +22,7 @@ class WeixinHandler(WeixinBaseHandler):
         url = WEIXIN_URL.format(id=wxid) # 生成api url
         # 访问api url,获取公众号文章列表
         request = tornado.httpclient.HTTPRequest(url=url)
-        response = yield client.fetch(request,raise_error=False,)
+        response = yield client.fetch(request,headers=WEIXIN_HEADERS)
 
         if not response.code == 200:
             self.redirect("/")
@@ -33,10 +33,10 @@ class WeixinHandler(WeixinBaseHandler):
         if items:
             # 获取每一个文章的封面
             coverResponses = yield [client.fetch(WEIXIN_COVER_URL.format(hash=i['img']),
-                                                 raise_error=False,
+                                                 # raise_error=False,
                                                  # connect_timeout=TIMEOUT,
                                                  # request_timeout=TIMEOUT,
-                                                 # headers=WEIXIN_HEADERS
+                                                 headers=WEIXIN_HEADERS
                                                  ) for i in items]
             for i, response in enumerate(coverResponses):
                 coverurl = None
