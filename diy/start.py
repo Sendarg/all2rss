@@ -11,12 +11,15 @@ import tornado.web
 
 from jinja2_tornado import JinjaLoader
 from urls import urls
-from task import mc
+import memcache
 
 IP = '127.0.0.1'
 PORT = '2103'
 IP = os.environ['OPENSHIFT_DIY_IP']
 PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
+
+
+mc = memcache.Client(['%s:15211' % IP])
 
 
 class Application(tornado.web.Application):

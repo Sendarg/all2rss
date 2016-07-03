@@ -36,3 +36,10 @@ JAQ_ARTICLE='http://jaq.alibaba.com/community/art/show?spm=&articleid={articleid
 ZHIHU_EXPIRES = 1*60*60 # 知乎日报内容缓存3小时
 WEIXIN_EXPIRES = 4*60*60 # 微信公众号内容缓存3小时
 JAQ_EXPIRES = 2*60*60 # 阿里聚安全内容缓存3小时
+
+
+# server & port
+IP = '127.0.0.1'
+PORT = '2103'
+IP = os.environ['OPENSHIFT_DIY_IP']
+PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
