@@ -22,7 +22,7 @@ class WeixinHandler(WeixinBaseHandler):
         url = WEIXIN_URL.format(id=wxid) # 生成api url
         # 访问api url,获取公众号文章列表
         request = tornado.httpclient.HTTPRequest(url=url)
-        response = yield client.fetch(request)
+        response = yield client.fetch(request,raise_error=False,)
 
         if not response.code == 200:
             self.redirect("/")
