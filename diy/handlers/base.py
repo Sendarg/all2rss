@@ -96,6 +96,7 @@ class BaseHandler(tornado.web.RequestHandler):
             html = html[:hloc] + b''.join(html_bodies) + b'\n' + html[hloc:]
 
         self.mc.set(self.key, html, self.expires) # 缓存渲染的最终结果
+        html=self.mc.get(self.key)
         self.finish(html)
 
 
