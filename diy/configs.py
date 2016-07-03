@@ -35,5 +35,5 @@ JAQ_ARTICLE='http://jaq.alibaba.com/community/art/show?spm=&articleid={articleid
 '''
 ZHIHU_EXPIRES = 1*60*60 # 知乎日报内容缓存3小时
 WEIXIN_EXPIRES = 4*60*60 # 微信公众号内容缓存3小时
-JAQ_EXPIRES = 2*60*60 # 阿里聚安全内容缓存3小时
+JAQ_EXPIRES = 5*60*60 # 阿里聚安全内容缓存3小时
 
