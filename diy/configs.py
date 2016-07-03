@@ -24,10 +24,8 @@ WEIXIN_COVER_URL='http://img1.gsdata.cn/index.php/rank/getImageUrl?callback=&has
 #     'Connection': 'close'}
 # TIMEOUT=30
 
-
 JAQ_URL = 'http://jaq.alibaba.com/community/category?spm=&catid={catid}'
 JAQ_ARTICLE='http://jaq.alibaba.com/community/art/show?spm=&articleid={articleid}'
-
 
 '''
 预处理从缓存中获取html,如果能拿到,直接返回
