@@ -37,7 +37,7 @@ def process_content(html,item_dict):
     if imgs:
         for img in imgs:
             src=img.attrib['src'].strip()
-            if src[-3:].lower() in ['jpg','png','gif'] and item_dict['cover'] == None:
+            if (not item_dict['cover']) and  src[-3:].lower() in ['jpg','png','gif'] :
                 item_dict['cover']='http:'+src
                 # 生成封面
                 coverelement = Element('img')

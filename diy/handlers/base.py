@@ -10,6 +10,19 @@ class BaseHandler(tornado.web.RequestHandler):
     def initialize(self):
         self.mc = self.application.mc
 
+    def prepare(self):
+        '''
+        预处理从缓存中获取html,如果能拿到,直接返回
+        缓存的结果都有过期时间,过期后则再次爬去最新的内容
+        知乎日报缓存3小时,微信公众号缓存1天
+        '''
+        html = self.mc.get(self.key)
+        if html:
+            print "===\tUse memcached Data\t"
+            self.set_header("Content-Type", "application/xml")
+            self.finish(html)
+
+
     def render(self, template_name, **kwargs):
         """Renders the template with the given arguments as the response."""
         html = self.render_string(template_name, **kwargs)
@@ -107,46 +120,24 @@ class ZhihuBaseHandler(BaseHandler):
         self.key = 'zhihu'
         self.expires = ZHIHU_EXPIRES
 
-    def prepare(self):
-        '''
-        预处理从缓存中获取html,如果能拿到,直接返回
-        缓存的结果都有过期时间,过期后则再次爬去最新的内容
-        知乎日报缓存3小时,微信公众号缓存1天
-        '''
-        html = self.mc.get(self.key)
-        if html:
-            self.set_header("Content-Type", "application/xml")
-            self.finish(html)
+
 
 
 class jaqBaseHandler(BaseHandler):
 
     def initialize(self):
         super(jaqBaseHandler, self).initialize()
-
         self.key = self.request.uri[1:]
         self.expires = JAQ_EXPIRES
 
-    def prepare(self):
-        html = self.mc.get(self.key)
-        if html:
-            self.set_header("Content-Type", "application/xml")
-            self.finish(html)
 
 
 class WeixinBaseHandler(BaseHandler):
 
     def initialize(self):
         super(WeixinBaseHandler, self).initialize()
-        self.key = self.request.arguments['id']
+        # self.key = "wx__"+str(self.get_argument('id'))
+        self.key = "wx__"+self.request.arguments['id'][0]
         self.expires = WEIXIN_EXPIRES
-
-    def prepare(self):
-        self.key = str(self.get_argument('id'))
-        if self.key and len(self.key) > 4:
-            html = self.mc.get(self.key)
-            if html:
-                self.set_header("Content-Type", "application/xml")
-                self.finish(html)
-        else:
-            self.redirect("/")
+        # if self.key and len(self.key) > 9:
+        #     pass
