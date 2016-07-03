@@ -17,12 +17,12 @@ WEIXIN_KEY = 'http://www.gsdata.cn/Query/wx?q={id}'
 WEIXIN_COOKIE = 'http://www.gsdata.cn/Query/article?q={q}'
 WEIXIN_URL = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4'
 WEIXIN_COVER_URL='http://img1.gsdata.cn/index.php/rank/getImageUrl?callback=&hash={hash}&_='
-# WEIXIN_HEADERS={
-#     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:43.0) Gecko/20100101 Firefox/43.0',
-#     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#     'Accept-Encoding': 'gzip, deflate',
-#     'Connection': 'close'}
-# TIMEOUT=30
+WEIXIN_HEADERS={
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:43.0) Gecko/20100101 Firefox/43.0',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Encoding': 'gzip, deflate',
+    'Connection': 'close'}
+TIMEOUT=60
 
 JAQ_URL = 'http://jaq.alibaba.com/community/category?spm=&catid={catid}'
 JAQ_ARTICLE='http://jaq.alibaba.com/community/art/show?spm=&articleid={articleid}'

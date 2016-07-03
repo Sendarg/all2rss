@@ -5,7 +5,7 @@ import json
 import tornado.gen
 import tornado.httpclient
 import tornado.web
-from configs import WEIXIN_KEY, WEIXIN_URL,WEIXIN_COVER_URL
+from configs import WEIXIN_KEY, WEIXIN_URL,WEIXIN_COVER_URL,WEIXIN_HEADERS,TIMEOUT
 
 from base import WeixinBaseHandler
 from utils.weixin_gs import process_list, process_content
@@ -16,7 +16,7 @@ class WeixinHandler(WeixinBaseHandler):
     @tornado.gen.coroutine
     def get(self):
         client = tornado.httpclient.AsyncHTTPClient()
-        client.configure(None,max_clients=100)
+        client.configure(None,max_clients=500)
         wxid = self.key[4:]
         link = WEIXIN_KEY.format(id=wxid)
         url = WEIXIN_URL.format(id=wxid) # 生成api url
@@ -32,7 +32,11 @@ class WeixinHandler(WeixinBaseHandler):
 
         if items:
             # 获取每一个文章的封面
-            coverResponses = yield [client.fetch(WEIXIN_COVER_URL.format(hash=i['img'])) for i in items]
+            coverResponses = yield [client.fetch(WEIXIN_COVER_URL.format(hash=i['img']),
+                                                 connect_timeout=TIMEOUT,
+                                                 request_timeout=TIMEOUT,
+                                                 headers=WEIXIN_HEADERS
+                                                 ) for i in items]
             for i, response in enumerate(coverResponses):
                 coverurl = None
                 if response.code == 200 and response.body.decode('utf-8'):
