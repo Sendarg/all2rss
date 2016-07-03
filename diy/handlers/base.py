@@ -96,7 +96,6 @@ class BaseHandler(tornado.web.RequestHandler):
             html = html[:hloc] + b''.join(html_bodies) + b'\n' + html[hloc:]
 
         self.mc.set(self.key, html, self.expires) # 缓存渲染的最终结果
-
         self.finish(html)
 
 
@@ -124,7 +123,7 @@ class jaqBaseHandler(BaseHandler):
     def initialize(self):
         super(jaqBaseHandler, self).initialize()
 
-        self.key = 'jaq'
+        self.key = self.request.uri[1:]
         self.expires = JAQ_EXPIRES
 
     def prepare(self):
@@ -138,10 +137,11 @@ class WeixinBaseHandler(BaseHandler):
 
     def initialize(self):
         super(WeixinBaseHandler, self).initialize()
+        self.key = self.request.arguments['id']
         self.expires = WEIXIN_EXPIRES
 
     def prepare(self):
-        self.key = str(self.get_argument('id', ''))
+        self.key = str(self.get_argument('id'))
         if self.key and len(self.key) > 4:
             html = self.mc.get(self.key)
             if html:

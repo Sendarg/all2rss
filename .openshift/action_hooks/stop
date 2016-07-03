@@ -2,6 +2,8 @@
 # The logic to stop your application should be put in this script.
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
+kill `ps -ef | grep memcached | grep -v grep | awk '{ print $2 }'`
+
 if [ -z "$(ps -ef | grep start.py | grep -v grep)" ]
     then
     client_result "Application is already stopped"
