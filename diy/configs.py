@@ -43,7 +43,8 @@ PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
 
 
 # rss list story file
-RSS_LIST_FILE=os.path.join('diy','rss_list.txt')
+_dir=os.path.abspath(os.path.dirname(__file__))
+RSS_LIST_FILE=os.path.join(_dir,'rss_list.txt')
 # OPENSHIFT_WX_URL='http://%s:%s/weixin?id={wxid}'%(IP,PORT)
 # OPENSHIFT_URL='http://%s:%s/{key}'%(IP,PORT)
 OPENSHIFT_WX_URL='http://all2rss-devox.rhcloud.com/weixin?id={wxid}'
