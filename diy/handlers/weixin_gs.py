@@ -5,7 +5,7 @@ import json
 import tornado.gen
 import tornado.httpclient
 import tornado.web
-from configs import WEIXIN_KEY, WEIXIN_URL,WEIXIN_COVER_URL,WEIXIN_HEADERS,TIMEOUT
+from configs import WEIXIN_KEY, WEIXIN_URL,WEIXIN_COVER_URL,_HEADERS,TIMEOUT
 
 from base import WeixinBaseHandler
 from utils.weixin_gs import process_list, process_content
@@ -23,7 +23,11 @@ class WeixinHandler(WeixinBaseHandler):
 
         # 访问api url,获取公众号文章列表
         request = tornado.httpclient.HTTPRequest(url=url)
-        response = yield client.fetch(request,headers=WEIXIN_HEADERS)
+        response = yield client.fetch(request,
+                                      # raise_error=False,
+                                      connect_timeout=TIMEOUT,
+                                      request_timeout=TIMEOUT,
+                                      headers=_HEADERS)
 
         if not response.code == 200:
             self.redirect("/")
@@ -36,9 +40,9 @@ class WeixinHandler(WeixinBaseHandler):
             # for xinshengdaxue on openshift Code 500? ???
             coverResponses = yield [client.fetch(WEIXIN_COVER_URL.format(hash=i['img']),
                                                  # raise_error=False,
-                                                 # connect_timeout=TIMEOUT,
-                                                 # request_timeout=TIMEOUT,
-                                                 headers=WEIXIN_HEADERS
+                                                 connect_timeout=TIMEOUT,
+                                                 request_timeout=TIMEOUT,
+                                                 headers=_HEADERS
                                                  ) for i in items]
             for i, response in enumerate(coverResponses):
                 coverurl = None

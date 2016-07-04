@@ -2,7 +2,7 @@
 
 import tornado.gen
 import tornado.httpclient
-from configs import RSS_LIST_FILE,OPENSHIFT_WX_URL,OPENSHIFT_URL
+from configs import RSS_LIST_FILE,OPENSHIFT_WX_URL,OPENSHIFT_URL,TIMEOUT,_HEADERS
 
 
 @tornado.gen.coroutine
@@ -16,6 +16,11 @@ def sync_rss_feeds():
             else:
                 url=OPENSHIFT_URL.format(key=key)
             request = tornado.httpclient.HTTPRequest(url=url)
-            requests=yield client.fetch(request)
+            requests= yield  client.fetch(request,
+                                          connect_timeout=TIMEOUT,
+                                          request_timeout=TIMEOUT,
+                                          headers=_HEADERS)
             if requests:
-                print "==== Synced feeds:\t%s"%url
+                print "++++ Synced feeds:\t%s"%url
+            else:
+                print "---- Sync Failed:\t%s" % url
