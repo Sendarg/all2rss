@@ -1,7 +1,5 @@
 # coding:utf-8
 
-
-
 WEIBO_URL = 'http://service.weibo.com/widget/widget_blog.php?uid={uid}'
 WEIBO_LINK = 'http://weibo.com/u/{uid}'
 
@@ -33,5 +31,20 @@ JAQ_ARTICLE='http://jaq.alibaba.com/community/art/show?spm=&articleid={articleid
 '''
 ZHIHU_EXPIRES = 1*60*60 # 知乎日报内容缓存3小时
 WEIXIN_EXPIRES = 4*60*60 # 微信公众号内容缓存3小时
-JAQ_EXPIRES = 5*60*60 # 阿里聚安全内容缓存3小时
+JAQ_EXPIRES = 4*60*60 # 阿里聚安全内容缓存3小时
 
+
+import os
+# server
+# IP = '127.0.0.1'
+# PORT = '2103'
+IP = os.environ['OPENSHIFT_DIY_IP']
+PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
+
+
+# rss list story file
+RSS_LIST_FILE=os.path.join('diy','rss_list.txt')
+# OPENSHIFT_WX_URL='http://%s:%s/weixin?id={wxid}'%(IP,PORT)
+# OPENSHIFT_URL='http://%s:%s/{key}'%(IP,PORT)
+OPENSHIFT_WX_URL='http://all2rss-devox.rhcloud.com/weixin?id={wxid}'
+OPENSHIFT_URL='http://all2rss-devox.rhcloud.com/{key}'

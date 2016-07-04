@@ -7,22 +7,20 @@ if _basedir not in sys.path:
 reload( sys )
 sys.setdefaultencoding('utf-8')
 
-import tornado.web
 
+from tornado import web,ioloop
 from jinja2_tornado import JinjaLoader
 from urls import urls
-import memcache
 
-IP = '127.0.0.1'
-PORT = '2103'
-IP = os.environ['OPENSHIFT_DIY_IP']
-PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
+
+from task import sync_rss_feeds
+import memcache
+from configs import IP,PORT
 
 
 mc = memcache.Client(['%s:15211' % IP])
 
-
-class Application(tornado.web.Application):
+class Application(web.Application):
     def __init__(self, **kwargs):
         self.mc = mc
         super(Application, self).__init__(**kwargs)
@@ -37,4 +35,8 @@ application = Application(
 
 if __name__ == "__main__":
     application.listen(PORT, IP)
-    tornado.ioloop.IOLoop.instance().start()
+    print "== auto sync rss news"
+    # ioloop.IOLoop().call_later(5.0, sync_rss_feeds)
+    # ioloop.IOLoop().run_sync(sync_rss_feeds)
+    ioloop.PeriodicCallback(sync_rss_feeds, 30 * (60+10) * 1000).start() # sync every 30minutes
+    ioloop.IOLoop.instance().start()

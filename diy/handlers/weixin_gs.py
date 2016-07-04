@@ -17,9 +17,9 @@ class WeixinHandler(WeixinBaseHandler):
     def get(self):
         client = tornado.httpclient.AsyncHTTPClient()
         client.configure(None,max_clients=300)
-        wxid = self.key[4:]
-        link = WEIXIN_KEY.format(id=wxid)
-        url = WEIXIN_URL.format(id=wxid) # 生成api url
+        id = self.key[4:]
+        link = WEIXIN_KEY.format(id=id)
+        url = WEIXIN_URL.format(id=id) # 生成api url
 
         # 访问api url,获取公众号文章列表
         request = tornado.httpclient.HTTPRequest(url=url)

@@ -2,7 +2,7 @@
 
 import tornado.web
 
-from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES
+from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,RSS_LIST_FILE
 
 
 class BaseHandler(tornado.web.RequestHandler):
@@ -18,7 +18,7 @@ class BaseHandler(tornado.web.RequestHandler):
         '''
         html = self.mc.get(self.key)
         if html:
-            print "===\tUse memcached Data\t"
+            print "====\tUse memcached Data\t"
             self.set_header("Content-Type", "application/xml")
             self.finish(html)
 
@@ -109,6 +109,12 @@ class BaseHandler(tornado.web.RequestHandler):
             html = html[:hloc] + b''.join(html_bodies) + b'\n' + html[hloc:]
 
         self.mc.set(self.key, html, self.expires) # 缓存渲染的最终结果
+        # 存储feed list
+        rss_list_F = open(RSS_LIST_FILE, "r+")
+        rss_lists=[i.strip() for i in rss_list_F.readlines()]
+        if self.key not in rss_lists:
+            rss_list_F.writelines(self.key+"\n")
+            rss_list_F.close()
         # html=self.mc.get(self.key)
         self.finish(html)
 
@@ -139,5 +145,3 @@ class WeixinBaseHandler(BaseHandler):
         # self.key = "wx__"+str(self.get_argument('id'))
         self.key = "wx__"+self.request.arguments['id'][0]
         self.expires = WEIXIN_EXPIRES
-        # if self.key and len(self.key) > 9:
-        #     pass
