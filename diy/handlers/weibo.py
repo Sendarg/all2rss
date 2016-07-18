@@ -5,7 +5,7 @@ import tornado.httpclient
 import tornado.web
 from configs import WEIBO_URL, WEIBO_LINK
 
-from utils.filters import weibodate
+from utils.date_format import weibodate
 
 
 class WeiboHandler(tornado.web.RequestHandler):

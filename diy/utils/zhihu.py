@@ -5,7 +5,7 @@ import json
 from lxml import html as Xhtml
 from lxml.etree import Element
 
-from utils.filters import zhihudate
+from utils.date_format import zhihudate
 
 
 def process_list(r):
