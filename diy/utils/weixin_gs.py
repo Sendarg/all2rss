@@ -2,6 +2,7 @@
 
 from lxml import html as Xhtml
 import lxml,re
+from date_format import weixindate
 
 
 def process_list(r):
@@ -15,7 +16,8 @@ def process_list(r):
         o['desc'] = root.xpath('//*[@class="article-ul"]/li['+str(i)+']/div[2]/a')[0].text
         o['link'] = root.xpath('//*[@class="article-ul"]/li['+str(i)+']/div[2]/h4/a')[0].attrib['href']
         o['author'] = root.xpath('//*[@class="article-ul"]/li['+str(i)+']/div[2]/div/a/span')[0].text
-        o['created'] = root.xpath('//*[@class="article-ul"]/li['+str(i)+']/div[2]/div/span[1]')[0].text[5:]
+        createDate = root.xpath('//*[@class="article-ul"]/li['+str(i)+']/div[2]/div/span[1]')[0].text[5:]
+        o['created']=weixindate(createDate)
         o['book'] = root.xpath('//*[@class="article-ul"]/li['+str(i)+']/div[2]/div/font/text()[3]')[0].strip()
         o['up'] = root.xpath('//*[@class="article-ul"]/li['+str(i)+']/div[2]/div/font/text()[2]')[0].strip()
         out.append(o)

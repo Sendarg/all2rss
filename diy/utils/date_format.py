@@ -1,6 +1,6 @@
 # coding:utf-8
 
-import re, datetime, pytz
+import re, datetime, pytz,time
 from localtime import tz, timenow
 
 
@@ -30,7 +30,11 @@ def zhihudate(date, hour):
         .strftime("%a, %d %b %Y %H:%M:%S %z")
 
 
-def weixindate(timestamp):
+def weixindate_fromTS(timestamp):
     return datetime.datetime.utcfromtimestamp(int(timestamp))\
            .replace(tzinfo=pytz.utc).astimezone(tz)\
            .strftime("%a, %d %b %Y %H:%M:%S %z")
+
+def weixindate(dateString):
+    ts=time.mktime(time.strptime(dateString, "%Y-%m-%d %H:%M:%S"))
+    return weixindate_fromTS(ts)
