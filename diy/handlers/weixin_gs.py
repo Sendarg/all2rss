@@ -22,7 +22,7 @@ class WeixinHandler(WeixinBaseHandler):
 
         # 访问api url,获取公众号文章列表
         items=[]
-        for p in range(5):# 读取3页结果
+        for p in range(2):# 读取3页结果,第一次获取5页结果,第二次获取一页结果?
             url = WEIXIN_URL_PAGE.format(id=id,page=p)  # 生成api url
             request = tornado.httpclient.HTTPRequest(url=url,headers=_HEADERS)
             response = yield client.fetch(request,
