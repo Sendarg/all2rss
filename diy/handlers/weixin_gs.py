@@ -5,7 +5,7 @@ import json
 import tornado.gen
 import tornado.httpclient
 import tornado.web
-from configs import WEIXIN_KEY, WEIXIN_URL,WEIXIN_COVER_URL,_HEADERS,TIMEOUT
+from configs import WEIXIN_KEY, WEIXIN_URL,WEIXIN_URL_PAGE,WEIXIN_COVER_URL,_HEADERS,TIMEOUT
 
 from base import WeixinBaseHandler
 from utils.weixin_gs import process_list, process_content
@@ -19,21 +19,23 @@ class WeixinHandler(WeixinBaseHandler):
         client.configure(None,max_clients=300)
         id = self.key[4:]
         link = WEIXIN_KEY.format(id=id)
-        url = WEIXIN_URL.format(id=id) # 生成api url
 
         # 访问api url,获取公众号文章列表
-        request = tornado.httpclient.HTTPRequest(url=url)
-        response = yield client.fetch(request,
-                                      # raise_error=False,
-                                      connect_timeout=TIMEOUT,
-                                      request_timeout=TIMEOUT,
-                                      headers=_HEADERS)
+        items=[]
+        for p in range(5):# 读取3页结果
+            url = WEIXIN_URL_PAGE.format(id=id,page=p)  # 生成api url
+            request = tornado.httpclient.HTTPRequest(url=url,headers=_HEADERS)
+            response = yield client.fetch(request,
+                                          # raise_error=False,
+                                          connect_timeout=TIMEOUT,
+                                          request_timeout=TIMEOUT
+                                          )
 
-        if not response.code == 200:
-            self.redirect("/")
+            if not response.code == 200:
+                self.redirect("/")
 
-        rc = response.body.decode('utf-8')
-        items = process_list(rc) # 解析文章列表
+            rc = response.body.decode('utf-8')
+            [items.append(i) for i in process_list(rc)]# 解析文章列表
 
         if items:
             # 获取每一个文章的封面
