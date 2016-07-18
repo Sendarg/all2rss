@@ -16,6 +16,7 @@ WEIXIN_COOKIE = 'http://www.gsdata.cn/Query/article?q={q}'
 WEIXIN_URL = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4'
 WEIXIN_URL_PAGE = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4&page={page}'
 WEIXIN_COVER_URL='http://img1.gsdata.cn/index.php/rank/getImageUrl?callback=&hash={hash}&_='
+WEIXIN_PAGE_SIZE=6
 
 JAQ_URL = 'http://jaq.alibaba.com/community/category?spm=&catid={catid}'
 JAQ_ARTICLE='http://jaq.alibaba.com/community/art/show?spm=&articleid={articleid}'
@@ -40,10 +41,10 @@ JAQ_EXPIRES = 4*60*60 # 阿里聚安全内容缓存3小时
 
 import os
 # server
-IP = os.environ['OPENSHIFT_DIY_IP']
-PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
-# IP = '127.0.0.1'
-# PORT = '2103'
+# IP = os.environ['OPENSHIFT_DIY_IP']
+# PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
+IP = '127.0.0.1'
+PORT = '2103'
 
 
 # rss list story file

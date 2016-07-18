@@ -1,8 +1,9 @@
 import os, sys
 
-_basedir = os.path.abspath(os.path.dirname(__file__))
-if _basedir not in sys.path:
-    sys.path.insert(0, _basedir)
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+if basedir not in sys.path:
+    sys.path.insert(0, basedir)
 
 reload( sys )
 sys.setdefaultencoding('utf-8')
@@ -14,22 +15,25 @@ from urls import urls
 
 
 from task import sync_rss_feeds
-import memcache
 from configs import IP,PORT
 
+# import memcache
+# mc = memcache.Client(['%s:15211' % IP])
+from  redis import Redis
+redisDB = Redis(host='localhost',port=6379,db=0)
 
-mc = memcache.Client(['%s:15211' % IP])
 
 class Application(web.Application):
     def __init__(self, **kwargs):
-        self.mc = mc
+        # self.mc = mc
+        self.redisDB = redisDB
         super(Application, self).__init__(**kwargs)
 
 
 application = Application(
     handlers=urls,
-    static_path=os.path.join(_basedir, 'static'),
-    template_loader=JinjaLoader(os.path.join(_basedir, 'templates'),
+    static_path=os.path.join(basedir, 'static'),
+    template_loader=JinjaLoader(os.path.join(basedir, 'templates'),
         autoescape=True, extensions=['jinja2.ext.autoescape']),
 )
 

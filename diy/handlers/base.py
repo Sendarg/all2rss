@@ -2,13 +2,15 @@
 
 import tornado.web
 
-from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,RSS_LIST_FILE
+from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,RSS_LIST_FILE,WEIXIN_PAGE_SIZE
 
 
 class BaseHandler(tornado.web.RequestHandler):
 
     def initialize(self):
-        self.mc = self.application.mc
+        self.key=""
+        # self.mc = self.application.mc
+        self.redisDB = self.application.redisDB
 
     def prepare(self):
         '''
@@ -16,11 +18,20 @@ class BaseHandler(tornado.web.RequestHandler):
         缓存的结果都有过期时间,过期后则再次爬去最新的内容
         知乎日报缓存3小时,微信公众号缓存1天
         '''
-        html = self.mc.get(self.key)
+        html = self.redisDB.get(self.key)
         if html:
-            print "====\tUse memcached Data\t"
+            print "====\tUse redisDB Data\t"
+
             self.set_header("Content-Type", "application/xml")
             self.finish(html)
+
+
+        # 第一次生成后,永久存储,之后判断是否有
+        self.page_size = WEIXIN_PAGE_SIZE
+        # if self.redisDB.hasKey(self.key):
+        #     self.page_size = 1
+        # else:
+        #     self.page_size = WEIXIN_PAGE_SIZE
 
 
     def render(self, template_name, **kwargs):
@@ -108,7 +119,8 @@ class BaseHandler(tornado.web.RequestHandler):
             hloc = html.index(b'</body>')
             html = html[:hloc] + b''.join(html_bodies) + b'\n' + html[hloc:]
 
-        self.mc.set(self.key, html, self.expires) # 缓存渲染的最终结果
+        self.redisDB.set(self.key, html) # 缓存渲染的最终结果
+        self.redisDB.expire(self.key, self.expires)
         # 存储feed list
         rss_list_F = open(RSS_LIST_FILE, "r+")
         rss_lists=[i.strip() for i in rss_list_F.readlines()]
@@ -125,7 +137,6 @@ class ZhihuBaseHandler(BaseHandler):
         super(ZhihuBaseHandler, self).initialize()
         self.key = 'zhihu'
         self.expires = ZHIHU_EXPIRES
-
 
 
 
