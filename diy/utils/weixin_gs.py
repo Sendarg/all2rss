@@ -48,9 +48,10 @@ def process_content(html,item_dict):
         item_dict['cover']= _COVER_RE.findall(script[0])[0]
 
     # 生成封面
-    coverelement = lxml.etree.Element('img')
-    coverelement.set('src', item_dict['cover'])
-    content.insert(0, coverelement)
+    if item_dict['cover']:
+        coverelement = lxml.etree.Element('img')
+        coverelement.set('src', item_dict['cover'])
+        content.insert(0, coverelement)
 
     # 生成HTML
     content=lxml.html.tostring(content, encoding='unicode')

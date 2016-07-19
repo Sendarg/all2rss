@@ -29,7 +29,7 @@ _HEADERS={
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     'Accept-Encoding': 'gzip, deflate',
     'Connection': 'close'}
-TIMEOUT=60
+TIMEOUT=300
 
 '''
 预处理从缓存DB中获取html,如果能拿到,直接返回

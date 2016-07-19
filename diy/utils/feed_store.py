@@ -21,3 +21,4 @@ def update_feeds(key):
     if key not in lists:
         FILE.writelines(key+"\n")
     FILE.close()
+    return True

@@ -14,11 +14,11 @@ def sync_rss_feeds():
             url = CACHE_URL_WX.format(wxid=key[4:])
         else:
             url=CACHE_URL.format(key=key)
-        request = tornado.httpclient.HTTPRequest(url=url)
+        request = tornado.httpclient.HTTPRequest(url=url,headers=_HEADERS)
         requests= yield  client.fetch(request,
                                       connect_timeout=TIMEOUT,
-                                      request_timeout=TIMEOUT,
-                                      headers=_HEADERS)
+                                      request_timeout=TIMEOUT
+                                      )
         if requests:
             print "++++ Synced feeds:\t%s"%url
         else:

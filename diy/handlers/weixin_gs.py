@@ -15,33 +15,36 @@ class WeixinHandler(WeixinBaseHandler):
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def get(self):
-        client = tornado.httpclient.AsyncHTTPClient()
-        client.configure(None,max_clients=300)
+        clientAsync = tornado.httpclient.AsyncHTTPClient()
+        clientAsync.configure(None, max_clients=2000)  # max error
+        client = tornado.httpclient.HTTPClient()
+
         id = self.key[4:]
         link = WEIXIN_URL.format(id=id)
 
-        # 访问api url,获取公众号文章列表
+        # 访问api url,获取公众号文章列表,同步逐个获取
         items=[]
         for p in range(self.page_size):# 读取X页结果,第一次获取5页结果,第二次获取一页结果?
             url = WEIXIN_URL_PAGE.format(id=id,page=p)  # 生成api url
             print "++++	Processing WeiXin\t[%s]++++" % url
             request = tornado.httpclient.HTTPRequest(url=url,headers=_HEADERS)
-            response = yield client.fetch(request,
-                                          # raise_error=False,
-                                          connect_timeout=TIMEOUT,
-                                          request_timeout=TIMEOUT
-                                          )
+            response =  client.fetch(request,
+                                      # raise_error=False,
+                                      connect_timeout=TIMEOUT,
+                                      request_timeout=TIMEOUT
+                                      )
 
-            if not response.code == 200:
-                self.redirect("/")
-
-            rc = response.body.decode('utf-8')
-            [items.append(i) for i in process_list(rc)]# 解析文章列表
+            if response.code == 200:
+                rc = response.body.decode('utf-8')
+                [items.append(i) for i in process_list(rc)]# 解析文章列表
+            else:
+                print "----	Faile URL\t[%s] ----" % url
 
         if items :
             # 获取每一个文章的封面
             # for xinshengdaxue on openshift Code 500? ???
-            coverResponses = yield [client.fetch(WEIXIN_COVER_URL.format(hash=i['img']),
+            # yield clientAsync
+            coverResponses =  yield [clientAsync.fetch(WEIXIN_COVER_URL.format(hash=i['img']),
                                                  # raise_error=False,
                                                  connect_timeout=TIMEOUT,
                                                  request_timeout=TIMEOUT,
@@ -56,7 +59,9 @@ class WeixinHandler(WeixinBaseHandler):
                 items[i]['cover']=coverurl
 
             # 爬取每篇文章的内容
-            responses = yield [client.fetch(i['link'],raise_error=False) for i in items]
+            responses =   yield [clientAsync.fetch(i['link'],
+                                                 # raise_error=False
+                                                 ) for i in items]
             for i, response in enumerate(responses):
                 if response.code == 200:
                     html = response.body.decode('utf-8')

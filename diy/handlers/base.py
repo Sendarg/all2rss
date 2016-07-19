@@ -120,10 +120,13 @@ class BaseHandler(tornado.web.RequestHandler):
             hloc = html.index(b'</body>')
             html = html[:hloc] + b''.join(html_bodies) + b'\n' + html[hloc:]
 
+        # last work
         self.redisDB.set(self.key, html) # 缓存渲染的最终结果
         self.redisDB.expire(self.key, self.expires)
+        print "++++	Cache to Redis Success ! ++++"
         # 存储feed list
-        update_feeds(self.key)
+        if update_feeds(self.key):
+            print "++++	Update feeds Success ! ++++"
         # html=self.mc.get(self.key)
         self.finish(html)
 
