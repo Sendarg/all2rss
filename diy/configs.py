@@ -17,7 +17,7 @@ ZHIHU_HEAD = {'User-Agent':"ZhihuNotMoe/2333",}
 WEIXIN_URL = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4'
 WEIXIN_URL_PAGE = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4&page={page}'
 WEIXIN_COVER_URL='http://img1.gsdata.cn/index.php/rank/getImageUrl?callback=&hash={hash}&_='
-WEIXIN_PAGE_SIZE=6
+WEIXIN_PAGE_SIZE=10
 
 JAQ_URL = 'http://jaq.alibaba.com/community/category?spm=&catid={catid}'
 JAQ_ARTICLE='http://jaq.alibaba.com/community/art/show?spm=&articleid={articleid}'
