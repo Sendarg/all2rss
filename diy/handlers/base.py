@@ -2,7 +2,8 @@
 
 import tornado.web
 
-from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,RSS_LIST_FILE,WEIXIN_PAGE_SIZE
+from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,FEED_HIS_FILE,WEIXIN_PAGE_SIZE
+from utils.feed_store import update_feeds,get_list
 
 
 class BaseHandler(tornado.web.RequestHandler):
@@ -20,18 +21,18 @@ class BaseHandler(tornado.web.RequestHandler):
         '''
         html = self.redisDB.get(self.key)
         if html:
-            print "====\tUse redisDB Data\t"
-
+            print "====\tUse redisDB Data\t[%s]"%self.key
             self.set_header("Content-Type", "application/xml")
             self.finish(html)
 
 
         # 第一次生成后,永久存储,之后判断是否有
-        self.page_size = WEIXIN_PAGE_SIZE
+        # self.page_size = WEIXIN_PAGE_SIZE
         # if self.redisDB.hasKey(self.key):
-        #     self.page_size = 1
-        # else:
-        #     self.page_size = WEIXIN_PAGE_SIZE
+        if self.key in get_list():
+            self.page_size = 1
+        else:
+            self.page_size = WEIXIN_PAGE_SIZE
 
 
     def render(self, template_name, **kwargs):
@@ -122,11 +123,7 @@ class BaseHandler(tornado.web.RequestHandler):
         self.redisDB.set(self.key, html) # 缓存渲染的最终结果
         self.redisDB.expire(self.key, self.expires)
         # 存储feed list
-        rss_list_F = open(RSS_LIST_FILE, "r+")
-        rss_lists=[i.strip() for i in rss_list_F.readlines()]
-        if self.key not in rss_lists:
-            rss_list_F.writelines(self.key+"\n")
-            rss_list_F.close()
+        update_feeds(self.key)
         # html=self.mc.get(self.key)
         self.finish(html)
 

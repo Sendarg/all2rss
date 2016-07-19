@@ -2,25 +2,24 @@
 
 import tornado.gen
 import tornado.httpclient
-from configs import RSS_LIST_FILE,OPENSHIFT_WX_URL,OPENSHIFT_URL,TIMEOUT,_HEADERS
+from configs import CACHE_URL_WX,CACHE_URL,TIMEOUT,_HEADERS
+from utils.feed_store import get_list
 
 
 @tornado.gen.coroutine
 def sync_rss_feeds():
     client = tornado.httpclient.AsyncHTTPClient()
-    for key in open(RSS_LIST_FILE).readlines():
-        key=key.strip()
-        if key:
-            if key.startswith("wx__"):
-                url = OPENSHIFT_WX_URL.format(wxid=key[4:])
-            else:
-                url=OPENSHIFT_URL.format(key=key)
-            request = tornado.httpclient.HTTPRequest(url=url)
-            requests= yield  client.fetch(request,
-                                          connect_timeout=TIMEOUT,
-                                          request_timeout=TIMEOUT,
-                                          headers=_HEADERS)
-            if requests:
-                print "++++ Synced feeds:\t%s"%url
-            else:
-                print "---- Sync Failed:\t%s" % url
+    for key in get_list():
+        if key.startswith("wx__"):
+            url = CACHE_URL_WX.format(wxid=key[4:])
+        else:
+            url=CACHE_URL.format(key=key)
+        request = tornado.httpclient.HTTPRequest(url=url)
+        requests= yield  client.fetch(request,
+                                      connect_timeout=TIMEOUT,
+                                      request_timeout=TIMEOUT,
+                                      headers=_HEADERS)
+        if requests:
+            print "++++ Synced feeds:\t%s"%url
+        else:
+            print "---- Sync Failed:\t%s" % url
