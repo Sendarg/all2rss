@@ -3,7 +3,7 @@
 import tornado.gen
 import tornado.httpclient
 import tornado.web
-from configs import ZHIHU_URL, ZHIHU_HEAD
+from configs import ZHIHU_URL, ZHIHU_HEAD,TIMEOUT
 
 from base import ZhihuBaseHandler
 from utils.zhihu import process_list,process_content
@@ -15,7 +15,11 @@ class ZhihuHandler(ZhihuBaseHandler):
     def get(self):
         client = tornado.httpclient.AsyncHTTPClient()
         client.configure(None, max_clients=100)
-        response = yield client.fetch(ZHIHU_URL)
+        response = yield client.fetch(ZHIHU_URL,
+                                      connect_timeout=TIMEOUT,
+                                      request_timeout=TIMEOUT,
+                                      headers=ZHIHU_HEAD
+                                      )
         if not response.code == 200:
             self.redirect("/")
         items=process_list(response.body.decode('utf-8'))

@@ -47,6 +47,7 @@ import os
 # PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
 IP = '127.0.0.1'
 PORT = '2102'
+BASE_URL='http://%s:%s'%(IP,PORT)
 
 
 # rss list story file

@@ -19,6 +19,6 @@ def update_feeds(key):
     lists=get_list()
     FILE = open(FEED_HIS_FILE, "a")
     if key not in lists:
-        FILE.writelines(key+"\n")
+        FILE.writelines("\n"+key)
     FILE.close()
     return True

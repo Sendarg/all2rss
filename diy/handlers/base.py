@@ -2,7 +2,7 @@
 
 import tornado.web
 
-from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,FEED_HIS_FILE,WEIXIN_PAGE_SIZE
+from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,BASE_URL,WEIXIN_PAGE_SIZE
 from utils.feed_store import update_feeds,get_list
 
 
@@ -10,8 +10,10 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def initialize(self):
         self.key=""
+        self.expires=""
         # self.mc = self.application.mc
         self.redisDB = self.application.redisDB
+        self.url=BASE_URL+self.request.uri
 
     def prepare(self):
         '''
@@ -123,10 +125,10 @@ class BaseHandler(tornado.web.RequestHandler):
         # last work
         self.redisDB.set(self.key, html) # 缓存渲染的最终结果
         self.redisDB.expire(self.key, self.expires)
-        print "++++	Cache to Redis Success ! ++++"
+        print "++++	Cache [%s] to Redis Success ! ++++"%self.key
         # 存储feed list
         if update_feeds(self.key):
-            print "++++	Update feeds Success ! ++++"
+            print "++++	Update feeds [%s] Success ! ++++"%self.key
         # html=self.mc.get(self.key)
         self.finish(html)
 

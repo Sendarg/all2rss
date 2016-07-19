@@ -38,7 +38,7 @@ def process_content(html,item_dict):
     # 处理图片链接
     # leaf 3个视图:1rss内容;2自己从网页中提取的内容;3原始网页
     for img in content.xpath('.//img'):
-        if not 'src' in img.attrib:
+        if (not 'src' in img.attrib) and img.attrib.get('data-src'):
             img.attrib['src'] = img.attrib.get('data-src')
 
     # 抽取封面cover图片1,这个比gsdata封面清晰
