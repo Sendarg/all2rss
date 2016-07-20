@@ -63,3 +63,4 @@ wx__youshucc
 wx__yuedu58
 wx__zhoumozuosha
 zhihu
+jaq_tech

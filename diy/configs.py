@@ -60,4 +60,4 @@ FEED_HIS_FILE=os.path.join(_dir, 'feed_history.txt')
 # CACHE_URL= 'http://all2rss-devox.rhcloud.com/{key}'
 CACHE_URL_WX='http://%s:%s/weixin?id={wxid}'%(IP,PORT)
 CACHE_URL='http://%s:%s/{key}'%(IP,PORT)
-CACHE_PERIODIC= 6 * 60 * 60 * 1000 # sync every 6 hours
+CACHE_PERIODIC= ((6 * 60)+5 * 60) * 1000 # sync every 4 hours 5min

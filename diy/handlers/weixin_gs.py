@@ -61,7 +61,7 @@ class WeixinHandler(WeixinBaseHandler):
                 fail_url='%s&page=%d' % (self.url, p)
                 print "----	Faile URL\t[%s] ----"%fail_url
                 # yield clientAsync.fetch(self.url)  # request again
-        if items and len(items)>5 : # 获取有效结果
+        if items and len(items)>5 and len(items[3])>3: # 随机抽取校验是否合法结果
             # 获取每一个文章的封面
             # for xinshengdaxue on openshift Code 500? ???
             # TODO error in feed,no reach store step
