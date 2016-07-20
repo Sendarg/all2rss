@@ -2,7 +2,7 @@
 
 import tornado.web
 
-from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,BASE_URL,WEIXIN_PAGE_SIZE
+from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,BASE_URL,WEIXIN_PAGE_COUNT
 from utils.feed_store import update_feeds,get_list
 
 
@@ -32,9 +32,9 @@ class BaseHandler(tornado.web.RequestHandler):
         # self.page_size = WEIXIN_PAGE_SIZE
         # if self.redisDB.hasKey(self.key):
         if self.key in get_list():
-            self.page_size = 1
+            self.page_count = 1
         else:
-            self.page_size = WEIXIN_PAGE_SIZE
+            self.page_count = WEIXIN_PAGE_COUNT
 
 
     def render(self, template_name, **kwargs):
