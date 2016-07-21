@@ -64,3 +64,5 @@ wx__yuedu58
 wx__zhoumozuosha
 zhihu
 jaq_tech
+wx__bj-jusfoun
+wx__eyes_inSight

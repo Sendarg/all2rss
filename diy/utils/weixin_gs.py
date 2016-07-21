@@ -55,7 +55,8 @@ def process_content(html,item_dict):
 
     # 生成HTML
     content=lxml.html.tostring(content, encoding='unicode')
-    content = content[:content.rfind("<hr")]+"</div>"  # 清除垃圾
+    # 清除垃圾,内容各式各样,不做次多余处理
+    # content = content[:content.rfind("<hr")]+"</div>"
     item_dict['content'] = content
 
     #
