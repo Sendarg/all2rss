@@ -10,10 +10,8 @@
 ### 1、安装依赖库
 	sudo pip install requirements.txt
 ### 2、安装redis
-#### 	根据官网文档下载安装数据库服务器软件
-		[http://redis.io/download](href "http://redis.io/download")
-
-#### 	MAC上使用brew安装
+#### 	根据官网文档下载安装数据库服务器软件<http://redis.io/download>
+#### 	MAC上使用[brew](http://brew.sh/index_zh-cn.html)安装
 		brew install redis
 
 ## 运行
@@ -28,7 +26,7 @@
 ## 其它
 ### 1、自动化脚本运行
 	nohup redis-server >/dev/null 2>&1 &
-	cd  xxx/all2rss/diy
+	cd  YourDirectory/all2rss/diy
 	python start.py >/dev/null 2>&1 &
 
 ### 2、首次部署可删除feed_history.txt文件，以加载10页内容
