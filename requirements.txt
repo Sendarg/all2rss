@@ -1,5 +1,5 @@
-Jinja2==2.7.3
-lxml==3.4.4
-python-memcached==1.54
-pytz==2015.4
-tornado==4.2
+Jinja2
+lxml
+pytz
+tornado
+redis

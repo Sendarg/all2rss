@@ -5,8 +5,11 @@ reload( sys )
 sys.setdefaultencoding('utf-8')
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+macNoSIP='/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python'
 if basedir not in sys.path:
     sys.path.insert(0, basedir)
+if macNoSIP not in sys.path:
+    sys.path.insert(0, macNoSIP)
 
 
 from tornado import web,ioloop
