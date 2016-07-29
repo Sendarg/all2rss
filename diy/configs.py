@@ -18,6 +18,17 @@ WEIXIN_URL = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date
 WEIXIN_URL_PAGE = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4&page={page}'
 WEIXIN_COVER_URL='http://img1.gsdata.cn/index.php/rank/getImageUrl?callback=&hash={hash}&_='
 WEIXIN_PAGE_COUNT=10
+# add url
+WEIXIN_ADD_URL = 'http://www.gsdata.cn/indexGsdata/wxUrlAdd?gid=45623&content={url}'
+ADD_HEADERS={
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:43.0) Gecko/20100101 Firefox/43.0',
+    'Accept': 'application/json, text/javascript, */*; q=0.01',
+    'Accept-Encoding': 'gzip, deflate',
+    'Cookie': '7299d75074d00968e78c687fc7b5317c=91b252beadf8ceb38bf37948849ee2df803b8c3fa%3A4%3A%7Bi%3A0%3Bs%3A5%3A%2234063%22%3Bi%3A1%3Bs%3A20%3A%22test320o%40hotmail.com%22%3Bi%3A2%3Bi%3A604800%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D',
+    'Connection': 'close'}
+
+
+
 
 JAQ_URL = 'http://jaq.alibaba.com/community/category?spm=&catid={catid}'
 JAQ_ARTICLE='http://jaq.alibaba.com/community/art/show?spm=&articleid={articleid}'
