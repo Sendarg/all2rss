@@ -38,12 +38,15 @@ MAC上使用[brew](http://brew.sh/index_zh-cn.html)安装
 ### 3、进入diy目录,运行WEB项目
 	python start.py
 
-## 使用
+## 使用1-有订阅内容
 ### 1、打开本地server,或你配置的公网server(建议)
 默认配置<http://127.0.0.1:2102/>
 ### 2、搜索需要订阅的wx号[功能不完善,暂时无效]
 ### 3、直接访问服务器地址来获取内容
 如笑来的学习订阅号:<http://127.0.0.1:2102/weixin?id=xiaolai-xuexi>
+
+## 使用2-无订阅返回,需要手动添加新收录URL,第二天生效
+新增URL<http://127.0.0.1:2102/weixin_url_add?url=/>
 
 
 ## 客户端订阅
