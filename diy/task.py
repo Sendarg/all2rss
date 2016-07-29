@@ -11,7 +11,7 @@ def sync_rss_feeds():
     client = tornado.httpclient.AsyncHTTPClient()
     for key in get_list():
         if key.startswith("wx__"):
-            url = CACHE_URL_WX.format(wxid=key[4:])
+            url = CACHE_URL_WX.format(wx_id=key[4:])
         else:
             url=CACHE_URL.format(key=key)
         request = tornado.httpclient.HTTPRequest(url=url,headers=_HEADERS)
