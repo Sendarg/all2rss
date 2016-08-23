@@ -1,6 +1,6 @@
 # coding:utf-8
 
-from handlers import weibo, weixin_gs, zhihu, index,jaq,weixin_url_add,weixin
+from handlers import weibo, weixin_gs, zhihu, index,jaq,weixin_url_add,weixin,pediy
 
 urls=[
     (r"/", index.MainHandler),
@@ -11,4 +11,5 @@ urls=[
     (r"/zhihu", zhihu.ZhihuHandler),
     (r"/jaq_tech", jaq.jaqHandler),
     (r"/jaq_news", jaq.jaqHandler),
+    (r"/pediy", pediy.pediyHandler),
 ]

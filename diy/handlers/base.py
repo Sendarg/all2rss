@@ -2,7 +2,7 @@
 
 import tornado.web
 
-from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,BASE_URL,WEIXIN_PAGE_COUNT
+from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,PEDIY_EXPIRES,BASE_URL,WEIXIN_PAGE_COUNT
 from utils.feed_store import update_feeds,get_list
 
 
@@ -149,6 +149,14 @@ class jaqBaseHandler(BaseHandler):
         self.key = self.request.uri[1:]
         self.expires = JAQ_EXPIRES
 
+
+
+class pediyBaseHandler(BaseHandler):
+
+    def initialize(self):
+        BaseHandler.initialize(self)
+        self.key = "pediy__" + self.request.arguments['f'][0]
+        self.expires = PEDIY_EXPIRES
 
 
 class WeixinBaseHandler(BaseHandler):
