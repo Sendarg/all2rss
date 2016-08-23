@@ -6,7 +6,7 @@ from urllib import quote_plus
 import tornado.gen
 import tornado.httpclient
 import tornado.web
-from configs import WEIXIN_ADD_URL,ADD_HEADERS,CACHE_URL_WX
+from configs import WEIXIN_GS_ADD_URL,GS_ADD_HEADERS,CACHE_URL_WX
 
 
 class WeixinAddHandler(tornado.web.RequestHandler):
@@ -15,9 +15,9 @@ class WeixinAddHandler(tornado.web.RequestHandler):
     def get(self):
         client = tornado.httpclient.HTTPClient()
         wx_url=self.request.uri[20:]
-        gs_add_url=WEIXIN_ADD_URL.format(url=quote_plus(wx_url))
+        gs_add_url=WEIXIN_GS_ADD_URL.format(url=quote_plus(wx_url))
 
-        request = tornado.httpclient.HTTPRequest(url=gs_add_url,headers=ADD_HEADERS)
+        request = tornado.httpclient.HTTPRequest(url=gs_add_url, headers=GS_ADD_HEADERS)
         r=client.fetch(request).body.decode('utf-8').strip()
         rj=json.loads(r)
         if rj['error']==1:

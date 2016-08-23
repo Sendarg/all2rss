@@ -5,7 +5,7 @@ import json
 import tornado.gen
 import tornado.httpclient
 import tornado.web
-from configs import WEIXIN_URL,WEIXIN_URL_PAGE,WEIXIN_COVER_URL,_HEADERS,TIMEOUT
+from configs import WEIXIN_GS_URL,WEIXIN_GS_URL_PAGE,WEIXIN_GS_COVER_URL,_HEADERS,TIMEOUT
 
 from base import WeixinBaseHandler
 from utils.weixin_gs import process_list, process_content
@@ -26,7 +26,7 @@ class WeixinHandler(WeixinBaseHandler):
         # client = tornado.httpclient.HTTPClient()
 
         id = self.key[4:]
-        link = WEIXIN_URL.format(id=id)
+        link = WEIXIN_GS_URL.format(id=id)
 
         # 访问api url,获取公众号文章列表,同步逐个获取
         items=[]
@@ -51,7 +51,7 @@ class WeixinHandler(WeixinBaseHandler):
 
         ## another method to write
         print "++++	Processing WeiXin\t[%s&pageCount=%d]++++" % (link,self.page_count)
-        listResponses=yield [clientAsync.fetch(WEIXIN_URL_PAGE.format(id=id,page=p))
+        listResponses=yield [clientAsync.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=p))
                              for p in range(self.page_count)]
         for p, response in enumerate(listResponses):
             if response.code == 200:
@@ -79,7 +79,7 @@ class WeixinHandler(WeixinBaseHandler):
             ERROR:tornado.access:500 GET /weixin?id=bj-jusfoun (127.0.0.1) 7028.01ms
 
             '''
-            coverResponses =  yield [clientAsync.fetch(WEIXIN_COVER_URL.format(hash=i['img']))
+            coverResponses =  yield [clientAsync.fetch(WEIXIN_GS_COVER_URL.format(hash=i['img']))
                                      for i in items]
             for i, response in enumerate(coverResponses):
                 coverurl = ''

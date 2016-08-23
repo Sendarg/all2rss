@@ -82,3 +82,8 @@ wx__andrewtalk
 wx__ChinaAnQuan
 wx__alisrc
 wx__gh_01202b41c2f7
+wx__tedxxiguan
+wx__pereader
+wx__TEDxShanghai
+wx__Computer-network
+wx__bigdata_ny
