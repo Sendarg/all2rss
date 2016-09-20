@@ -7,7 +7,7 @@ import tornado.gen
 import tornado.httpclient
 import tornado.web
 from configs import WEIXIN_GS_ADD_URL, GS_ADD_HEADERS, CACHE_URL_WX
-from db.wx_info import get_info_by_url
+import db.wx_data_lib
 
 
 class WeixinAddHandler(tornado.web.RequestHandler):
@@ -24,7 +24,7 @@ class WeixinAddHandler(tornado.web.RequestHandler):
 		r = self.client.fetch(request).body.decode('utf-8').strip()
 		rj = json.loads(r)
 		if rj['error'] == 1:
-			wx_info = get_info_by_url(wx_url)
+			wx_info = db.wx_data_lib.wx_info().get_info_by_url(wx_url)
 			alert = "++++\tAdded:\t%s\n" % (wx_info['id'] + ":" + wx_info['name'])
 			self.write(alert)
 			self.write(json.dumps(wx_info, ensure_ascii=False))

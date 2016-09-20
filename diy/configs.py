@@ -19,7 +19,7 @@ WEIXIN_COOKIE = ''
 # use gsdata
 WEIXIN_GS_URL = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4'
 WEIXIN_GS_URL_PAGE = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4&page={page}'
-WEIXIN_GS_COVER_URL = 'http://img1.gsdata.cn/index.php/rank/getImageUrl?callback=&hash={hash}&_='
+WEIXIN_GS_COVER_URL = 'http://img1.gsdata.cn/index.php/rank/getImageUrl?callback=&hash={hash}&_=' # remove only , image not clear enough
 WEIXIN_PAGE_COUNT = 10
 # add url
 WEIXIN_GS_ADD_URL = 'http://www.gsdata.cn/indexGsdata/wxUrlAdd?gid=45623&content={url}'

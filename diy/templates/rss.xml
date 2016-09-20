@@ -9,14 +9,14 @@
         <pubDate>{{ pubdate }}</pubDate>
         {% for item in items %}
         <item>
-            <title><![CDATA[{{ item['title'] }}]]></title>
-            <link>{{ item['link'] }}</link>
-            <author>{{ item['author'] }}</author>
-            <pubDate>{{ item['created'] }}</pubDate>
+            <title><![CDATA[{{ item['msg_title'] }}]]></title>
+            <link>{{ item['msg_link'] }}</link>
+            <author>{{ item['msg_author'] }}</author>
+            <pubDate>{{ item['msg_createdtime'] }}</pubDate>
             {% autoescape false %}
-            <description><![CDATA[{{ item['content'] }}]]></description>
+            <description><![CDATA[{{ item['msg_content'] }}]]></description>
             {% endautoescape %}
-            <guid>{{ item['guid'] }}</guid>
+            <guid>{{ item['msg_guid'] }}</guid>
         </item>
         {% endfor %}
     </channel>
