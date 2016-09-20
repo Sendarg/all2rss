@@ -132,7 +132,7 @@ class WeixinHandler(WeixinBaseHandler):
 					print items[i]['msg_title']
 					print items[i]['msg_desc']
 					print items[i]['msg_link']
-					print "_____________________ single msg split _____________________"
+					print "_____________________ single msg split\t%s_____________________"%str(i)
 
 			# todo error
 			'''

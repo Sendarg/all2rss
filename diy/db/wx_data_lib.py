@@ -31,8 +31,9 @@ class wx_info(object):
 		wx_info['msg_content']
 		'''
 
-	def get_info_by_id(self, wx_id):
+	def get_id_info(self, wx_id):
 		'''
+		# from id get some id infomation
 		<h3>四叶草漏洞插件社区</h3>
 		name="em_weixinhao">gh_ffddcb517e94</label
 		class="sp-txt">发布漏洞插件社区最新动态</span>
