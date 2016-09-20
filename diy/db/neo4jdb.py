@@ -12,21 +12,20 @@ class store2Neo(object):
 		self.create_WX_ID(wx_info["wx_id"])
 		self.create_WX_MSG_FULL(wx_info)
 
-	def create_WX_ID(self,wx_id):
+	def create_WX_ID(self,wx_id_info):
 		'''
 		CREATE (TheMatrix:Movie {title:'The Matrix', released:1999, tagline:'Welcome to the Real World'})
 		CREATE (Hugo:Person {name:'Hugo Weaving', born:1960})
 		'''
-		WX_ID = self.neo4j.find_one("WX_ID", property_key="wx_id", property_value=wx_id)
+		WX_ID = self.neo4j.find_one("WX_ID", property_key="wx_id", property_value=wx_id_info['wx_id'])
 		if WX_ID:
 			print "---- WX_ID exists:\t%s"%WX_ID["wx_id"]
 			return False
 		else:
-			wx_id_info=wx_info().get_id_info(wx_id)
 			wxid1 = Node("WX_ID")
 			wxid1.update(wx_id_info)
 			self.neo4j.create(wxid1)
-			print "++++ WX_ID stored:\t%s" % wx_id
+			print "++++ WX_ID stored:\t%s" % wx_id_info['wx_id']
 			return True
 
 

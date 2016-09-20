@@ -1,10 +1,16 @@
 # coding:utf-8
 
 from lxml import html as Xhtml
-# from date_format import weixindate
+
 
 
 def process_list(r):
+	'''
+	many time it's wrong,so not use any more
+	File "src/lxml/parser.pxi", line 633, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:104323)
+	XMLSyntaxError: line 481: Tag footer invalid
+	'''
+
 	root = Xhtml.fromstring(r)
 	list_len = len(root.xpath('//*[@class="article-ul"]/li'))
 	out = []
@@ -24,5 +30,7 @@ def process_list(r):
 		o['msg_book'] = root.xpath('//*[@class="article-ul"]/li[' + str(i) + ']/div[2]/div/font/text()[3]')[0].strip()
 		o['msg_up'] = root.xpath('//*[@class="article-ul"]/li[' + str(i) + ']/div[2]/div/font/text()[2]')[0].strip()
 		out.append(o)
+
+
 
 	return out

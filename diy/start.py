@@ -39,6 +39,7 @@ application = Application(
 	static_path=os.path.join(basedir, 'static'),
 	template_loader=JinjaLoader(os.path.join(basedir, 'templates'),
 	                            autoescape=True, extensions=['jinja2.ext.autoescape']),
+	# autoescape=False,容易引起格式问题,而客户端无法解析
 )
 
 if __name__ == "__main__":

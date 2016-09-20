@@ -1,7 +1,9 @@
 # coding:utf-8
 
-import tornado.httpclient
 from configs import WXID_QUERY_URL
+
+from geventhttpclient import HTTPClient
+from geventhttpclient.url import URL
 
 from lxml import html as Xhtml
 import lxml,re
@@ -11,7 +13,7 @@ from html2text import unescape
 
 class wx_info(object):
 	def __init__(self):
-		self.client = tornado.httpclient.HTTPClient()
+		pass
 		'''
 		return wx_info dict:
 		wx_info['wx_id']
@@ -31,9 +33,25 @@ class wx_info(object):
 		wx_info['msg_content']
 		'''
 
+	def fetch_url(self,url):
+		# client = HTTPClient() #  _close attribute error
+		# r=client.fetch(url).body.decode('utf-8').strip()
+		# client.close()
+
+		url = URL(url)
+
+		http = HTTPClient(url.host)
+		response = http.get(url.request_uri)
+		body = response.read()
+		r=body.decode('utf-8').strip()
+		http.close()
+
+		return  r
+
+
 	def get_id_info(self, wx_id):
 		'''
-		# from id get some id infomation
+		# get some id information just from id
 		<h3>四叶草漏洞插件社区</h3>
 		name="em_weixinhao">gh_ffddcb517e94</label
 		class="sp-txt">发布漏洞插件社区最新动态</span>
@@ -41,28 +59,36 @@ class wx_info(object):
 		'''
 
 		feed_url = WXID_QUERY_URL.format(wx_id=wx_id)
-		r = self.client.fetch(feed_url).body.decode('utf-8').strip()
+		r=self.fetch_url(feed_url)
 
 		id_obj = {}
-		id_obj["name"] = re.findall(r"h3>(\S+)<\/h3", r)[0].strip()
 		id_obj["wx_id"] = re.findall(r"name=\"em_weixinhao\">(\S+)</label", r)[0].strip()
-		id_obj["desc"] = re.findall(r"class=\"sp-txt\">(\S+)</span>", r)[0].strip()
+		if id_obj["wx_id"] != wx_id:
+			return False
+		# todo:all fuzz search..  maybe.. NO...
+		# method parm:,exact=True
+		# if not exact:
+
+		id_obj["name"] = re.findall(r"h3>(\S+)<\/h3", r)[0].strip()
+		id_obj["desc"] = re.findall(r"class=\"sp-txt\">(.*)</span>", r)[0].strip()
 		id_obj["last_msg"] = re.findall(r"href=\"\S+\">(.*)</a><span\s+class=\"hui\">", r)[0].strip()
 
 		for k in id_obj.iterkeys():
 			id_obj[k]=unescape(id_obj[k])
 			id_obj[k] = id_obj[k].replace("&nbsp_place_holder;", " ")
+
+
 		return id_obj
 
 	def get_info_by_url(self, wx_url):
 		# shortcut
 		# client = tornado.httpclient.HTTPClient()
-		r = self.client.fetch(wx_url).body.decode('utf-8').strip()
+		r = self.fetch_url(wx_url)
 		wx_obj = self.get_info_by_html(r)
 		return wx_obj
 
 	def get_full_info_by_url(self, wx_url):
-		r = self.client.fetch(wx_url).body.decode('utf-8').strip()
+		r = self.fetch_url(wx_url)
 		wx_full=self.get_full_info_by_html(r)
 		return wx_full
 
