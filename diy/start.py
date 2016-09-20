@@ -21,15 +21,16 @@ from configs import IP, PORT, CACHE_PERIODIC
 # import memcache
 # mc = memcache.Client(['%s:15211' % IP])
 from  redis import Redis
-
 # many redis can listen to 1 port,so you need kill
 redisDB = Redis(host='localhost', port=6379, password="CCoo_559")
+
 
 
 class Application(web.Application):
 	def __init__(self, **kwargs):
 		# self.mc = mc
 		self.redisDB = redisDB
+		# self.neo4j=Neo4j()
 		super(Application, self).__init__(**kwargs)
 
 

@@ -87,3 +87,12 @@ wx__pereader
 wx__TEDxShanghai
 wx__Computer-network
 wx__bigdata_ny
+wx__gh_183f818a07dc
+wx__qiyeanquan360
+wx__marketeers
+wx__gh_572803e6675d
+wx__roartalk
+wx__gh_7c4ae6394108
+wx__ikanxue
+wx__EAQapp
+wx__gh_ffddcb517e94

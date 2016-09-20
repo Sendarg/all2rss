@@ -3,7 +3,7 @@
 import tornado.web
 
 from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,PEDIY_EXPIRES,BASE_URL,WEIXIN_PAGE_COUNT
-from utils.feed_store import update_feeds,get_list
+from db.feed_store_File import update_feeds,get_list
 
 
 class BaseHandler(tornado.web.RequestHandler):
@@ -13,6 +13,7 @@ class BaseHandler(tornado.web.RequestHandler):
         self.expires=""
         # self.mc = self.application.mc
         self.redisDB = self.application.redisDB
+
         self.url=BASE_URL+self.request.uri
 
     def prepare(self):

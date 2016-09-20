@@ -30,6 +30,9 @@ GS_ADD_HEADERS = {
 	'Cookie': '7299d75074d00968e78c687fc7b5317c=91b252beadf8ceb38bf37948849ee2df803b8c3fa%3A4%3A%7Bi%3A0%3Bs%3A5%3A%2234063%22%3Bi%3A1%3Bs%3A20%3A%22test320o%40hotmail.com%22%3Bi%3A2%3Bi%3A604800%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D',
 	'Connection': 'close'}
 
+#
+WXID_QUERY_URL = "http://weixin.sogou.com/weixin?type=1&query={wx_id}"
+
 # alibaba
 JAQ_URL = 'http://jaq.alibaba.com/community/category?spm=&catid={catid}'
 JAQ_ARTICLE = 'http://jaq.alibaba.com/community/art/show?spm=&articleid={articleid}'
@@ -65,9 +68,7 @@ IP = '127.0.0.1'
 PORT = '2102'
 BASE_URL = 'http://%s:%s' % (IP, PORT)
 
-# rss list story file
-_dir = os.path.abspath(os.path.dirname(__file__))
-FEED_HIS_FILE = os.path.join(_dir, 'feed_history.txt')
+
 
 # cache
 # CACHE_URL_WX= 'http://all2rss-devox.rhcloud.com/weixin?id={wxid}'

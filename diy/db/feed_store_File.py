@@ -1,6 +1,9 @@
 # coding:utf-8
+import os
 
-from configs import FEED_HIS_FILE
+# rss list story file
+_dir = os.path.abspath(os.path.dirname(__file__))
+FEED_HIS_FILE = os.path.join(_dir, 'feed_history.txt')
 
 
 
