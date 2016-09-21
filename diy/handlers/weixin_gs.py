@@ -11,10 +11,10 @@ from db.wx_id_mgt import check_ID
 import re
 
 
-def getMaxAsynClient():
-	# 1000clients  &  100page no error more
+def getMaxAsynClient(max_clients=500):
+	# 1000clients  &  100page no many error more by single page first request
 	# AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient") # seem many error
-	clientAsync = AsyncHTTPClient(max_clients=1000)  # page 100 * size 20,
+	clientAsync = AsyncHTTPClient(max_clients=max_clients)  # page 20 * size 20,
 	clientAsync.configure(None,
 	                      # "tornado.curl_httpclient.CurlAsyncHTTPClient",
 	                      raise_error=False,
@@ -65,7 +65,7 @@ class WeixinHandler(WeixinBaseHandler):
 			                       for p in range(self.page_count)]
 			for p, response in enumerate(listResponses):
 				gs_url = WEIXIN_GS_URL_PAGE.format(id=id, page=p + 1)
-				local_url = '%s&page=%d' % (self.url, p + 1)
+				# local_url = '%s&page=%d' % (self.url, p + 1) # not useful
 				if response.code == 200:
 					rc = response.body.decode('utf-8')
 					msg_urls = re.findall(r"'url':'(\S+)'", rc)
@@ -74,7 +74,6 @@ class WeixinHandler(WeixinBaseHandler):
 
 				else:
 					print "----	Faile URL\t[%s] ----" % gs_url
-				# yield clientAsync.fetch(self.url)  # request again
 
 			# 访问微信信息url,获取全部内容
 			items = []
@@ -139,7 +138,6 @@ class WeixinHandler(WeixinBaseHandler):
 						store2Neo().create_WX_MSG_FULL(full_info)
 						items.append(full_info)
 						# print LED
-						print len(items)
 						print "++++\tGet items\t++++"
 						print items[i - warn_count]['msg_createdtime']
 						print items[i - warn_count]['msg_title']
@@ -147,12 +145,13 @@ class WeixinHandler(WeixinBaseHandler):
 						print items[i - warn_count]['msg_link']
 						print "_____________________ single msg split\t%s\t_____________________" % str(i + 1)
 
-				# todo error
+
 				'''
-				  File "/Users/neoo/PycharmProjects/all2rss/diy/handlers/weixin_gs.py", line 120, in get
-		else:
-	AttributeError: 'str' object has no attribute 'has_key'
-	ERROR:tornado.access:500 GET /weixin?id=duzhe3650 (127.0.0.1) 11682.56ms
+				# todo error
+				File "/Users/neoo/PycharmProjects/all2rss/diy/handlers/weixin_gs.py", line 120, in get
+				else:
+				AttributeError: 'str' object has no attribute 'has_key'
+				ERROR:tornado.access:500 GET /weixin?id=duzhe3650 (127.0.0.1) 11682.56ms
 
 				'''
 				# check item's <description><![CDATA[]]></description>

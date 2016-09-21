@@ -14,7 +14,7 @@ class store2Neo(object):
 	def is_WX_ID_Exists(self,wx_id):
 		WX_ID = self.neo4j.find_one("WX_ID", property_key="wx_id", property_value=wx_id)
 		if WX_ID:
-			print "---- WX_ID exists:\t%s" % WX_ID["wx_id"]
+			# print "---- WX_ID exists:\t%s" % WX_ID["wx_id"] # too much useless info
 			return True
 		else:
 			return False
@@ -73,7 +73,7 @@ class store2Neo(object):
 
 		WX_MSG = self.neo4j.find_one("WX_MSG", property_key="msg_link", property_value=wx_info['msg_link'])
 		if WX_MSG:
-			print "---- WX_MSG exists:\t%s" % WX_MSG["msg_link"]
+			# print "---- WX_MSG exists:\t%s" % WX_MSG["msg_link"]# too much useless info
 			return False
 		else:
 			# msg=PropertyDict(wx_info)
@@ -90,9 +90,6 @@ class store2Neo(object):
 			else:
 				print "---- WX_ID NOT exists:\t%s"  %wx_info["wx_id"]
 				return False
-
-
-
 
 
 

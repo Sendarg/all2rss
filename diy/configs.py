@@ -20,7 +20,10 @@ WEIXIN_COOKIE = ''
 WEIXIN_GS_URL = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4'
 WEIXIN_GS_URL_PAGE = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4&page={page}'
 WEIXIN_GS_COVER_URL = 'http://img1.gsdata.cn/index.php/rank/getImageUrl?callback=&hash={hash}&_=' # remove only , image not clear enough
-WEIXIN_PAGE_COUNT = 100 # store as many as posible
+# Page to cache at first time
+# All history page will store by single sub process
+# store max 50 is good no large 599
+WEIXIN_PAGE_COUNT = 20
 # add url
 WEIXIN_GS_ADD_URL = 'http://www.gsdata.cn/indexGsdata/wxUrlAdd?gid=45623&content={url}'
 GS_ADD_HEADERS = {
@@ -48,7 +51,7 @@ _HEADERS = {
 	'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 	'Accept-Encoding': 'gzip, deflate',
 	'Connection': 'close'}
-TIMEOUT = 60.0
+TIMEOUT = 300.0
 
 '''
 预处理从缓存DB中获取html,如果能拿到,直接返回

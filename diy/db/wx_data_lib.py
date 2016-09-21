@@ -11,6 +11,12 @@ from utils.date_format import weixindate_fromTS
 from html2text import unescape
 
 
+from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
+
 class wx_info(object):
 	def __init__(self):
 		pass
@@ -51,19 +57,54 @@ class wx_info(object):
 		http.close()
 		return  r
 
+
 	def browser_url(self,url):
+		# todo : better code stratur(Proxy and Head) and beautiful;
 		# try to anti antispider
-		from selenium import webdriver
+		''' Can't Seting headers
+		User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1
+		Cookie: ABTEST=0|1474465348|v1; IPLOC=CN3100; SUID=B7F39AB42441900A0000000057E28E44; PHPSESSID=1oflgi4l3d4ag6dba32cr6k1s4; SUIR=1474465348
+		Connection: close
+		Accept-Encoding: gzip, deflate
+		Accept-Language: zh-CN,en,*
+		Host: weixin.sogou.com
+
+
+		User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2866.0 Safari/537.36
+		Accept-Encoding: gzip, deflate, sdch
+		Accept-Language: zh-CN,zh;q=0.8,he;q=0.6
+		Connection: close
+		'''
+		'''
+		PROXY='127.0.0.1:8080'
+		webdriver.DesiredCapabilities.PHANTOMJS['proxy']={
+			"httpProxy": PROXY,
+			"ftpProxy": PROXY,
+			"sslProxy": PROXY,
+			"noProxy": None,
+			"proxyType": "MANUAL",
+			"class": "org.openqa.selenium.Proxy",
+			"autodetect": False
+		}
+		'''
+
 		driver = webdriver.PhantomJS()
-		driver.set_window_size(1120, 550)
-		driver.get(url)
-		driver.refresh()
+		for i in range(2):# force retry will help
+			driver.get(url)
+			wait = WebDriverWait(driver, 10)
+			# wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'weixin-public')))
+			wait.until(EC.presence_of_all_elements_located)
+			driver.get(url) # twice will helpful
+			print driver.title
+			if u'的相关微信公众号 – 搜狗微信搜索' in driver.title:
+				break
+			else:
+				print "----\tAntiSpider Error[%d] URL:\t%s" % (i+1,driver.current_url)
+
 		r=driver.page_source
-		print driver.current_url
 		driver.quit()
 
 		return r
-
 
 
 	def get_id_info(self, wx_id):
@@ -80,8 +121,21 @@ class wx_info(object):
 		if not r:
 			return False
 
+		# todo:wait for complate to mgt id search
+		# root=Xhtml.fromstring(r)
+		# content = root.xpath('//*[@class="results mt7"]')
+		# results = content.xpath('//*[@class="txt-box"]')
+		# for i in results:
+
+
 		id_obj = {}
 		id_obj["wx_id"] = re.findall(r"name=\"em_weixinhao\">(\S+)</label", r)[0].strip()
+
+		# todo : one method to remove specialy html label <em> for search keywords
+		if not id_obj["wx_id"]:
+			return False
+		if id_obj["wx_id"][:4]=="<em>":
+			id_obj["wx_id"]=id_obj["wx_id"][4:-5]
 		if id_obj["wx_id"] != wx_id:
 			return False
 		# todo:all fuzz search..  maybe.. NO...
@@ -90,12 +144,13 @@ class wx_info(object):
 
 		id_obj["name"] = re.findall(r"h3>(\S+)<\/h3", r)[0].strip()
 		id_obj["desc"] = re.findall(r"class=\"sp-txt\">(.*)</span>", r)[0].strip()
-		id_obj["last_msg"] = re.findall(r"href=\"\S+\">(.*)</a><span\s+class=\"hui\">", r)[0].strip()
+		last=re.findall(r"href=\"(\S+)\"\s+title=\"(.*)\".*class=\"hui\">", r)
+		id_obj["last_link"] = last[0][0].strip()
+		id_obj["last_msg"] = last[0][1].strip()
 
 		for k in id_obj.iterkeys():
 			id_obj[k]=unescape(id_obj[k])
 			id_obj[k] = id_obj[k].replace("&nbsp_place_holder;", " ")
-
 
 		return id_obj
 
@@ -107,10 +162,12 @@ class wx_info(object):
 		wx_obj = self.get_info_by_html(r)
 		return wx_obj
 
+
 	def get_full_info_by_url(self, wx_url):
 		r = self.fetch_url_g(wx_url)
 		wx_full=self.get_full_info_by_html(r)
 		return wx_full
+
 
 	def get_full_info_by_html(self, html):
 		wx_full=self.get_info_by_html(html).copy()
@@ -159,14 +216,16 @@ class wx_info(object):
 
 				'''
 		wx_obj = {}
+
+		# wx id & desc,some id not set weixin ID so use user_name
 		wx_id = re.findall(r"profile_meta_value\"\s?>(\S+)<\s?\/", r)
-		# wx id & desc
 		if len(wx_id) == 2:
 			wx_obj['wx_id'] = wx_id[0].strip()
 			wx_obj['desc'] = wx_id[1].strip()
 		else:
 			wx_obj['wx_id'] = re.findall(r"user_name\s?=\s?\"(\S+)\"\;", r)[0].strip()
-			wx_obj['desc'] = re.findall(r"profile_meta_value\"\s?>(\S+)<\s?\/", r)[0].strip()
+			wx_obj['desc'] = re.findall(r"profile_meta_value\"\s?>(\S+)<\s?\/", r)[-1].strip()
+
 		# nickname
 		wx_name = re.findall(r'var\snickname\s+=\s+\"(\S+)\"\;', r)
 		wx_obj['name'] = wx_name[0].strip()
@@ -176,15 +235,18 @@ class wx_info(object):
 		msg_ct=re.findall(r'var\sct\s+=\s+\"(\d+)\"\;', r)[0].strip()
 		wx_obj['msg_createdtime'] =weixindate_fromTS(msg_ct)
 		wx_obj['msg_title'] = re.findall(r'var\smsg_title\s+=\s+\"(\S+)\"\;', r)[0].strip()
-		wx_obj['msg_desc'] = re.findall(r'var\smsg_desc\s+=\s+\"(\S+)\"\;', r)[0].strip()
 		wx_obj['msg_cover'] = re.findall(r'var\smsg_cdn_url\s+=\s+\"(\S+)\"\;', r)[0].strip()
 		wx_obj['msg_link'] = re.findall(r'var\smsg_link\s+=\s+\"(\S+)\"\;', r)[0].strip()
 		wx_obj['msg_source'] = re.findall(r"msg_source_url\s+=\s+'(.*)'", r)[0].strip()
+
+		wx_obj['msg_desc'] = ""
+		desc=re.findall(r'var\smsg_desc\s+=\s+\"(\S+)\"\;', r)
+		if desc:wx_obj['msg_desc'] = desc[0].strip()
+
+		wx_obj['msg_author'] = ""
 		author=re.findall(r'em\s+class=\"rich_media_meta\s+rich_media_meta_text\">(\S+)<', r)
-		if author:
-			wx_obj['msg_author'] = author[0].strip()
-		else:
-			wx_obj['msg_author'] = ""
+		if author:wx_obj['msg_author'] = author[0].strip()
+
 
 		for k in wx_obj.iterkeys():
 			wx_obj[k] = unescape(wx_obj[k])
@@ -192,15 +254,17 @@ class wx_info(object):
 
 		return wx_obj
 
+
 	def process_content(self, html,coverurl):
 
 		root = Xhtml.fromstring(html)
 
 		# 抽取文章内容
-		try:
-			content = root.xpath('//*[@id="js_content"]')[0]
-		except IndexError:
-			return ''
+		content = root.xpath('//*[@id="js_content"]')[0]
+		# try:
+		#
+		# except IndexError:
+		# 	return ''
 
 		# 处理图片链接
 		# leaf 3个视图:1rss内容;2自己从网页中提取的内容;3原始网页
