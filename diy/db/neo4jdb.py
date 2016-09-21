@@ -1,7 +1,6 @@
 # coding:utf-8
 
 from py2neo import Graph,Node,Relationship
-from wx_data_lib import wx_info
 
 
 class store2Neo(object):
@@ -12,16 +11,20 @@ class store2Neo(object):
 		self.create_WX_ID(wx_info["wx_id"])
 		self.create_WX_MSG_FULL(wx_info)
 
+	def is_WX_ID_Exists(self,wx_id):
+		WX_ID = self.neo4j.find_one("WX_ID", property_key="wx_id", property_value=wx_id)
+		if WX_ID:
+			print "---- WX_ID exists:\t%s" % WX_ID["wx_id"]
+			return True
+		else:
+			return False
+
 	def create_WX_ID(self,wx_id_info):
 		'''
 		CREATE (TheMatrix:Movie {title:'The Matrix', released:1999, tagline:'Welcome to the Real World'})
 		CREATE (Hugo:Person {name:'Hugo Weaving', born:1960})
 		'''
-		WX_ID = self.neo4j.find_one("WX_ID", property_key="wx_id", property_value=wx_id_info['wx_id'])
-		if WX_ID:
-			print "---- WX_ID exists:\t%s"%WX_ID["wx_id"]
-			return False
-		else:
+		if not self.is_WX_ID_Exists(wx_id_info['wx_id']):
 			wxid1 = Node("WX_ID")
 			wxid1.update(wx_id_info)
 			self.neo4j.create(wxid1)

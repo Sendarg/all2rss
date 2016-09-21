@@ -7,6 +7,7 @@ from configs import WEIXIN_GS_URL, WEIXIN_GS_URL_PAGE, _HEADERS, TIMEOUT
 from base import WeixinBaseHandler
 from db.wx_data_lib import wx_info
 from db.neo4jdb import store2Neo
+from db.wx_id_mgt import check_ID
 import re
 
 
@@ -33,12 +34,8 @@ class WeixinHandler(WeixinBaseHandler):
 		# 确认ID和存储ID
 		# 如果获取不到准确的ID信息,账号已不存在,取消全部操作
 		# 如果获得的到,存储到db,下面不再每次存储
-		id_info = wx_info().get_id_info(id)
-		if not id_info:
-			print "----\t[ %s ]\t帐号已注销或被封" % id
-			self.redirect("/")
-		else:
-			store2Neo().create_WX_ID(id_info)
+
+		if check_ID(id):
 
 			# 访问api url,获取公众号文章列表\基本信息,同步逐个获取
 			msg_urls_all = []
@@ -61,7 +58,7 @@ class WeixinHandler(WeixinBaseHandler):
 			#         print "----	Faile URL\t[%s] ----" % url
 
 			## another method to write
-			print "++++	Processing WeiXin\t[%s&pageCount=%d]++++" % (link, self.page_count)
+			print "====	Processing WeiXin\t[%s&pageCount=%d]++++" % (link, self.page_count)
 			client1 = getMaxAsynClient()
 			# listResponses = yield [client1.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=31))]
 			listResponses = yield [client1.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=p + 1))
@@ -73,7 +70,7 @@ class WeixinHandler(WeixinBaseHandler):
 					rc = response.body.decode('utf-8')
 					msg_urls = re.findall(r"'url':'(\S+)'", rc)
 					msg_urls_all.extend(msg_urls)
-					print "----	Success URL\t[%s] ----" % gs_url
+					print "====	Success URL\t[%s] ----" % gs_url
 
 				else:
 					print "----	Faile URL\t[%s] ----" % gs_url

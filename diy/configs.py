@@ -31,7 +31,7 @@ GS_ADD_HEADERS = {
 	'Connection': 'close'}
 
 #
-WXID_QUERY_URL = "http://weixin.sogou.com/weixin?type=1&query={wx_id}"
+WXID_QUERY_URL = "http://weixin.sogou.com/weixin?type=1&query={wx_id}&ie=utf8&"
 
 # alibaba
 JAQ_URL = 'http://jaq.alibaba.com/community/category?spm=&catid={catid}'

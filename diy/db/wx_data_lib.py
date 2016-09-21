@@ -1,6 +1,6 @@
 # coding:utf-8
 
-from configs import WXID_QUERY_URL
+from configs import WXID_QUERY_URL,_HEADERS
 
 from geventhttpclient import HTTPClient
 from geventhttpclient.url import URL
@@ -33,20 +33,37 @@ class wx_info(object):
 		wx_info['msg_content']
 		'''
 
-	def fetch_url(self,url):
+	def fetch_url_g(self, url):
 		# client = HTTPClient() #  _close attribute error
 		# r=client.fetch(url).body.decode('utf-8').strip()
 		# client.close()
 
 		url = URL(url)
 
-		http = HTTPClient(url.host)
+		http = HTTPClient(url.host,headers=_HEADERS)
 		response = http.get(url.request_uri)
+		if not response.status_code==200:
+			print "----\tResponse Code[%s]\t%s" %(response.status_code, url)
+			return False
+
 		body = response.read()
 		r=body.decode('utf-8').strip()
 		http.close()
-
 		return  r
+
+	def browser_url(self,url):
+		# try to anti antispider
+		from selenium import webdriver
+		driver = webdriver.PhantomJS()
+		driver.set_window_size(1120, 550)
+		driver.get(url)
+		driver.refresh()
+		r=driver.page_source
+		print driver.current_url
+		driver.quit()
+
+		return r
+
 
 
 	def get_id_info(self, wx_id):
@@ -59,7 +76,9 @@ class wx_info(object):
 		'''
 
 		feed_url = WXID_QUERY_URL.format(wx_id=wx_id)
-		r=self.fetch_url(feed_url)
+		r=self.browser_url(feed_url)
+		if not r:
+			return False
 
 		id_obj = {}
 		id_obj["wx_id"] = re.findall(r"name=\"em_weixinhao\">(\S+)</label", r)[0].strip()
@@ -80,15 +99,16 @@ class wx_info(object):
 
 		return id_obj
 
+
 	def get_info_by_url(self, wx_url):
 		# shortcut
 		# client = tornado.httpclient.HTTPClient()
-		r = self.fetch_url(wx_url)
+		r = self.fetch_url_g(wx_url)
 		wx_obj = self.get_info_by_html(r)
 		return wx_obj
 
 	def get_full_info_by_url(self, wx_url):
-		r = self.fetch_url(wx_url)
+		r = self.fetch_url_g(wx_url)
 		wx_full=self.get_full_info_by_html(r)
 		return wx_full
 
