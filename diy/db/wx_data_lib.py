@@ -1,20 +1,15 @@
 # coding:utf-8
 
-from configs import WXID_QUERY_URL,_HEADERS
-
-from geventhttpclient import HTTPClient
-from geventhttpclient.url import URL
-
+from configs import WXID_QUERY_URL
 
 from lxml import html as Xhtml
 import lxml,re
 from utils.date_format import weixindate_fromTS
 from html2text import unescape
-from requests import get
 
-from selenium import webdriver
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from requests import get
+from utils.iHttpLib import browser_url
+
 
 
 
@@ -40,71 +35,6 @@ class wx_info(object):
 		wx_info['msg_content']
 		'''
 
-
-	def fetch_url_g_error(self, url):
-		# r=HTTPClient.get()
-		url = URL(url)
-		http = HTTPClient(url.host,headers=_HEADERS)
-		response = http.get(url.request_uri)
-		if not response.status_code==200:
-			print "----\tResponse Code[%s]\t%s" %(response.status_code, url)
-			return False
-
-		body = response.read() # eror in encoding
-		r=body.decode('utf-8').strip()
-		http.close()
-		return  r
-
-
-	def browser_url(self,url):
-		# todo : better code stratur(Proxy and Head) and beautiful;
-		# try to anti antispider
-		''' Can't Seting headers
-		User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1
-		Cookie: ABTEST=0|1474465348|v1; IPLOC=CN3100; SUID=B7F39AB42441900A0000000057E28E44; PHPSESSID=1oflgi4l3d4ag6dba32cr6k1s4; SUIR=1474465348
-		Connection: close
-		Accept-Encoding: gzip, deflate
-		Accept-Language: zh-CN,en,*
-		Host: weixin.sogou.com
-
-
-		User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2866.0 Safari/537.36
-		Accept-Encoding: gzip, deflate, sdch
-		Accept-Language: zh-CN,zh;q=0.8,he;q=0.6
-		Connection: close
-		'''
-		'''
-		PROXY='127.0.0.1:8080'
-		webdriver.DesiredCapabilities.PHANTOMJS['proxy']={
-			"httpProxy": PROXY,
-			"ftpProxy": PROXY,
-			"sslProxy": PROXY,
-			"noProxy": None,
-			"proxyType": "MANUAL",
-			"class": "org.openqa.selenium.Proxy",
-			"autodetect": False
-		}
-		'''
-
-		driver = webdriver.PhantomJS()
-		for i in range(2):# force retry will help
-			driver.get(url)
-			wait = WebDriverWait(driver, 10)
-			# wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'weixin-public')))
-			wait.until(EC.presence_of_all_elements_located)
-			driver.get(url) # twice will helpful
-			print driver.title
-			if u'的相关微信公众号 – 搜狗微信搜索' in driver.title:
-				break
-			else:
-				print "----\tAntiSpider Error[%d] URL:\t%s" % (i+1,driver.current_url)
-
-		r=driver.page_source
-		driver.quit()
-
-		return r
-
-
 	def get_id_info(self, wx_id):
 		'''
 		# get some id information just from id
@@ -115,7 +45,7 @@ class wx_info(object):
 		'''
 
 		feed_url = WXID_QUERY_URL.format(wx_id=wx_id)
-		r=self.browser_url(feed_url)
+		r=browser_url(feed_url,expectTitle=u'的相关微信公众号 – 搜狗微信搜索')
 		if not r or u'抱歉!' in r:
 			print "==== \tNo Search Results in URL:\t%s" % (feed_url)
 			return False

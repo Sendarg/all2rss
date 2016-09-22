@@ -87,3 +87,10 @@ wx__qiutujs
 wx__wuxiaobopd
 wx__mweishijie
 wx__zhoumozuosha
+wx__gh_38e8b1223e2a
+wx__BookSelection
+wx__cStor_cn
+wx__mhchina
+wx__DataScientistUnion
+wx__sjfxjx
+wx__cheyunwang
