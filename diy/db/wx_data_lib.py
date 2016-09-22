@@ -5,11 +5,12 @@ from configs import WXID_QUERY_URL,_HEADERS
 from geventhttpclient import HTTPClient
 from geventhttpclient.url import URL
 
+
 from lxml import html as Xhtml
 import lxml,re
 from utils.date_format import weixindate_fromTS
 from html2text import unescape
-
+from requests import get
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -39,20 +40,17 @@ class wx_info(object):
 		wx_info['msg_content']
 		'''
 
-	def fetch_url_g(self, url):
-		# client = HTTPClient() #  _close attribute error
-		# r=client.fetch(url).body.decode('utf-8').strip()
-		# client.close()
 
+	def fetch_url_g_error(self, url):
+		# r=HTTPClient.get()
 		url = URL(url)
-
 		http = HTTPClient(url.host,headers=_HEADERS)
 		response = http.get(url.request_uri)
 		if not response.status_code==200:
 			print "----\tResponse Code[%s]\t%s" %(response.status_code, url)
 			return False
 
-		body = response.read()
+		body = response.read() # eror in encoding
 		r=body.decode('utf-8').strip()
 		http.close()
 		return  r
@@ -159,13 +157,13 @@ class wx_info(object):
 	def get_info_by_url(self, wx_url):
 		# shortcut
 		# client = tornado.httpclient.HTTPClient()
-		r = self.fetch_url_g(wx_url)
+		r = get(wx_url).content
 		wx_obj = self.get_info_by_html(r)
 		return wx_obj
 
 
 	def get_full_info_by_url(self, wx_url):
-		r = self.fetch_url_g(wx_url)
+		r = get(wx_url).content
 		wx_full=self.get_full_info_by_html(r)
 		return wx_full
 
@@ -296,3 +294,9 @@ class wx_info(object):
 		wx_obj_c['msg_content'] = content
 
 		return wx_obj_c
+
+
+
+url="http://mp.weixin.qq.com/s?timestamp=1474516462&src=3&ver=1&signature=I6NlWsM0KyZWEM12N89mqOzVHOXBdJlRT3nBc8OGPc6Av3BnxarDYVVB0c9625i9HeTEnRlXoOtFbiJg9UJjYBWmV1iVwwwfVftM1kZo4*C*TJjHEnzlUakEVTzor38YHtkh5x297NTVAcq9hDuWPKZg5*9gyphH0klQShaylVg="
+
+# wx_info().fetch_url_g(url)

@@ -115,7 +115,7 @@ class WeixinHandler(WeixinBaseHandler):
 				# 爬取每篇文章的内容
 				client2 = getAClient(max_clients=400)
 				responses = yield [client2.fetch(u) for u in reqsBuilder(msg_urls_all)]
-				warn_count = 0  # 排除删除的文章
+				# warn_count = 0  # 排除删除的文章
 				for i, response in enumerate(responses):
 					if response.code == 200:
 						html = response.body.decode('utf-8')
@@ -123,7 +123,7 @@ class WeixinHandler(WeixinBaseHandler):
 						# build content may be empty:
 						if "icon_msg warn" in html:
 							print "----\t[ %s ]\t内容已被删除或屏蔽" % id
-							warn_count += 1
+							# warn_count += 1
 							continue  # skip one
 
 						# 合并3个字典 http://codingpy.com/article/the-idiomatic-way-to-merge-dicts-in-python/
@@ -135,10 +135,11 @@ class WeixinHandler(WeixinBaseHandler):
 						items.append(full_info)
 						# print LED
 						print "++++\tGet items\t++++"
-						print items[i - warn_count]['msg_createdtime']
-						print items[i - warn_count]['msg_title']
-						print items[i - warn_count]['msg_desc']
-						print items[i - warn_count]['msg_link']
+						print full_info['wx_id']+"\t"+full_info['name']
+						print full_info['msg_createdtime']
+						print full_info['msg_title']
+						print full_info['msg_desc']
+						print full_info['msg_link']
 						print "_____________________ single msg split\t%s\t_____________________" % str(i + 1)
 
 
