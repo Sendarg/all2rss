@@ -1,6 +1,7 @@
 # coding:utf-8
 import tornado.gen
 from  tornado.httpclient import AsyncHTTPClient
+from utils.iHttpLib import getAClient,reqsBuilder
 import tornado.web
 from configs import WEIXIN_GS_URL, WEIXIN_GS_URL_PAGE, _HEADERS, TIMEOUT
 
@@ -11,17 +12,6 @@ from db.wx_id_mgt import check_ID
 import re
 
 
-def getMaxAsynClient(max_clients=500):
-	# 1000clients  &  100page no many error more by single page first request
-	# AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient") # seem many error
-	clientAsync = AsyncHTTPClient(max_clients=max_clients)  # page 20 * size 20,
-	clientAsync.configure(None,
-	                      # "tornado.curl_httpclient.CurlAsyncHTTPClient",
-	                      raise_error=False,
-	                      connect_timeout=TIMEOUT,  # seem Not userful
-	                      request_timeout=TIMEOUT,  # seem Not userful
-	                      headers=_HEADERS)
-	return clientAsync
 
 
 class WeixinHandler(WeixinBaseHandler):
@@ -59,12 +49,18 @@ class WeixinHandler(WeixinBaseHandler):
 
 			## another method to write
 			print "====	Processing WeiXin\t[%s&pageCount=%d]++++" % (link, self.page_count)
-			client1 = getMaxAsynClient()
+
+			urls=[WEIXIN_GS_URL_PAGE.format(id=id, page=p + 1) for p in range(self.page_count)]
+			client1=getAClient(max_clients=100)
+			listResponses=yield [client1.fetch(r) for r in reqsBuilder(urls)]
+			# listResponses=iHttpClient()
 			# listResponses = yield [client1.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=31))]
-			listResponses = yield [client1.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=p + 1))
-			                       for p in range(self.page_count)]
+			# listResponses = yield [client1.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=p + 1))
+			#                        for p in range(self.page_count)]
+
 			for p, response in enumerate(listResponses):
-				gs_url = WEIXIN_GS_URL_PAGE.format(id=id, page=p + 1)
+				gs_url = response.request.url
+				# gs_url = WEIXIN_GS_URL_PAGE.format(id=id, page=p + 1)
 				# local_url = '%s&page=%d' % (self.url, p + 1) # not useful
 				if response.code == 200:
 					rc = response.body.decode('utf-8')
@@ -117,8 +113,8 @@ class WeixinHandler(WeixinBaseHandler):
 					items[i]['msg_cover']=coverurl
 				'''
 				# 爬取每篇文章的内容
-				client2 = getMaxAsynClient()
-				responses = yield [client2.fetch(u) for u in msg_urls_all]
+				client2 = getAClient(max_clients=400)
+				responses = yield [client2.fetch(u) for u in reqsBuilder(msg_urls_all)]
 				warn_count = 0  # 排除删除的文章
 				for i, response in enumerate(responses):
 					if response.code == 200:

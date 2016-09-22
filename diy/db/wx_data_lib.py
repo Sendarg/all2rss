@@ -118,7 +118,8 @@ class wx_info(object):
 
 		feed_url = WXID_QUERY_URL.format(wx_id=wx_id)
 		r=self.browser_url(feed_url)
-		if not r:
+		if not r or u'抱歉!' in r:
+			print "==== \tNo Search Results in URL:\t%s" % (feed_url)
 			return False
 
 		# todo:wait for complate to mgt id search
