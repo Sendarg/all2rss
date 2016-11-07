@@ -21,10 +21,14 @@ class WeixinAddHandler(tornado.web.RequestHandler):
 		rj = json.loads(get(gs_add_url))
 		if rj['error'] == 1:
 			wx_info = db.wx_data_lib.wx_info().get_info_by_url(wx_url)
-			alert = "++++\tAdded:\t%s\n" % (wx_info['wx_id'] + ":" + wx_info['name'])
-			self.write(alert)
-			self.write(json.dumps(wx_info, ensure_ascii=False))
-			feed_url = CACHE_URL_WX.format(wx_id=wx_info['wx_id'])
-			self.write("\n++++\tRSS Feed URL:\t%s\n" % (feed_url))
+			if wx_info:
+				alert = "++++\tAdded:\t%s\n" % (wx_info['wx_id'] + ":" + wx_info['name'])
+				self.write(alert)
+				self.write(json.dumps(wx_info, ensure_ascii=False))
+				feed_url = CACHE_URL_WX.format(wx_id=wx_info['wx_id'])
+				self.write("\n++++\tRSS Feed URL:\t%s\n" % (feed_url))
+			else:
+				alert = "----\tError URL:\t%s\n" % (wx_url)
+				self.write(alert)
 		else:
 			self.write("error")

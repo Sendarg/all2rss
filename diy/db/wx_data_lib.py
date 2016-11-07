@@ -111,6 +111,8 @@ class wx_info(object):
 		Get all info from msg by given html
 
 		'''
+		if not html:
+			return False
 		r = html
 		'''
 				var nickname = "四叶草漏洞插件社区";
@@ -151,10 +153,11 @@ class wx_info(object):
 		if len(wx_id) == 2:
 			wx_obj['wx_id'] = wx_id[0].strip()
 			wx_obj['desc'] = wx_id[1].strip()
-		else:
+		elif len(wx_id) == 1:
 			wx_obj['wx_id'] = re.findall(r"user_name\s?=\s?\"(\S+)\"\;", r)[0].strip()
 			wx_obj['desc'] = re.findall(r"profile_meta_value\"\s?>(\S+)<\s?\/", r)[-1].strip()
-
+		else:
+			return False
 		# nickname
 		wx_name = re.findall(r'var\snickname\s+=\s+\"(\S+)\"\;', r)
 		wx_obj['name'] = wx_name[0].strip()
