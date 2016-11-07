@@ -5,7 +5,7 @@ from py2neo import Graph,Node,Relationship
 
 class store2Neo(object):
 	def __init__(self):
-		self.neo4j = Graph(user='neo4j',password='neo4j')
+		self.neo4j = Graph(user='neo4j',password='111')
 		# wx_info is return from db.wx_info or combine together
 	def create_WX_auto(self,wx_info):
 		self.create_WX_ID(wx_info["wx_id"])
