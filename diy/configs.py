@@ -69,6 +69,7 @@ import os
 # IP = os.environ['OPENSHIFT_DIY_IP']
 # PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
 IP = '127.0.0.1'
+IP = '0.0.0.0'
 PORT = '2102'
 BASE_URL = 'http://%s:%s' % (IP, PORT)
 

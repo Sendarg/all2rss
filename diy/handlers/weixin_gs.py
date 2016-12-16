@@ -7,8 +7,8 @@ from configs import WEIXIN_GS_URL, WEIXIN_GS_URL_PAGE, _HEADERS, TIMEOUT
 
 from base import WeixinBaseHandler
 from db.wx_data_lib import wx_info
-from db.neo4jdb import store2Neo
-from db.wx_id_mgt import check_ID
+from db.wx_msg import storeMsg
+from db.wx_id import manage_WX_ID
 import re
 
 
@@ -25,7 +25,7 @@ class WeixinHandler(WeixinBaseHandler):
 		# 如果获取不到准确的ID信息,账号已不存在,取消全部操作
 		# 如果获得的到,存储到db,下面不再每次存储
 
-		if check_ID(id):
+		if manage_WX_ID().check_ID(id):
 
 			# 访问api url,获取公众号文章列表\基本信息,同步逐个获取
 			msg_urls_all = []
@@ -131,7 +131,7 @@ class WeixinHandler(WeixinBaseHandler):
 						# 因为信息可能重复,暂且不管process_list输出的重复信息
 						full_info = wx_info().get_full_info_by_html(html)
 						# 存储到数据库和数组
-						store2Neo().create_WX_MSG_FULL(full_info)
+						storeMsg().create_WX_MSG_FULL(full_info)
 						items.append(full_info)
 						# print LED
 						print "++++\tGet items\t++++"

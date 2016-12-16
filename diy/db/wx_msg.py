@@ -3,33 +3,13 @@
 from py2neo import Graph,Node,Relationship
 
 
-class store2Neo(object):
+class storeMsg(object):
 	def __init__(self):
 		self.neo4j = Graph(user='neo4j',password='111')
 		# wx_info is return from db.wx_info or combine together
-	def create_WX_auto(self,wx_info):
-		self.create_WX_ID(wx_info["wx_id"])
-		self.create_WX_MSG_FULL(wx_info)
-
-	def is_WX_ID_Exists(self,wx_id):
-		WX_ID = self.neo4j.find_one("WX_ID", property_key="wx_id", property_value=wx_id)
-		if WX_ID:
-			# print "---- WX_ID exists:\t%s" % WX_ID["wx_id"] # too much useless info
-			return True
-		else:
-			return False
-
-	def create_WX_ID(self,wx_id_info):
-		'''
-		CREATE (TheMatrix:Movie {title:'The Matrix', released:1999, tagline:'Welcome to the Real World'})
-		CREATE (Hugo:Person {name:'Hugo Weaving', born:1960})
-		'''
-		if not self.is_WX_ID_Exists(wx_id_info['wx_id']):
-			wxid1 = Node("WX_ID")
-			wxid1.update(wx_id_info)
-			self.neo4j.create(wxid1)
-			print "++++ WX_ID stored:\t%s" % wx_id_info['wx_id']
-			return True
+	# def create_WX_auto(self,wx_info):
+	# 	self.create_WX_ID(wx_info["wx_id"])
+	# 	self.create_WX_MSG_FULL(wx_info)
 
 
 	def create_WX_MSG_FULL(self,wx_info):
@@ -90,7 +70,7 @@ class store2Neo(object):
 			else:
 				print "---- WX_ID NOT exists:\t%s"  %wx_info["wx_id"]
 				return False
-
+	
 
 
 def tesing():
@@ -129,8 +109,6 @@ def tesing():
 	          'content':"ccccccccccccccccccccccccccccccccccccc"
 	          }
 
-	n=store2Neo()
+	n=storeMsg()
 	n.create_WX_ID(d)
 	n.create_WX_MSG_FULL(o)
-
-# tesing()

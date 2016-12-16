@@ -166,7 +166,7 @@ class wx_info(object):
 		wx_obj['msg_date'] = re.findall(r'var\spublish_time\s+=\s+\"(\S+)\"\s+\|\|', r)[0].strip()
 		msg_ct=re.findall(r'var\sct\s+=\s+\"(\d+)\"\;', r)[0].strip()
 		wx_obj['msg_createdtime'] =weixindate_fromTS(msg_ct)
-		wx_obj['msg_title'] = re.findall(r'var\smsg_title\s+=\s+\"(\S+)\"\;', r)[0].strip()
+		wx_obj['msg_title'] = re.findall(r'var\smsg_title\s+=\s+\"(.*)\"\;', r)[0].strip() # may have space
 		wx_obj['msg_cover'] = re.findall(r'var\smsg_cdn_url\s+=\s+\"(\S+)\"\;', r)[0].strip()
 		wx_obj['msg_link'] = re.findall(r'var\smsg_link\s+=\s+\"(.*)\"\;', r)[0].strip()
 		wx_obj['msg_source'] = re.findall(r"msg_source_url\s+=\s+'(.*)'", r)[0].strip()
