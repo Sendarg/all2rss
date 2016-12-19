@@ -17,8 +17,10 @@ WEIXIN_SOUGOU = 'http://weixin.sogou.com/weixin?type=1&query={id}&ie=utf8&_sug_=
 WEIXIN_COOKIE = ''
 
 # use gsdata
-WEIXIN_GS_URL = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4'
-WEIXIN_GS_URL_PAGE = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4&page={page}'
+WEIXIN_GS_Article_URL = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4'
+WEIXIN_GS_Name_URL = 'http://www.gsdata.cn/query/wx?q={name}'
+WEIXIN_GS_Article_URL_PAGE = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4&page={page}'
+
 # http://www.gsdata.cn/query/article?q=iknow021&search_field=4&post_time=0&sort=-1&read_num=0&page=3
 WEIXIN_GS_COVER_URL = 'http://img1.gsdata.cn/index.php/rank/getImageUrl?callback=&hash={hash}&_=' # remove only , image not clear enough
 # Page to cache at first time # only sync 5
@@ -28,7 +30,7 @@ WEIXIN_PAGE_COUNT = 10
 
 # add url
 WEIXIN_GS_ADD_URL = 'http://www.gsdata.cn/indexGsdata/wxUrlAdd?gid=45623&content={url}'
-GS_ADD_HEADERS = {
+GS_Session_HEADERS = {
 	'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:43.0) Gecko/20100101 Firefox/43.0',
 	'Accept': 'application/json, text/javascript, */*; q=0.01',
 	'Accept-Encoding': 'gzip, deflate',
@@ -82,3 +84,8 @@ BASE_URL = 'http://%s:%s' % (IP, PORT)
 CACHE_URL_WX = 'http://%s:%s/weixin?id={id}' % (IP, PORT)
 CACHE_URL = 'http://%s:%s/{key}' % (IP, PORT)
 CACHE_PERIODIC = ((6 * 60) + 5 * 60) * 1000  # sync every 4 hours 5min
+
+
+from  redis import Redis
+# many redis can listen to 1 port,so you need kill
+redisDB = Redis(host='localhost', port=6379, password="CCoo_559")

@@ -3,7 +3,7 @@
 from db.wx_data_lib import wx_info
 from py2neo import Graph,Node,ConstraintError
 from utils.iHttpLib import deEntiesListDict
-
+from configs import redisDB
 
 
 
@@ -65,7 +65,16 @@ class manage_WX_ID(object):
 			del_cyber = "MATCH (w:WX_ID)-[r]->(m:WX_MSG) where w.wx_id='%s' delete w,r,m" % wx_id
 			self.neo4j.run(del_cyber)
 			print "==== All Nodes and Relationships Deleted!!"
+		except TypeError: # may already deleted
+			
+			pass
+		# clean redis key
+		key="wx__"+wx_id
+		if redisDB.delete(key):
+			print "==== Redis Key Deleted:%s"%key
+		
 		return True
+	
 						
 	def update_WX_ID(self):
 		
@@ -81,11 +90,11 @@ class manage_WX_ID(object):
 			count_cyber = 'MATCH (w:WX_MSG) where w.wx_id="%s" RETURN count(w) as msg_count' % wid
 			count = self.neo4j.data(count_cyber)[0]
 			
-			if count["msg_count"] == 0:
+			if not count["msg_count"] :
 				print "---- WX_ID Has Nothing:\t%s" % wid
 				WX_ID.update(count)
 				self.neo4j.push(WX_ID)
-				break
+				continue
 			
 			# get last message info
 			last_cyber = 'MATCH (w:WX_MSG) where w.wx_id="%s" RETURN w.msg_date as last_date,w.msg_title as last_msg,w.msg_link as last_link order by w.msg_date desc  limit 1' % wid

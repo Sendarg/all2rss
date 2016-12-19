@@ -63,7 +63,8 @@ table.dataTable tbody tr.selected {
 }
 
 table.dataTable tbody th, table.dataTable tbody td {
-    padding: 8px 10px
+    /*padding: 8px 10px*/
+    padding: 2px 3px
 }
 
 table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
@@ -224,7 +225,7 @@ table.dataTable th.dt-nowrap, table.dataTable td.dt-nowrap {
 }
 
 table.dataTable thead th.dt-head-left, table.dataTable thead td.dt-head-left, table.dataTable tfoot th.dt-head-left, table.dataTable tfoot td.dt-head-left {
-    text-align: left;
+    text-align: left
 }
 
 table.dataTable thead th.dt-head-center, table.dataTable thead td.dt-head-center, table.dataTable tfoot th.dt-head-center, table.dataTable tfoot td.dt-head-center {

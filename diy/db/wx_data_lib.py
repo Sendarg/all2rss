@@ -12,7 +12,6 @@ from utils.iHttpLib import browser_url
 
 
 
-
 class wx_info(object):
 	def __init__(self):
 		pass
@@ -39,12 +38,16 @@ class wx_info(object):
 
 		feed_url = WXID_QUERY_URL.format(wx_id=wx_id)
 		r=browser_url(feed_url,expectTitle=u'的相关微信公众号 – 搜狗微信搜索')
-		if not r or u'抱歉!' in r:
+		# http://weixin.sogou.com//new/pc/images/bg_404_2.png
+		if (not r )or ("bg_404_2.png" not in  r):
 			print "==== \tNo Search Results in URL:\t%s" % (feed_url)
 			return False
 
 		id_obj = {}
-		id_obj["wx_id"] = re.findall("name=\"em_weixinhao\">(\S+)</label", r)[0].strip()
+		try:
+			id_obj["wx_id"] = re.findall("name=\"em_weixinhao\">(\S+)</label", r)[0].strip()
+		except IndexError:
+			print "ERRORERROR:IndexError:%s"%feed_url
 		
 		if not id_obj["wx_id"]:
 			return False
@@ -156,6 +159,8 @@ class wx_info(object):
 		wx_id = re.findall("profile_meta_value\"\s?>(.*)<\s?\/", r) # 功能介绍 一样的标签,可能用空格
 		if len(wx_id) == 2:
 			wx_obj['wx_id'] = wx_id[0].strip()
+			if  not wx_obj['wx_id']:
+				wx_obj['wx_id'] = re.findall("user_name\s?=\s?\"(\S+)\"\;", r)[0].strip()
 			wx_obj['desc'] = wx_id[1].strip()
 		elif len(wx_id) == 1:
 			wx_obj['wx_id'] = re.findall("user_name\s?=\s?\"(\S+)\"\;", r)[0].strip()

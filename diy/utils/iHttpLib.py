@@ -10,9 +10,9 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from configs import _HEADERS, TIMEOUT,GS_ADD_HEADERS
+from configs import _HEADERS, TIMEOUT,GS_Session_HEADERS
 
-from HTMLParser import HTMLParser
+from requests import get
 from BeautifulSoup import BeautifulStoneSoup
 
 
@@ -58,8 +58,8 @@ def deEntities0(html):
 	
 	
 
-def getAClient(max_clients=400):
-	client = AsyncHTTPClient(max_clients=max_clients)  # page 20 * size 20,
+def getAClient(max_clients=200):
+	client = AsyncHTTPClient(max_clients=max_clients)  # page 20 * size 20,maybe great
 	client.configure(None,
 	                 # "tornado.curl_httpclient.CurlAsyncHTTPClient",
 	                 raise_error=False
@@ -98,7 +98,7 @@ def iAsynRequests(self,urlList):
 '''
 
 
-def reqsBuilder(urlList):
+def reqsBuilder(urlList,_HEADERS=_HEADERS):
 	# 1000clients  &  100page no many error more by single page first request
 	# now default set :  20page*20url
 	# AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient") # seem many error
@@ -115,9 +115,16 @@ def reqsBuilder(urlList):
 
 def get_GS(url):
 	client = HTTPClient()
-	request = HTTPRequest(url, headers=GS_ADD_HEADERS)
+	request = HTTPRequest(url, headers=GS_Session_HEADERS)
 	r = client.fetch(request).body.decode('utf-8').strip()
 	client.close()
+	return r
+
+def get1_GS(url):
+	response = get(url=url, headers=GS_Session_HEADERS)
+	r = response.content
+	
+	response.close()
 	return r
 
 

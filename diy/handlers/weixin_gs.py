@@ -2,7 +2,7 @@
 import tornado.gen
 from utils.iHttpLib import getAClient,reqsBuilder
 import tornado.web
-from configs import WEIXIN_GS_URL, WEIXIN_GS_URL_PAGE, _HEADERS, TIMEOUT
+from configs import WEIXIN_GS_Article_URL, WEIXIN_GS_Article_URL_PAGE,GS_Session_HEADERS
 
 from base import WeixinBaseHandler
 from db.wx_data_lib import wx_info
@@ -18,7 +18,7 @@ class WeixinHandler(WeixinBaseHandler):
 	@tornado.gen.coroutine
 	def get(self):
 		id = self.key[4:]
-		link = WEIXIN_GS_URL.format(id=id)
+		link = WEIXIN_GS_Article_URL.format(id=id)
 
 		# 确认ID和存储ID
 		# 如果获取不到准确的ID信息,账号已不存在,取消全部操作
@@ -49,13 +49,13 @@ class WeixinHandler(WeixinBaseHandler):
 			## another method to write
 			print "====	Processing WeiXin\t[%s&pageCount=%d]++++" % (link, self.page_count)
 
-			urls=[WEIXIN_GS_URL_PAGE.format(id=id, page=p + 1) for p in range(self.page_count)]
+			urls=[WEIXIN_GS_Article_URL_PAGE.format(id=id, page=p + 1) for p in range(self.page_count)]
 			# todo: NOW GS page need login session
-			client1=getAClient(max_clients=100)
-			listResponses=yield [client1.fetch(r) for r in reqsBuilder(urls)]
+			client_gs=getAClient(max_clients=100)
+			listResponses=yield [client_gs.fetch(r) for r in reqsBuilder(urls,_HEADERS=GS_Session_HEADERS)]
 			# listResponses=iHttpClient()
-			# listResponses = yield [client1.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=31))]
-			# listResponses = yield [client1.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=p + 1))
+			# listResponses = yield [client_gs.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=31))]
+			# listResponses = yield [client_gs.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=p + 1))
 			#                        for p in range(self.page_count)]
 
 			for p, response in enumerate(listResponses):
@@ -70,7 +70,7 @@ class WeixinHandler(WeixinBaseHandler):
 
 				else:
 					print "----	Faile URL\t[%s] ----" % gs_url
-
+					
 			# 访问微信信息url,获取全部内容
 			items = []
 			if msg_urls_all and len(msg_urls_all) > 5:  # 随机抽取校验是否合法结果
@@ -113,8 +113,8 @@ class WeixinHandler(WeixinBaseHandler):
 					items[i]['msg_cover']=coverurl
 				'''
 				# 爬取每篇文章的内容
-				client2 = getAClient(max_clients=400)
-				responses = yield [client2.fetch(u) for u in reqsBuilder(msg_urls_all)]
+				client_wx = getAClient(max_clients=400)
+				responses = yield [client_wx.fetch(u) for u in reqsBuilder(msg_urls_all)]
 				# warn_count = 0  # 排除删除的文章
 				for i, response in enumerate(responses):
 					if response.code == 200:

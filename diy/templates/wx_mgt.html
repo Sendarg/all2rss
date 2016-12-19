@@ -5,10 +5,9 @@
     <title>WeiXin ID Managment</title>
     {#        <meta name="description" content="微信公众号，知乎日报, 自定义网站 RSS。"/>#}
     <link rel="stylesheet" href="{{ static_url('all.css') }}"/>
-    <link rel="stylesheet" href="{{ static_url('jquery.dataTables.min.css') }}"/>
+    <link rel="stylesheet" href="{{ static_url('jquery.dataTables.i.css') }}"/>
     <script type="text/javascript" src="{{ static_url('jquery-1.12.4.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('jquery.dataTables.min.js') }}"></script>
-
 
 </head>
 <body>
@@ -20,22 +19,25 @@
         <input type="submit" value="添加微信号"/>
     </form>
 
-    <table id="id_table" class="display" cellspacing="0" width="100%">
+
+    <table id="id_table" class="display" width="100%">
         <thead class="tableTitle">
         <tr>
-            <th>微信号</th>
-            <th>微信名称</th>
-            <th width="10%">数量</th>
-            <th width="15%">最后更新</th>
-            <th width="45%">最后文章</th>
-            <th width="20%">描述</th>
+            <th width="90px">微信号</th>
+            <th width="90px">名称</th>
+            <th width="70px">分组</th>
+            <th width="50px">数量</th>
+            <th width="50px">订阅</th>
+            <th width="100px">最后更新</th>
+            <th width="260px">最后文章</th>
+            <th>描述</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="id_tbody">
         {% for l in list %}
-            <tr class="tableContent">
-                {#                <td>{{ l["wx_id"] }} <a href="/wx_mgt/del?wxid={{ l['wx_id'] }}">删除</a></td>#}
-                <td>{{ l["wx_id"] }}
+            <tr class="tableContent" style="word-break:break-all;">
+                {# word-break:设置过长长度的换行#}
+                <td><a href={{ GSdata_URL.format(name=l["name"]) }} target="_blank">{{ l["wx_id"] }}</a>
                     <form action="/wx_mgt/del" method="post" onsubmit="return confirm('确定删除这个微信号以及所有文章么?')">
                         <input type="hidden" name="wxid" value={{ l["wx_id"] }}>
                         <input type=submit value="删除"/>
@@ -43,12 +45,16 @@
                 </td>
 
                 <td>
-                    <a href={{ SouGou_URL.format(id=l["wx_id"]) }} target="_blank">{{ l['name'] }}</a>
+                    <a href={{ SouGou_URL.format(id=l["name"]) }} target="_blank">{{ l['name'] }}</a>
                 </td>
-                <td><a href={{ RSS_URL.format(id=l["wx_id"]) }} target="_blank">{{ l["msg_count"] }}</a></td>
+                <td>{{ l['group'] }}
+                </td>
+                <td><a href={{ GSdata_List_URL.format(id=l["wx_id"]) }} target="_blank">{{ l["msg_count"] }}</a></td>
+                <td><a href={{ RSS_URL.format(id=l["wx_id"]) }} target="_blank"> <img
+                        src="{{ static_url('rss.png') }}"/></a></td>
                 <td>{{ l["last_date"] }}</td>
                 <td align="left"><a href={{ l["last_link"] }} target="_blank">{{ l["last_msg"] }} </a></td>
-                <td align="left">{{ l["desc"] }}</td>
+                <td align="left"> {{ l["desc"] }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -70,8 +76,32 @@
             {#                "orderable": true    //包含上样式名‘nosort’的禁止排序#}
             {#            }],#}
             //跟数组下标一样，第一列从0开始，这里表格初始化时，第四列默认降序
-            "order": [3]  //asc升序   desc降序  "order": [[ 3, "desc" ]]默认第四列为降序排列
+            "order": [3], //asc升序   desc降序  "order": [[ 3, "desc" ]]默认第四列为降序排列
+            "drawCallback": function (settings) { //根据column分组,样式根据colspan扩展
+                var api = this.api();
+                var rows = api.rows({page: 'current'}).nodes();
+                var last = null;
+
+                api.column(5, {page: 'current'}).data().each(function (group, i) {
+                    if (last !== group) {
+                        $(rows).eq(i).before(
+                                '<tr class="group"><td colspan="8">' + group + '</td></tr>'
+                        );
+                        last = group;
+                    }
+                });
+            }
         });
+        {#        // Order by the grouping# Not Work....}
+		{#        $('#id_tbody').on('click', 'tr.group', function () {#}
+        {#            var currentOrder = table.order()[0];#}
+        {#            if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {#}
+        {#                table.order([2, 'desc']).draw();#}
+        {#            }#}
+        {#            else {#}
+        {#                table.order([2, 'asc']).draw();#}
+        {#            }#}
+        {#        });#}
     });
 
 
