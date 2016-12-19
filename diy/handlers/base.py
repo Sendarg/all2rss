@@ -3,7 +3,7 @@
 import tornado.web
 
 from configs import ZHIHU_EXPIRES, WEIXIN_EXPIRES,JAQ_EXPIRES,PEDIY_EXPIRES,BASE_URL,WEIXIN_PAGE_COUNT
-from db.feed_store_File import update_feeds,get_list
+from db.wx_id import manage_WX_ID
 
 
 class BaseHandler(tornado.web.RequestHandler):
@@ -32,7 +32,7 @@ class BaseHandler(tornado.web.RequestHandler):
         # 第一次生成后,永久存储,之后判断是否有
         # self.page_size = WEIXIN_PAGE_SIZE
         # if self.redisDB.hasKey(self.key):
-        if self.key in get_list():
+        if manage_WX_ID().count_WX_MSG(self.key[4:])>10:
             self.page_count = 1
         else:
             self.page_count = WEIXIN_PAGE_COUNT
@@ -127,10 +127,12 @@ class BaseHandler(tornado.web.RequestHandler):
         self.redisDB.set(self.key, html) # 缓存渲染的最终结果
         self.redisDB.expire(self.key, self.expires)
         print "++++	Cache [%s] to Redis Success ! ++++"%self.key
-        # 存储feed list
-        if update_feeds(self.key):
-            print "++++	Update feeds [%s] Success ! ++++"%self.key
+        
+        # 存储feed list,不再需要。流程上直接从数据库读取
+        # if update_feeds(self.key):
+        #     print "++++	Update feeds [%s] Success ! ++++"%self.key
         # html=self.mc.get(self.key)
+        
         self.finish(html)
 
 

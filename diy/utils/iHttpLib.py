@@ -12,6 +12,51 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from configs import _HEADERS, TIMEOUT,GS_ADD_HEADERS
 
+from HTMLParser import HTMLParser
+from BeautifulSoup import BeautifulStoneSoup
+
+
+def deEntities1(html):
+	if type(html)==str or type(html)==unicode:
+		#
+		html= html.replace("\\x26amp;", "&")
+		html = html.replace("\\x26quot;", "\"")
+		html = html.replace("\\x26#39;", "\'")
+		html = html.replace("\\x26nbsp;", " ")
+		html = html.replace("\\x26gt;", ">")
+		html = html.replace("\\x26lt;", "<")
+		# delete real \ char fuck NO!
+		# html = html.replace("\\", "")
+		# some time left
+		html = html.replace("amp;", "")
+	
+	return html
+
+
+def deEntiesListDict(list):
+	out = []
+	for l in list:
+		if l.has_key("w"):
+			l = l['w']
+		for k in l.iterkeys():
+			l[k] = deEntities1(l[k])
+		out.append(l)
+	return out
+
+
+def deEntities0(html):
+	# fuck \\x26  "\\"这个时候是字符不是转义
+	# 另外这个方法对整个html生效,但为了效率不使用
+	if type(html) == str or type(html) == unicode:
+		# html=str(html).replace("\\\\x","\\x")
+		html = unicode(BeautifulStoneSoup(html, convertEntities=BeautifulStoneSoup.ALL_ENTITIES))
+		# html = HTMLParser().unescape(html)
+		# html = html.replace("&nbsp_place_holder;", " ")
+	
+	return html
+	
+	
+	
 
 def getAClient(max_clients=400):
 	client = AsyncHTTPClient(max_clients=max_clients)  # page 20 * size 20,
@@ -68,11 +113,11 @@ def reqsBuilder(urlList):
 
 
 
-def get(url):
+def get_GS(url):
 	client = HTTPClient()
 	request = HTTPRequest(url, headers=GS_ADD_HEADERS)
 	r = client.fetch(request).body.decode('utf-8').strip()
-
+	client.close()
 	return r
 
 
@@ -132,7 +177,7 @@ def browser_url(url,expectTitle):
 		# wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'weixin-public')))
 		wait.until(EC.presence_of_all_elements_located)
 		driver.get(url) # twice will helpful
-		print driver.title
+		print "====\t%s"%driver.title
 		if expectTitle in driver.title:
 			break
 		else:

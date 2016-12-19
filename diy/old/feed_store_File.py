@@ -2,6 +2,7 @@
 import os
 
 # rss list story file
+# No longer need,just for Neo4j,Only keep for remember
 _dir = os.path.abspath(os.path.dirname(__file__))
 FEED_HIS_FILE = os.path.join(_dir, 'feed_history.txt')
 

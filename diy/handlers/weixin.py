@@ -7,7 +7,7 @@ import tornado.httpclient
 
 from base import WeixinBaseHandler
 from utils.weixin import process_eqs, process_jsonp, process_content
-from configs import WEIXIN_KEY, WEIXIN_URL
+from configs import WEIXIN_KEY, WEIXIN_SOUGOU
 
 
 class WeixinHandler(WeixinBaseHandler):
@@ -51,7 +51,7 @@ class WeixinHandler(WeixinBaseHandler):
         key = self.mc.get('key')
         eqs = process_eqs(key[0], id, key[2])
 
-        url = WEIXIN_URL.format(id=id, eqs=urllib.quote(eqs), ekv=key[1], t=int(time.time() * 1000)) # 生成api url
+        url = WEIXIN_SOUGOU.format(id=id, eqs=urllib.quote(eqs), ekv=key[1], t=int(time.time() * 1000)) # 生成api url
 
         # 访问api url,获取公众号文章列表
         request = tornado.httpclient.HTTPRequest(url=url, headers=head)
@@ -69,7 +69,6 @@ class WeixinHandler(WeixinBaseHandler):
 
         # 爬取每篇文章的内容
         responses = yield [client.fetch(i['link']) for i in items]
-        remove = []
         for i, response in enumerate(responses):
             if response.code == 200:
                 html = response.body.decode('utf-8')

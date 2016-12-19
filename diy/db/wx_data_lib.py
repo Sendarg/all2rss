@@ -5,7 +5,7 @@ from configs import WXID_QUERY_URL
 from lxml import html as Xhtml
 import lxml,re
 from utils.date_format import weixindate_fromTS
-from html2text import unescape
+from utils.iHttpLib import deEntities1
 
 from requests import get
 from utils.iHttpLib import browser_url
@@ -35,14 +35,7 @@ class wx_info(object):
 		wx_info['msg_content']
 		'''
 
-	def get_id_info(self, wx_id):
-		'''
-		# get some id information just from id
-		<h3>四叶草漏洞插件社区</h3>
-		name="em_weixinhao">gh_ffddcb517e94</label
-		class="sp-txt">发布漏洞插件社区最新动态</span>
-		class="sp-txt"><a class="blue" target="_blank" id="sogou_vr_11002301_link_first_0" href="http://mp.weixin.qq.com/s?src=3&amp;timestamp=1474346138&amp;ver=1&amp;signature=cihj36rD5dWAYFgMIG-0OLRD5R1hg8WBrdXiuc*oUhgy8JCjWWBcxFvyjmU5H5lju7bWgPUjqbMrDtZY4-jb2J5fiwbC1qhn5AfLG*CyJCdrHLZg7fR2w3wQu5iQl5j*7Atoi4AVWwrTz30PsA*YAMpbH9sm6VukOgflmLv6i3g=">Microsoft Windows内核提权漏洞原理分析与利用(CVE-2016-3308 / ZDI</a><span
-		'''
+	def get_id_info_by_ID(self, wx_id):
 
 		feed_url = WXID_QUERY_URL.format(wx_id=wx_id)
 		r=browser_url(feed_url,expectTitle=u'的相关微信公众号 – 搜狗微信搜索')
@@ -50,19 +43,12 @@ class wx_info(object):
 			print "==== \tNo Search Results in URL:\t%s" % (feed_url)
 			return False
 
-		# todo:wait for complate to mgt id search
-		# root=Xhtml.fromstring(r)
-		# content = root.xpath('//*[@class="results mt7"]')
-		# results = content.xpath('//*[@class="txt-box"]')
-		# for i in results:
-
-
 		id_obj = {}
-		id_obj["wx_id"] = re.findall(r"name=\"em_weixinhao\">(\S+)</label", r)[0].strip()
-
-		# todo : one method to remove specialy html label <em> for search keywords
+		id_obj["wx_id"] = re.findall("name=\"em_weixinhao\">(\S+)</label", r)[0].strip()
+		
 		if not id_obj["wx_id"]:
 			return False
+		# todo : one method to remove specialy html label <em> for search keywords
 		if id_obj["wx_id"][:4]=="<em>":
 			id_obj["wx_id"]=id_obj["wx_id"][4:-5]
 		if id_obj["wx_id"] != wx_id:
@@ -71,18 +57,36 @@ class wx_info(object):
 		# method parm:,exact=True
 		# if not exact:
 
-		id_obj["name"] = re.findall(r"h3>(\S+)<\/h3", r)[0].strip()
-		id_obj["desc"] = re.findall(r"class=\"sp-txt\">(.*)</span>", r)[0].strip()
-		last=re.findall(r"href=\"(\S+)\"\s+title=\"(.*)\".*class=\"hui\">", r)
-		id_obj["last_link"] = last[0][0].strip()
+		# sougou 换了内容,重新匹配
+		id_obj["name"] = re.findall("toweixin_account_name_0.*>(\S+)</a><i></i>", r)[0].strip()
+		id_obj["desc"] = re.findall("<dd>(.*)</dd>", r)[0].strip()
+		last=re.findall("toweixin_account_article_0.*href=\"(.*)\">(.*)</a>", r)
+		# 从sougou获取到的link会过期,需要重新解析新的info
+		# link = deEntities1(last[0][0].strip())
+		# msg_info=self.get_info_by_url(link)
+		id_obj["last_link"] =  last[0][0].strip()
 		id_obj["last_msg"] = last[0][1].strip()
 
-		for k in id_obj.iterkeys():
-			id_obj[k]=unescape(id_obj[k])
-			id_obj[k] = id_obj[k].replace("&nbsp_place_holder;", " ")
-
+		# not all need this only the link
+		for k in id_obj.iterkeys(): # only the link
+			id_obj[k]=deEntities1(id_obj[k])
+		
 		return id_obj
-
+	
+	def get_id_info_by_url(self, wx_url):
+		wx_info=self.get_info_by_url(wx_url)
+		if wx_info:
+			id_obj={}
+			id_obj["wx_id"]=wx_info["wx_id"]
+			id_obj["name"]=wx_info["name"]
+			id_obj["desc"]=wx_info["desc"]
+			id_obj["last_link"]=wx_info["msg_link"]
+			id_obj["last_msg"]=wx_info["msg_title"]
+			
+			return id_obj
+		else:
+			return False
+		
 
 	def get_info_by_url(self, wx_url):
 		# shortcut
@@ -149,40 +153,41 @@ class wx_info(object):
 		wx_obj = {}
 
 		# wx id & desc,some id not set weixin ID so use user_name
-		wx_id = re.findall(r"profile_meta_value\"\s?>(\S+)<\s?\/", r)
+		wx_id = re.findall("profile_meta_value\"\s?>(.*)<\s?\/", r) # 功能介绍 一样的标签,可能用空格
 		if len(wx_id) == 2:
 			wx_obj['wx_id'] = wx_id[0].strip()
 			wx_obj['desc'] = wx_id[1].strip()
 		elif len(wx_id) == 1:
-			wx_obj['wx_id'] = re.findall(r"user_name\s?=\s?\"(\S+)\"\;", r)[0].strip()
-			wx_obj['desc'] = re.findall(r"profile_meta_value\"\s?>(\S+)<\s?\/", r)[-1].strip()
+			wx_obj['wx_id'] = re.findall("user_name\s?=\s?\"(\S+)\"\;", r)[0].strip()
+			wx_obj['desc'] = re.findall("profile_meta_value\"\s?>(\S+)<\s?\/", r)[-1].strip()
 		else:
 			return False
 		# nickname
-		wx_name = re.findall(r'var\snickname\s+=\s+\"(\S+)\"\;', r)
+		wx_name = re.findall('var\snickname\s+=\s+\"(\S+)\"\;', r)
 		wx_obj['name'] = wx_name[0].strip()
 
 		# msg info
-		wx_obj['msg_date'] = re.findall(r'var\spublish_time\s+=\s+\"(\S+)\"\s+\|\|', r)[0].strip()
-		msg_ct=re.findall(r'var\sct\s+=\s+\"(\d+)\"\;', r)[0].strip()
+		wx_obj['msg_date'] = re.findall('var\spublish_time\s+=\s+\"(\S+)\"\s+\|\|', r)[0].strip()
+		msg_ct=re.findall('var\sct\s+=\s+\"(\d+)\"\;', r)[0].strip()
 		wx_obj['msg_createdtime'] =weixindate_fromTS(msg_ct)
-		wx_obj['msg_title'] = re.findall(r'var\smsg_title\s+=\s+\"(.*)\"\;', r)[0].strip() # may have space
-		wx_obj['msg_cover'] = re.findall(r'var\smsg_cdn_url\s+=\s+\"(\S+)\"\;', r)[0].strip()
-		wx_obj['msg_link'] = re.findall(r'var\smsg_link\s+=\s+\"(.*)\"\;', r)[0].strip()
-		wx_obj['msg_source'] = re.findall(r"msg_source_url\s+=\s+'(.*)'", r)[0].strip()
+		wx_obj['msg_title'] = re.findall('var\smsg_title\s+=\s+\"(.*)\"\;', r)[0].strip() # may have space
+		wx_obj['msg_cover'] = re.findall('var\smsg_cdn_url\s+=\s+\"(\S+)\"\;', r)[0].strip()
+		wx_obj['msg_link'] = re.findall('var\smsg_link\s+=\s+\"(.*)\"\;', r)[0].strip()
+		wx_obj['msg_source'] = re.findall("msg_source_url\s+=\s+'(.*)'", r)[0].strip()
+		if not wx_obj['msg_link']:
+			wx_obj['msg_link']=wx_obj['msg_source']
 
 		wx_obj['msg_desc'] = ""
-		desc=re.findall(r'var\smsg_desc\s+=\s+\"(\S+)\"\;', r)
+		desc=re.findall('var\smsg_desc\s+=\s+\"(.*)\"\;',r)
 		if desc:wx_obj['msg_desc'] = desc[0].strip()
 
 		wx_obj['msg_author'] = ""
-		author=re.findall(r'em\s+class=\"rich_media_meta\s+rich_media_meta_text\">(\S+)<', r)
+		author=re.findall('em\s+class=\"rich_media_meta\s+rich_media_meta_text\">(\S+)<', r)
 		if author:wx_obj['msg_author'] = author[0].strip()
 
-
+		# sougou的输出确实有实体编码。另外需要在输出控制
 		for k in wx_obj.iterkeys():
-			wx_obj[k] = unescape(wx_obj[k])
-			wx_obj[k] = wx_obj[k].replace("&nbsp_place_holder;"," ")
+			wx_obj[k] = deEntities1(wx_obj[k])
 
 		return wx_obj
 

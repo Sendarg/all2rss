@@ -1,6 +1,5 @@
 # coding:utf-8
 import tornado.gen
-from  tornado.httpclient import AsyncHTTPClient
 from utils.iHttpLib import getAClient,reqsBuilder
 import tornado.web
 from configs import WEIXIN_GS_URL, WEIXIN_GS_URL_PAGE, _HEADERS, TIMEOUT
@@ -51,6 +50,7 @@ class WeixinHandler(WeixinBaseHandler):
 			print "====	Processing WeiXin\t[%s&pageCount=%d]++++" % (link, self.page_count)
 
 			urls=[WEIXIN_GS_URL_PAGE.format(id=id, page=p + 1) for p in range(self.page_count)]
+			# todo: NOW GS page need login session
 			client1=getAClient(max_clients=100)
 			listResponses=yield [client1.fetch(r) for r in reqsBuilder(urls)]
 			# listResponses=iHttpClient()

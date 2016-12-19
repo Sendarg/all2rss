@@ -76,9 +76,34 @@ body{
     display: inline;
     margin: 0 5px;
 }
-
+body {
+    font-family: Monaco, Helvetica, Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+}
 .content{
-    padding: 20px 40px 40px 40px;
+    padding: 20px 20px 20px 20px;
+}
+.tableTitle{
+    height:80px;
+    font-style: inherit;
+    font-size:20px;
+    text-align: center;
+    vertical-align: center;
+}
+.tableContent{
+    height:50px;
+    font-style: normal;
+    text-align: center;
+    vertical-align: center;
+
+}
+td{
+    padding: 3px;
+}
+table{
+    text-space: 0;
+    border: 0;
 }
 
 .post-header{

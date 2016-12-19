@@ -13,17 +13,18 @@ ZHIHU_HEAD = {'User-Agent': "ZhihuNotMoe/2333",}
 
 # new Sougou
 WEIXIN_KEY = 'http://weixin.sogou.com/weixin?type=1&query={id}&ie=utf8&_sug_=y&_sug_type_='
-WEIXIN_URL = 'http://weixin.sogou.com/weixin?type=1&query={id}&ie=utf8&_sug_=y&_sug_type_='
+WEIXIN_SOUGOU = 'http://weixin.sogou.com/weixin?type=1&query={id}&ie=utf8&_sug_=y&_sug_type_='
 WEIXIN_COOKIE = ''
 
 # use gsdata
 WEIXIN_GS_URL = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4'
 WEIXIN_GS_URL_PAGE = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4&page={page}'
+# http://www.gsdata.cn/query/article?q=iknow021&search_field=4&post_time=0&sort=-1&read_num=0&page=3
 WEIXIN_GS_COVER_URL = 'http://img1.gsdata.cn/index.php/rank/getImageUrl?callback=&hash={hash}&_=' # remove only , image not clear enough
 # Page to cache at first time # only sync 5
 # All history page will store by single sub process
 # store max 50 is good no large 599
-WEIXIN_PAGE_COUNT = 5
+WEIXIN_PAGE_COUNT = 10
 
 # add url
 WEIXIN_GS_ADD_URL = 'http://www.gsdata.cn/indexGsdata/wxUrlAdd?gid=45623&content={url}'
@@ -69,7 +70,7 @@ import os
 # IP = os.environ['OPENSHIFT_DIY_IP']
 # PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
 IP = '127.0.0.1'
-IP = '0.0.0.0'
+# IP = '0.0.0.0'
 PORT = '2102'
 BASE_URL = 'http://%s:%s' % (IP, PORT)
 
@@ -78,6 +79,6 @@ BASE_URL = 'http://%s:%s' % (IP, PORT)
 # cache
 # CACHE_URL_WX= 'http://all2rss-devox.rhcloud.com/weixin?id={wxid}'
 # CACHE_URL= 'http://all2rss-devox.rhcloud.com/{key}'
-CACHE_URL_WX = 'http://%s:%s/weixin?id={wx_id}' % (IP, PORT)
+CACHE_URL_WX = 'http://%s:%s/weixin?id={id}' % (IP, PORT)
 CACHE_URL = 'http://%s:%s/{key}' % (IP, PORT)
 CACHE_PERIODIC = ((6 * 60) + 5 * 60) * 1000  # sync every 4 hours 5min
