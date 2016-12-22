@@ -1,29 +1,47 @@
 # coding:utf-8
 
 from db.wx_data_lib import wx_info
-from py2neo import Graph,Node,ConstraintError
+from py2neo import Graph, Node, ConstraintError
 from utils.iHttpLib import deEntiesListDict
 from configs import redisDB
-
-
 
 
 class manage_WX_ID(object):
 	def __init__(self):
 		self.neo4j = Graph(user='neo4j', password='111')
 	
+	def list_Groups(self):
+		list = self.neo4j.data('MATCH (g:WX_ID_GROUP) RETURN g.name as name')
+		return list
+	
+	def set_Group(self, wx_id, group):
+		cyber = 'MATCH (w:WX_ID) where w.wx_id="%s" set w.group="%s"' % (wx_id, group)
+		result = self.neo4j.run(cyber)
+		if result:
+			return True
+		else:
+			return False
+	
+	def export_Feeds(self, group):
+		if group == "All":
+			cyber = 'MATCH (w:WX_ID) return w.name,w.wx_id,w.group,w.desc'
+		else:
+			cyber = 'MATCH (w:WX_ID) where w.group="%s"  return w.name,w.wx_id,w.group,w.desc ' % (group)
+		result = self.neo4j.data(cyber)
+		return result
+	
 	def list_WX_ID(self):
-		list = self.neo4j.data('MATCH (w:WX_ID) RETURN w order by w.last_date desc')
-		list=deEntiesListDict(list)
+		list = self.neo4j.data('MATCH (w:WX_ID) RETURN w order by w.group')
+		list = deEntiesListDict(list)
 		return list
 	
 	def list_WX_KEYS(self):
 		list = self.neo4j.data('MATCH (w:WX_ID) RETURN w.wx_id as wid order by w.last_date desc')
 		for l in list:
-			yield "wx__"+l["wid"]
+			yield "wx__" + l["wid"]
 	
-	def count_WX_MSG(self,wx_id):
-		count = self.neo4j.data('MATCH (w:WX_MSG) where w.wx_id="%s" RETURN count(w) as c'%wx_id)
+	def count_WX_MSG(self, wx_id):
+		count = self.neo4j.data('MATCH (w:WX_MSG) where w.wx_id="%s" RETURN count(w) as c' % wx_id)
 		return count[0]["c"]
 	
 	def is_WX_ID_Exists(self, wx_id):
@@ -35,6 +53,7 @@ class manage_WX_ID(object):
 			return False
 	
 	def check_ID(self, wx_id):
+		# 检查是否存在,并创建这个ID
 		if not self.is_WX_ID_Exists(wx_id):
 			id_info = wx_info().get_id_info_by_ID(wx_id)
 			if not id_info:
@@ -55,7 +74,7 @@ class manage_WX_ID(object):
 			self.neo4j.create(wxid1)
 			print "++++ WX_ID stored:\t%s" % wx_id_info['wx_id']
 			return True
-		
+	
 	def del_WX_ID(self, wx_id):
 		WX_ID = self.neo4j.find_one("WX_ID", property_key="wx_id", property_value=wx_id)
 		try:
@@ -65,17 +84,16 @@ class manage_WX_ID(object):
 			del_cyber = "MATCH (w:WX_ID)-[r]->(m:WX_MSG) where w.wx_id='%s' delete w,r,m" % wx_id
 			self.neo4j.run(del_cyber)
 			print "==== All Nodes and Relationships Deleted!!"
-		except TypeError: # may already deleted
+		except TypeError:  # may already deleted
 			
 			pass
 		# clean redis key
-		key="wx__"+wx_id
+		key = "wx__" + wx_id
 		if redisDB.delete(key):
-			print "==== Redis Key Deleted:%s"%key
+			print "==== Redis Key Deleted:%s" % key
 		
 		return True
 	
-						
 	def update_WX_ID(self):
 		
 		# neo4j.run return Cursor buffer Record one by one
@@ -90,7 +108,7 @@ class manage_WX_ID(object):
 			count_cyber = 'MATCH (w:WX_MSG) where w.wx_id="%s" RETURN count(w) as msg_count' % wid
 			count = self.neo4j.data(count_cyber)[0]
 			
-			if not count["msg_count"] :
+			if not count["msg_count"]:
 				print "---- WX_ID Has Nothing:\t%s" % wid
 				WX_ID.update(count)
 				self.neo4j.push(WX_ID)
@@ -105,11 +123,11 @@ class manage_WX_ID(object):
 			self.neo4j.push(WX_ID)
 			
 			print "==== WX_ID updated:\t%s" % wid
-
-
-	
-	
-
-# n =
-#
-# print manage_WX_ID().list_WX_ID()
+			
+			
+			
+			
+			
+			# n =
+			#
+			# print manage_WX_ID().list_WX_ID()

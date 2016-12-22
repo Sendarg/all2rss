@@ -69,6 +69,7 @@ class wx_info(object):
 		# msg_info=self.get_info_by_url(link)
 		id_obj["last_link"] =  last[0][0].strip()
 		id_obj["last_msg"] = last[0][1].strip()
+		id_obj["group"] = ""
 
 		# not all need this only the link
 		for k in id_obj.iterkeys(): # only the link
@@ -85,6 +86,7 @@ class wx_info(object):
 			id_obj["desc"]=wx_info["desc"]
 			id_obj["last_link"]=wx_info["msg_link"]
 			id_obj["last_msg"]=wx_info["msg_title"]
+			id_obj["group"]=""
 			
 			return id_obj
 		else:

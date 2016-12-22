@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<opml version="1.0">
+    <head>Feed Subscriptions</head>
+    <body>
+        {% for f in feeds %}
+            <outline title="{{ f['w.group'] }}">
+                <outline title="{{ f['w.name'] }}" xmlUrl="{{ CACHE_URL_WX.format(id=f['w.wx_id']) }}" type="rss" text="{{ f['w.desc'] }}" />
+            </outline>
+        {% endfor %}
+    </body>
+</opml>

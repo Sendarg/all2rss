@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="{{ static_url('jquery.dataTables.i.css') }}"/>
     <script type="text/javascript" src="{{ static_url('jquery-1.12.4.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('jquery.dataTables.min.js') }}"></script>
-
+<style type="text/css">
+form{margin:5px; display:inline;float:left;}
+</style>
 </head>
 <body>
 
@@ -18,16 +20,30 @@
         <input type="text" name="wx_url" placeholder="请粘贴微信号的一篇文章地址" size="100"/>
         <input type="submit" value="添加微信号"/>
     </form>
-
+<div >
+    <form action="/wx_mgt" method="post">
+        <input type="submit" value="更新微信ID信息"/>
+    </form>
+    <form action="/wx_mgt/feeds" method="post">
+        <select name="group" style="width: 70px">
+            <option value="All">All</option>
+            {% for g in group %}
+                <option value="{{ g['name'] }}">{{ g['name'] }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="导出Feeds列表">
+    </form>
+</div>
 
     <table id="id_table" class="display" width="100%">
         <thead class="tableTitle">
         <tr>
-            <th width="90px">微信号</th>
+            <th>XX</th>
+            <th width="85px">微信号</th>
             <th width="90px">名称</th>
-            <th width="70px">分组</th>
-            <th width="50px">数量</th>
-            <th width="50px">订阅</th>
+            <th width="90px" hidden="hidden">分组排序</th>
+            <th width="110px">分组设置</th>
+            <th width="60px">数量</th>
             <th width="100px">最后更新</th>
             <th width="260px">最后文章</th>
             <th>描述</th>
@@ -37,21 +53,45 @@
         {% for l in list %}
             <tr class="tableContent" style="word-break:break-all;">
                 {# word-break:设置过长长度的换行#}
-                <td><a href={{ GSdata_URL.format(name=l["name"]) }} target="_blank">{{ l["wx_id"] }}</a>
+                <td>
                     <form action="/wx_mgt/del" method="post" onsubmit="return confirm('确定删除这个微信号以及所有文章么?')">
                         <input type="hidden" name="wxid" value={{ l["wx_id"] }}>
                         <input type=submit value="删除"/>
+
                     </form>
                 </td>
+                <td>
 
+                    <a href={{ GSdata_URL.format(name=l["name"]) }} target="_blank">{{ l["wx_id"] }}</a>
+                </td>
                 <td>
                     <a href={{ SouGou_URL.format(id=l["name"]) }} target="_blank">{{ l['name'] }}</a>
                 </td>
-                <td>{{ l['group'] }}
+                <td hidden="hidden">
+                    {{ l["group"] }}
                 </td>
-                <td><a href={{ GSdata_List_URL.format(id=l["wx_id"]) }} target="_blank">{{ l["msg_count"] }}</a></td>
-                <td><a href={{ RSS_URL.format(id=l["wx_id"]) }} target="_blank"> <img
-                        src="{{ static_url('rss.png') }}"/></a></td>
+                <td>
+                    <form action="/wx_mgt/group" method="post">
+                        <select name="group" style="width: 70px">
+                            {% for g in group %}
+                                <option value="{{ g['name'] }}"
+                                        {% if l['group'] == g['name'] %}
+                                            {% print "selected" %}
+                                        {% endif %}
+                                >{{ g['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <input hidden="hidden" name="wx_id" value={{ l["wx_id"] }}>
+                        <input type="submit" value="更新">
+                    </form>
+
+
+                </td>
+                <td><a href={{ GSdata_List_URL.format(id=l["wx_id"]) }} target="_blank">{{ l["msg_count"] }}</a>
+                    <a href={{ RSS_URL.format(id=l["wx_id"]) }} target="_blank"> <img
+                            src="{{ static_url('rss.png') }}"/></a>
+                </td>
+
                 <td>{{ l["last_date"] }}</td>
                 <td align="left"><a href={{ l["last_link"] }} target="_blank">{{ l["last_msg"] }} </a></td>
                 <td align="left"> {{ l["desc"] }}</td>
@@ -76,16 +116,16 @@
             {#                "orderable": true    //包含上样式名‘nosort’的禁止排序#}
             {#            }],#}
             //跟数组下标一样，第一列从0开始，这里表格初始化时，第四列默认降序
-            "order": [3], //asc升序   desc降序  "order": [[ 3, "desc" ]]默认第四列为降序排列
+{#            "order": [3], //asc升序   desc降序  "order": [[ 3, "desc" ]]默认第四列为降序排列#}
             "drawCallback": function (settings) { //根据column分组,样式根据colspan扩展
                 var api = this.api();
                 var rows = api.rows({page: 'current'}).nodes();
                 var last = null;
 
-                api.column(5, {page: 'current'}).data().each(function (group, i) {
+                api.column(3, {page: 'current'}).data().each(function (group, i) {
                     if (last !== group) {
                         $(rows).eq(i).before(
-                                '<tr class="group"><td colspan="8">' + group + '</td></tr>'
+                                '<tr class="group"><td colspan="9">' + group + '</td></tr>'
                         );
                         last = group;
                     }
