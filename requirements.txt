@@ -1,5 +1,12 @@
-Jinja2
-lxml
-pytz
-tornado
-redis
+geventhttpclient==1.3.1
+Jinja2==2.8
+lxml==3.6.4
+py2neo==3.1.2
+pytz==2016.6.1
+redis==2.10.5
+requests==2.11.1
+selenium==2.53.6
+tornado==4.4.1
+BeautifulSoup==3.2.1
+pycrypto==2.6.1
+python_memcached==1.58
