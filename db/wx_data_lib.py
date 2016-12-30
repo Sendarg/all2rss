@@ -39,7 +39,7 @@ class wx_info(object):
 		feed_url = WXID_QUERY_URL.format(wx_id=wx_id)
 		r=browser_url(feed_url,expectTitle=u'的相关微信公众号 – 搜狗微信搜索')
 		# http://weixin.sogou.com//new/pc/images/bg_404_2.png
-		if (not r )or ("bg_404_2.png" not in  r):
+		if (not r )or ("bg_404_2.png" in  r):
 			print "==== \tNo Search Results in URL:\t%s" % (feed_url)
 			return False
 
@@ -47,7 +47,8 @@ class wx_info(object):
 		try:
 			id_obj["wx_id"] = re.findall("name=\"em_weixinhao\">(\S+)</label", r)[0].strip()
 		except IndexError:
-			print "ERRORERROR:IndexError:%s"%feed_url
+			print "----ERROR[wx_id]:IndexError:%s"%feed_url
+			return None
 		
 		if not id_obj["wx_id"]:
 			return False
@@ -61,7 +62,11 @@ class wx_info(object):
 		# if not exact:
 
 		# sougou 换了内容,重新匹配
-		id_obj["name"] = re.findall("toweixin_account_name_0.*>(\S+)</a><i></i>", r)[0].strip()
+		try:
+			id_obj["name"] = re.findall("toweixin_account_name_0.*>(\S+)</a>", r)[0].strip()
+		except IndexError:
+			print "----ERROR[name]:IndexError:%s"%feed_url
+			return None
 		id_obj["desc"] = re.findall("<dd>(.*)</dd>", r)[0].strip()
 		last=re.findall("toweixin_account_article_0.*href=\"(.*)\">(.*)</a>", r)
 		# 从sougou获取到的link会过期,需要重新解析新的info

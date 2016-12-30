@@ -8,21 +8,26 @@
     <link rel="stylesheet" href="{{ static_url('jquery.dataTables.i.css') }}"/>
     <script type="text/javascript" src="{{ static_url('jquery-1.12.4.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('jquery.dataTables.min.js') }}"></script>
-<style type="text/css">
-form{margin:5px; display:inline;float:left;}
-</style>
+    <style type="text/css">
+        form {
+            margin: 5px;
+            display: inline;
+            float: left;
+        }
+    </style>
 </head>
 <body>
 
 
 <div class="content">
+
     <form action="/wx_mgt/add" method="post">
         <input type="text" name="wx_url" placeholder="请粘贴微信号的一篇文章地址" size="100"/>
-        <input type="submit" value="添加微信号"/>
+        <input type="submit" value="添加微信号"/> |
     </form>
-<div >
-    <form action="/wx_mgt" method="post">
-        <input type="submit" value="更新微信ID信息"/>
+
+    <form action="/wx_mgt/update" method="post">
+        <input type="submit" value="更新微信ID信息"/> |
     </form>
     <form action="/wx_mgt/feeds" method="post">
         <select name="group" style="width: 70px">
@@ -31,9 +36,13 @@ form{margin:5px; display:inline;float:left;}
                 <option value="{{ g['name'] }}">{{ g['name'] }}</option>
             {% endfor %}
         </select>
-        <input type="submit" value="导出Feeds列表">
+        <input type="submit" value="导出Feeds列表"> |
     </form>
-</div>
+
+    <form enctype="multipart/form-data" action="/wx_mgt/import" method="post">
+        <input type="file" name="file" style="max-width:60px;"/>
+        <input type="submit" value="导入opml订阅文件"/>
+    </form>
 
     <table id="id_table" class="display" width="100%">
         <thead class="tableTitle">
@@ -116,7 +125,7 @@ form{margin:5px; display:inline;float:left;}
             {#                "orderable": true    //包含上样式名‘nosort’的禁止排序#}
             {#            }],#}
             //跟数组下标一样，第一列从0开始，这里表格初始化时，第四列默认降序
-{#            "order": [3], //asc升序   desc降序  "order": [[ 3, "desc" ]]默认第四列为降序排列#}
+            {#            "order": [3], //asc升序   desc降序  "order": [[ 3, "desc" ]]默认第四列为降序排列#}
             "drawCallback": function (settings) { //根据column分组,样式根据colspan扩展
                 var api = this.api();
                 var rows = api.rows({page: 'current'}).nodes();

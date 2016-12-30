@@ -1,14 +1,15 @@
 # coding:utf-8
 
 from db.wx_data_lib import wx_info
-from py2neo import Graph, Node, ConstraintError
+from py2neo import  Node, ConstraintError
 from utils.iHttpLib import deEntiesListDict
-from configs import redisDB
+from configs import redisDB,neo4j
 
 
 class manage_WX_ID(object):
 	def __init__(self):
-		self.neo4j = Graph(user='neo4j', password='111')
+		self.neo4j = neo4j
+		
 	
 	def list_Groups(self):
 		list = self.neo4j.data('MATCH (g:WX_ID_GROUP) RETURN g.name as name')
@@ -74,7 +75,20 @@ class manage_WX_ID(object):
 			self.neo4j.create(wxid1)
 			print "++++ WX_ID stored:\t%s" % wx_id_info['wx_id']
 			return True
-	
+
+	def create_Batch_WX_ID_Simple(self, wx_id_list):
+		if not type(wx_id_list)==list:
+			return False
+		for wx_id in wx_id_list:
+			if not self.is_WX_ID_Exists(wx_id):
+				WX_ID = Node("WX_ID")
+				info={"wx_id":wx_id,
+				      "group": ""}
+				WX_ID.update(info)
+				self.neo4j.create(WX_ID)
+				print "++++ WX_ID Simple stored:\t%s" % wx_id
+		return True
+		
 	def del_WX_ID(self, wx_id):
 		WX_ID = self.neo4j.find_one("WX_ID", property_key="wx_id", property_value=wx_id)
 		try:
@@ -113,13 +127,16 @@ class manage_WX_ID(object):
 				WX_ID.update(count)
 				self.neo4j.push(WX_ID)
 				continue
+				
 			
 			# get last message info
-			last_cyber = 'MATCH (w:WX_MSG) where w.wx_id="%s" RETURN w.msg_date as last_date,w.msg_title as last_msg,w.msg_link as last_link order by w.msg_date desc  limit 1' % wid
+			last_cyber = 'MATCH (w:WX_MSG) where w.wx_id="%s" RETURN w.name as name , w.desc as desc, w.msg_date as last_date,w.msg_title as last_msg,w.msg_link as last_link order by w.msg_date desc  limit 1' % wid
 			last = self.neo4j.data(last_cyber)[0]
 			
 			WX_ID.update(last)
 			WX_ID.update(count)
+			if not WX_ID["group"]:
+				WX_ID["group"]=""
 			self.neo4j.push(WX_ID)
 			
 			print "==== WX_ID updated:\t%s" % wid

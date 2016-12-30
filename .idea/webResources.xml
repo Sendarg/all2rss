@@ -7,6 +7,7 @@
           <resourceRoots>
             <path value="file://$PROJECT_DIR$/diy/images" />
             <path value="file://$PROJECT_DIR$/diy/static" />
+            <path value="file://$PROJECT_DIR$/opml" />
           </resourceRoots>
         </entryData>
       </entry>

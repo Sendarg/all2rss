@@ -16,6 +16,7 @@ from requests import get
 from BeautifulSoup import BeautifulStoneSoup
 
 
+		
 def deEntities1(html):
 	if type(html)==str or type(html)==unicode:
 		#

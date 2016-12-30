@@ -5,9 +5,11 @@ from handlers import weibo, weixin_gs, zhihu, index,jaq,weixin,pediy,wx_mgt
 urls=[
     (r"/", index.MainHandler),
     (r"/wx_mgt", wx_mgt.MainHandler),
+    (r"/wx_mgt/update", wx_mgt.UpdateHandler),
     (r"/wx_mgt/del", wx_mgt.DelHandler),
     (r"/wx_mgt/add", wx_mgt.AddHandler),
     (r"/wx_mgt/group", wx_mgt.GroupHandler),
+    (r"/wx_mgt/import", wx_mgt.ImportHandler),
     (r"/wx_mgt/feeds", wx_mgt.FeedsHandler),
     (r"/weibo", weibo.WeiboHandler),
     (r"/weixin", weixin_gs.WeixinHandler),

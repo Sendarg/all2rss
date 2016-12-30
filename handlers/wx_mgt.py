@@ -6,17 +6,26 @@ from utils.js_helper import js_alert_refresh
 from urllib import quote_plus
 from utils.iHttpLib import get_GS,get1_GS
 from urlparse import urlparse
-import json,random
+import json
 
 from db.wx_data_lib import wx_info as WXIF
 from db.wx_id import manage_WX_ID
+import re
+import socket
 
 
 class MainHandler(tornado.web.RequestHandler):
+	def verifyLocalhost(self):
+		hostname = socket.getfqdn(socket.gethostname())
+		hostIP = socket.gethostbyname(hostname)
+		if self.request.remote_ip != hostIP:
+			return False
+		else:
+			return True
+			
 	def get(self):
-		
 		# if  random.randint(0,4)== 0:# only 1/3的可能会更新
-		# 	manage_WX_ID().update_WX_ID()
+		# if self.verifyLocalhost():
 		list = manage_WX_ID().list_WX_ID()
 		group=manage_WX_ID().list_Groups()
 		self.render('wx_mgt.html',
@@ -26,12 +35,20 @@ class MainHandler(tornado.web.RequestHandler):
 		            SouGou_URL=WEIXIN_SOUGOU,
 		            GSdata_List_URL=WEIXIN_GS_Article_URL,
 		            RSS_URL=CACHE_URL_WX)
+
+	def prepare(self):
+		if not MainHandler.verifyLocalhost(self):
+			self.write("Not Allowed!\n")
+			self.finish()
+			
+		
+class UpdateHandler(MainHandler):
 	def post(self):
 		manage_WX_ID().update_WX_ID()
-		self.get()
+		self.redirect("/wx_mgt")
 	
 					
-class GroupHandler(tornado.web.RequestHandler):
+class GroupHandler(MainHandler):
 	def post(self):
 		self.group=self.request.arguments['group'][0]
 		self.wx_id=self.request.arguments['wx_id'][0]
@@ -41,7 +58,23 @@ class GroupHandler(tornado.web.RequestHandler):
 			self.redirect("/wx_mgt")
 		
 				
-class FeedsHandler(tornado.web.RequestHandler):
+class ImportHandler(MainHandler):
+	def post(self):
+		self.fileinfo = self.request.files['file'][0]
+		# fileinfo['filename']
+		
+		wx_ids=re.findall("weixin\?id=(\S+)\"", self.fileinfo['body'])
+		if not manage_WX_ID().create_Batch_WX_ID_Simple(wx_ids):
+			info="批量导入Feeds失败!!!opmlFile:%s" % (self.fileinfo['filename'])
+			print info
+			self.write(js_alert_refresh(info))
+		else:
+			info="==== Import RSS Feeds Success! opmlFile:%s" % (self.fileinfo['filename'])
+			print info
+			self.write(js_alert_refresh(info))
+			
+		
+class FeedsHandler(MainHandler):
 	def post(self):
 		self.group=self.request.arguments['group'][0]
 		feeds=manage_WX_ID().export_Feeds(self.group)
@@ -56,7 +89,7 @@ class FeedsHandler(tornado.web.RequestHandler):
 			
 		
 
-class DelHandler(tornado.web.RequestHandler):
+class DelHandler(MainHandler):
 	def post(self):
 		self.wxid = self.request.arguments['wxid'][0]
 		if not manage_WX_ID().del_WX_ID(self.wxid):
@@ -65,7 +98,7 @@ class DelHandler(tornado.web.RequestHandler):
 			self.redirect("/wx_mgt")
 			
 
-class AddHandler(tornado.web.RequestHandler):
+class AddHandler(MainHandler):
 	def post(self):
 		wx_url = self.get_argument('wx_url')
 		if urlparse(wx_url)[1] != 'mp.weixin.qq.com':

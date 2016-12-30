@@ -71,8 +71,8 @@ import os
 # server
 # IP = os.environ['OPENSHIFT_DIY_IP']
 # PORT = int(os.environ['OPENSHIFT_DIY_PORT'])
-IP = '127.0.0.1'
-# IP = '0.0.0.0'
+# IP = '127.0.0.1'
+IP = '0.0.0.0'
 PORT = '2102'
 BASE_URL = 'http://%s:%s' % (IP, PORT)
 
@@ -88,4 +88,7 @@ CACHE_PERIODIC = ((6 * 60) + 5 * 60) * 1000  # sync every 4 hours 5min
 
 from  redis import Redis
 # many redis can listen to 1 port,so you need kill
-redisDB = Redis(host='localhost', port=6379, password="CCoo_559")
+redisDB = Redis(host='127.0.0.1', port=34723, password="vr2MDa886d")
+
+from py2neo import Graph
+neo4j=Graph(user='neo4j', password='neo4j')
