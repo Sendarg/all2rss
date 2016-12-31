@@ -1,16 +1,14 @@
 ## Python Image
-FROM python:2.7
+FROM python:2
 
 ## Prepare
-ADD . /app
+COPY . /app
 WORKDIR /app
 RUN pip install -r requirements.txt --proxy=192.168.199.213:1087
 #RUN pip install --no-cache-dir -r requirements.txt
 
-
 ## Start
-
 #ENTRYPOINT ["python"]
 #CMD start.py
-EXPOSE 2102
+EXPOSE 2202
 CMD ["python","start.py"]

@@ -71,14 +71,15 @@ import os
 # server
 Server_IP = '127.0.0.1'
 # Server_IP = '0.0.0.0'
-PORT = '2102'
+PORT = '2202'
 BASE_URL = 'http://%s:%s' % (Server_IP, PORT)
 
 
 PUB_IP='180.169.101.117'
 PUB_PORT='552102'
 # Feeds
-PUB_CACHE_URL_WX = 'http://%s:%s/weixin?id={id}' % (PUB_IP, PUB_PORT)
+# PUB_CACHE_URL_WX = 'http://%s:%s/weixin?id={id}' % (PUB_IP, PUB_PORT)
+PUB_CACHE_URL_WX = 'http://%s:%s/weixin?id={id}' % (Server_IP, PORT)
 PUB_CACHE_URL = 'http://%s:%s/{key}' % (PUB_IP, PUB_PORT)
 CACHE_PERIODIC = ((6 * 60) + 5 * 60) * 1000  # sync every 4 hours 5min
 
