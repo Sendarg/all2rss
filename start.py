@@ -16,7 +16,7 @@ from tornado import web, ioloop
 from jinja2_tornado import JinjaLoader
 from urls import urls
 from task import sync_rss_feeds
-from configs import IP, PORT, CACHE_PERIODIC
+from configs import Server_IP, PORT, CACHE_PERIODIC
 
 # import memcache
 # mc = memcache.Client(['%s:15211' % IP])
@@ -38,7 +38,7 @@ application = Application(
 )
 
 if __name__ == "__main__":
-	application.listen(PORT, IP)
+	application.listen(PORT, Server_IP)
 	print "== auto sync rss news"
 	# ioloop.IOLoop().call_later(5.0, sync_rss_feeds)
 	# ioloop.IOLoop().run_sync(sync_rss_feeds)

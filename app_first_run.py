@@ -1,3 +1,12 @@
+## testing connection
+from configs import redisDB,neo4j
+
+if redisDB&neo4j:
+	print "==== Network Testing PASS"
+
+
+
+## init data
 from db.wx_id import manage_WX_ID
 import re
 

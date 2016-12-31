@@ -1,7 +1,7 @@
 # coding:utf-8
 
 import tornado.web
-from configs import WEIXIN_SOUGOU, WEIXIN_GS_ADD_URL, CACHE_URL_WX, WEIXIN_GS_Name_URL, WEIXIN_GS_Article_URL
+from configs import WEIXIN_SOUGOU, WEIXIN_GS_ADD_URL, PUB_CACHE_URL_WX, WEIXIN_GS_Name_URL, WEIXIN_GS_Article_URL
 from utils.js_helper import js_alert_refresh
 from urllib import quote_plus
 from utils.iHttpLib import get_GS,get1_GS
@@ -34,7 +34,7 @@ class MainHandler(tornado.web.RequestHandler):
 		            GSdata_URL=WEIXIN_GS_Name_URL,
 		            SouGou_URL=WEIXIN_SOUGOU,
 		            GSdata_List_URL=WEIXIN_GS_Article_URL,
-		            RSS_URL=CACHE_URL_WX)
+		            RSS_URL=PUB_CACHE_URL_WX)
 
 	def prepare(self):
 		if not MainHandler.verifyLocalhost(self):
@@ -85,7 +85,7 @@ class FeedsHandler(MainHandler):
 			self.set_header("Content-Type", "application/xml")
 			self.render("feeds.xml",
 			            feeds=feeds,
-			            CACHE_URL_WX=CACHE_URL_WX)
+			            CACHE_URL_WX=PUB_CACHE_URL_WX)
 			
 		
 

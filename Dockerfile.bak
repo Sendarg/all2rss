@@ -1,0 +1,27 @@
+# Contanier and install
+FROM ubuntu:latest
+RUN apt-get update -y
+RUN apt-get install -y python-pip python-dev redis-server
+#RUN apt-get install -y build-essential
+
+
+
+## Prepare DB
+CMD redis-server --bind 127.0.0.1 --port 34723 --requirepass vr2MDa886d &
+
+
+
+## Prepare
+ADD . /app
+WORKDIR /app
+RUN pip install --no-cache-dir -r requirements.txt
+
+
+
+## Start
+EXPOSE 2102
+#ENTRYPOINT ["python"]
+#CMD first_run.py
+#CMD start.py
+CMD python first_run.py
+CMD python start.py
