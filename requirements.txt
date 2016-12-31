@@ -10,3 +10,4 @@ tornado==4.4.1
 BeautifulSoup==3.2.1
 pycrypto==2.6.1
 python_memcached==1.58
+listparser==0.18

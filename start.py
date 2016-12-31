@@ -1,6 +1,6 @@
 # coding:utf-8
 
-import os, sys
+import os, sys, re
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -17,6 +17,8 @@ from jinja2_tornado import JinjaLoader
 from urls import urls
 from task import sync_rss_feeds
 from configs import Server_IP, PORT, CACHE_PERIODIC
+from db.wx_id import manage_WX_ID
+
 
 # import memcache
 # mc = memcache.Client(['%s:15211' % IP])
@@ -39,6 +41,13 @@ application = Application(
 
 if __name__ == "__main__":
 	application.listen(PORT, Server_IP)
+	## first start
+	## init data
+	if len(manage_WX_ID().list_WX_ID()) == 0:
+		File_rss = "opml/Subscriptions.opml"
+		if manage_WX_ID().mass_Import_WX_ID_from_opml(File_rss):
+			print "==== Defaults WX_ID Imported!"
+	
 	print "== auto sync rss news"
 	# ioloop.IOLoop().call_later(5.0, sync_rss_feeds)
 	# ioloop.IOLoop().run_sync(sync_rss_feeds)

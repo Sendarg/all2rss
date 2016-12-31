@@ -4,12 +4,12 @@ from db.wx_data_lib import wx_info
 from py2neo import  Node, ConstraintError
 from utils.iHttpLib import deEntiesListDict
 from configs import redisDB,neo4j
-
+import listparser,re
 
 class manage_WX_ID(object):
 	def __init__(self):
 		self.neo4j = neo4j
-		
+	
 	
 	def list_Groups(self):
 		list = self.neo4j.data('MATCH (g:WX_ID_GROUP) RETURN g.name as name')
@@ -76,14 +76,25 @@ class manage_WX_ID(object):
 			print "++++ WX_ID stored:\t%s" % wx_id_info['wx_id']
 			return True
 
-	def create_Batch_WX_ID_Simple(self, wx_id_list):
-		if not type(wx_id_list)==list:
-			return False
-		for wx_id in wx_id_list:
+	def mass_Import_WX_ID_from_opml(self, opemlFile_or_Content_or_URL):
+		'''
+		listparser.parse(obj[, agent, etag, modified])
+		Parameters:
+			obj (file or string) – a file-like object or a string containing a URL, an absolute or relative filename, or an XML document
+			agent (string) – User-Agent header to be sent when requesting a URL
+			etag (string) – ETag header to be sent when requesting a URL
+			modified (string or datetime) – Last-Modified header to be sent when requesting a URL
+		'''
+		opml = listparser.parse(opemlFile_or_Content_or_URL)
+		for feed in opml.feeds:
+			wx_id=re.findall("weixin\?id=(\S+)$", feed.url)[0]
 			if not self.is_WX_ID_Exists(wx_id):
 				WX_ID = Node("WX_ID")
-				info={"wx_id":wx_id,
-				      "group": ""}
+				info = {
+					"wx_id": wx_id,
+					"name": feed.title,
+					"group": feed.categories[0][0]
+				}
 				WX_ID.update(info)
 				self.neo4j.create(WX_ID)
 				print "++++ WX_ID Simple stored:\t%s" % wx_id
