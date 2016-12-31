@@ -40,7 +40,7 @@ application = Application(
 )
 
 if __name__ == "__main__":
-	application.listen(PORT, Server_IP)
+	application.listen(PORT)
 	## first start
 	## init data
 	if len(manage_WX_ID().list_WX_ID()) == 0:

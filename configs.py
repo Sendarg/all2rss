@@ -85,9 +85,9 @@ CACHE_PERIODIC = ((6 * 60) + 5 * 60) * 1000  # sync every 4 hours 5min
 
 from  redis import Redis
 # many redis can listen to 1 port,so you need kill
-redisDB = Redis(password="vr2MD#a886d")
-# redisDB = Redis(host='rss-redis', password="vr2MD#a886d") # use in docker bridge network
+# redisDB = Redis(password="vr2MD#a886d")
+redisDB = Redis(host='rss-redis', password="vr2MD#a886d") # use in docker bridge network
 
 from py2neo import Graph
-neo4j=Graph(user='neo4j', password='neo4j')
-# neo4j=Graph(host='rss-neo4j',user='neo4j', password='neo4j')
+# neo4j=Graph(user='neo4j', password='neo4j')
+neo4j=Graph(host='rss-neo4j',user='neo4j', password='neo4j')
