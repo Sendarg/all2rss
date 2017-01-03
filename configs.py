@@ -69,8 +69,8 @@ PEDIY_EXPIRES = 4 * 60 * 60  # 缓存3小时 http://bbs.pediy.com/forumdisplay.p
 import os
 
 # server
-# Server_IP = '127.0.0.1'
-Server_IP = '0.0.0.0'
+Server_IP = '127.0.0.1'
+# Server_IP = '0.0.0.0'
 PORT = '2202'
 BASE_URL = 'http://%s:%s' % (Server_IP, PORT)
 
@@ -87,8 +87,8 @@ CACHE_PERIODIC = ((6 * 60) + 5 * 60) * 1000  # sync every 4 hours 5min
 from  redis import Redis
 # many redis can listen to 1 port,so you need kill
 # redisDB = Redis(password="vr2MD#a886d")
-redisDB = Redis(host='rss-redis', password="vr2MD#a886d") # use in docker bridge network
+redisDB = Redis(host='redis', password="vr2MD#a886d") # use in docker bridge network
 
 from py2neo import Graph
 # neo4j=Graph(user='neo4j', password='neo4321')
-neo4j=Graph(host='rss-neo4j',user='neo4j', password='neo4321')
+neo4j=Graph(host='neo4j',user='neo4j', password='neo4321')
