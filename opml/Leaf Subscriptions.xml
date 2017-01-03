@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+    <head>Leaf Subscriptions</head>
+    <body>
+        <outline title="全球搞笑笑话榜" xmlUrl="http://127.0.0.1:2102/weixin?id=gaoxiao10086" type="rss" text="全球搞笑笑话榜"/>
+        <outline title="启航IT精英汇" xmlUrl="http://127.0.0.1:2102/weixin?id=gh_572803e6675d" type="rss" text="启航IT精英汇"/>
+        <outline title="小黑羊JoinWings" xmlUrl="http://127.0.0.1:2102/weixin?id=marketeers" type="rss" text="小黑羊JoinWings"/>
+        <outline title="一晌贪欢" xmlUrl="http://127.0.0.1:2102/weixin?id=pereader" type="rss" text="一晌贪欢"/>
+        <outline title="知乎日报" xmlUrl="http://127.0.0.1:2102/zhihu" type="rss" text="知乎日报"/>
+        <outline title="Seay博客 渗透 编程 创业 代码安全审计 致力于更专业的网络安全博客" xmlUrl="http://www.cnseay.com/feed/" type="rss" text="Seay博客 渗透 编程 创业 代码安全审计 致力于更专业的网络安全博客"/>
+        <outline title="黑麒麟-关注网站安全 - 0day EXP" xmlUrl="http://www.hack70.cn/forum.php?mod=rss&amp;fid=46&amp;auth=0" type="rss" text="黑麒麟-关注网站安全 - 0day EXP"/>
+        <outline title="新闻资讯" xmlUrl="http://www.raincent.com/index.php?m=content&amp;c=rss&amp;rssid=10" type="rss" text="新闻资讯"/>
+        <outline title="技术分享" xmlUrl="http://www.raincent.com/index.php?m=content&amp;c=rss&amp;rssid=12" type="rss" text="技术分享"/>
+        <outline title="技术参考" xmlUrl="http://www.raincent.com/index.php?m=content&amp;c=rss&amp;rssid=85" type="rss" text="技术参考"/>
+        <outline title="灯塔水母" xmlUrl="http://www.songluyi.com/feed/" type="rss" text="灯塔水母"/>
+        <outline title="GitHub Showcases" xmlUrl="https://github.com/showcases.atom" type="rss" text="GitHub Showcases"/>
+        <outline title="02 time&amp;you">
+            <outline title="Hi-GTD时间管理问答交流社区" xmlUrl="http://www.hi-gtd.com/feed/" type="rss" text="Hi-GTD时间管理问答交流社区"/>
+            <outline title="褪墨・时间管理，个人提升，生活健康与习惯" xmlUrl="http://www.mifengtd.cn/feed.xml" type="rss" text="褪墨・时间管理，个人提升，生活健康与习惯"/>
+            <outline title="葡挞生活" xmlUrl="http://www.productivelife.cn/feed" type="rss" text="葡挞生活"/>
+            <outline title="战隼的学习探索" xmlUrl="http://www.read.org.cn/feed" type="rss" text="战隼的学习探索"/>
+            <outline title="夏小坤的个人修养" xmlUrl="http://www.youqude.net/feed" type="rss" text="夏小坤的个人修养"/>
+        </outline>
+        <outline title="03 Exam$Certi">
+            <outline title="cncisa" xmlUrl="http://127.0.0.1:2102/weixin?id=cncisa" type="rss" text="cncisa"/>
+        </outline>
+        <outline title="03 read&amp;_&amp;learn">
+            <outline title="笨鸟读书" xmlUrl="http://all2rss-devox.rhcloud.com/weixin?id=bnds2016" type="rss" text="笨鸟读书"/>
+            <outline title="豆瓣最受欢迎的书评" xmlUrl="http://feeds.feedburner.com/52/IITF" type="rss" text="豆瓣最受欢迎的书评"/>
+            <outline title="博客园_申龙斌的程序人生" xmlUrl="http://www.cnblogs.com/speeding/rss" type="rss" text="博客园_申龙斌的程序人生"/>
+            <outline title="读写人" xmlUrl="http://www.duxieren.com/duxieren.xml" type="rss" text="读写人"/>
+            <outline title="学而时嘻之" xmlUrl="http://www.geekonomics10000.com/feed" type="rss" text="学而时嘻之"/>
+            <outline title="云悦读" xmlUrl="http://www.iydu.net/feed" type="rss" text="云悦读"/>
+            <outline title="罗辑思维文章" xmlUrl="http://www.luofans.com/feed/articles" type="rss" text="罗辑思维文章"/>
+            <outline title="罗胖视频" xmlUrl="http://www.luofans.com/feed/videos" type="rss" text="罗胖视频"/>
+            <outline title="读书笔记" xmlUrl="http://www.write.org.cn/feed" type="rss" text="读书笔记"/>
+            <outline title="阳志平的网志" xmlUrl="http://www.yangzhiping.com/feed.xml" type="rss" text="阳志平的网志"/>
+            <outline title="左岸读书" xmlUrl="http://www.zreading.cn/feed" type="rss" text="左岸读书"/>
+        </outline>
+        <outline title="04 WX_订阅号">
+            <outline title="书单" xmlUrl="http://127.0.0.1:2102/weixin?id=BookSelection" type="rss" text="书单"/>
+            <outline title="LinkedIn" xmlUrl="http://127.0.0.1:2102/weixin?id=LinkedIn-China" type="rss" text="LinkedIn"/>
+            <outline title="知识分子" xmlUrl="http://127.0.0.1:2102/weixin?id=The-Intellectual" type="rss" text="知识分子"/>
+            <outline title="肌肉男训练营" xmlUrl="http://127.0.0.1:2102/weixin?id=bodybuildingman" type="rss" text="肌肉男训练营"/>
+            <outline title="猜火车" xmlUrl="http://127.0.0.1:2102/weixin?id=caihuochefff" type="rss" text="猜火车"/>
+            <outline title="十点读书" xmlUrl="http://127.0.0.1:2102/weixin?id=duhaoshu" type="rss" text="十点读书"/>
+            <outline title="读悦文摘" xmlUrl="http://127.0.0.1:2102/weixin?id=duzhe3650" type="rss" text="读悦文摘"/>
+            <outline title="复旦讲座" xmlUrl="http://127.0.0.1:2102/weixin?id=fdulecture" type="rss" text="复旦讲座"/>
+            <outline title="物种日历" xmlUrl="http://127.0.0.1:2102/weixin?id=guokrpac" type="rss" text="物种日历"/>
+            <outline title="不正常人类研究中心" xmlUrl="http://127.0.0.1:2102/weixin?id=hahabzc" type="rss" text="不正常人类研究中心"/>
+            <outline title="清博指数" xmlUrl="http://127.0.0.1:2102/weixin?id=indexmedia" type="rss" text="清博指数"/>
+            <outline title="Kindle电子书库" xmlUrl="http://127.0.0.1:2102/weixin?id=kindle10000" type="rss" text="Kindle电子书库"/>
+            <outline title="冷兔" xmlUrl="http://127.0.0.1:2102/weixin?id=lengtoo" type="rss" text="冷兔"/>
+            <outline title="李银河" xmlUrl="http://127.0.0.1:2102/weixin?id=liyinhe6666" type="rss" text="李银河"/>
+            <outline title="男士健康MensHealth" xmlUrl="http://127.0.0.1:2102/weixin?id=mhchina" type="rss" text="男士健康MensHealth"/>
+            <outline title="咪蒙" xmlUrl="http://127.0.0.1:2102/weixin?id=mimeng7" type="rss" text="咪蒙"/>
+            <outline title="水木文摘" xmlUrl="http://127.0.0.1:2102/weixin?id=mweishijie" type="rss" text="水木文摘"/>
+            <outline title="牛男" xmlUrl="http://127.0.0.1:2102/weixin?id=neonan01" type="rss" text="牛男"/>
+            <outline title="清博" xmlUrl="http://127.0.0.1:2102/weixin?id=newminfo" type="rss" text="清博"/>
+            <outline title="男人装" xmlUrl="http://127.0.0.1:2102/weixin?id=nrz200405" type="rss" text="男人装"/>
+            <outline title="硬派健身" xmlUrl="http://127.0.0.1:2102/weixin?id=oh-hard" type="rss" text="硬派健身"/>
+            <outline title="壹心理" xmlUrl="http://127.0.0.1:2102/weixin?id=onexinli" type="rss" text="壹心理"/>
+            <outline title="囚徒健身" xmlUrl="http://127.0.0.1:2102/weixin?id=qiutujs" type="rss" text="囚徒健身"/>
+            <outline title="书单来了" xmlUrl="http://127.0.0.1:2102/weixin?id=shudanlaile" type="rss" text="书单来了"/>
+            <outline title="管理智慧" xmlUrl="http://127.0.0.1:2102/weixin?id=shzb2010" type="rss" text="管理智慧"/>
+            <outline title="云晓家庭教育" xmlUrl="http://127.0.0.1:2102/weixin?id=syxedu" type="rss" text="云晓家庭教育"/>
+            <outline title="新世相" xmlUrl="http://127.0.0.1:2102/weixin?id=thefair2" type="rss" text="新世相"/>
+            <outline title="香海禅心" xmlUrl="http://127.0.0.1:2102/weixin?id=xhcxwx" type="rss" text="香海禅心"/>
+            <outline title="进托邦" xmlUrl="http://127.0.0.1:2102/weixin?id=xsyzhlm" type="rss" text="进托邦"/>
+            <outline title="有书" xmlUrl="http://127.0.0.1:2102/weixin?id=youshucc" type="rss" text="有书"/>
+            <outline title="悦读" xmlUrl="http://127.0.0.1:2102/weixin?id=yuedu58" type="rss" text="悦读"/>
+        </outline>
+        <outline title="04-1 WX_Read++">
+            <outline title="TEDxShanghai" xmlUrl="http://127.0.0.1:2102/weixin?id=TEDxShanghai" type="rss" text="TEDxShanghai"/>
+            <outline title="安猪说" xmlUrl="http://127.0.0.1:2102/weixin?id=andrewtalk" type="rss" text="安猪说"/>
+            <outline title="慈怀读书会" xmlUrl="http://127.0.0.1:2102/weixin?id=cihuai_dushuhui" type="rss" text="慈怀读书会"/>
+            <outline title="混沌研习社" xmlUrl="http://127.0.0.1:2102/weixin?id=dfscx2014" type="rss" text="混沌研习社"/>
+            <outline title="解忧杂货店TED" xmlUrl="http://127.0.0.1:2102/weixin?id=jingpintao001" type="rss" text="解忧杂货店TED"/>
+            <outline title="开智学堂" xmlUrl="http://127.0.0.1:2102/weixin?id=openmindclub" type="rss" text="开智学堂"/>
+            <outline title="warfalcon" xmlUrl="http://127.0.0.1:2102/weixin?id=read01" type="rss" text="warfalcon"/>
+            <outline title="不同樊想" xmlUrl="http://127.0.0.1:2102/weixin?id=readingclub_btfx" type="rss" text="不同樊想"/>
+            <outline title="TEDx西关" xmlUrl="http://127.0.0.1:2102/weixin?id=tedxxiguan" type="rss" text="TEDx西关"/>
+            <outline title="学习学习再学习" xmlUrl="http://127.0.0.1:2102/weixin?id=xiaolai-xuexi" type="rss" text="学习学习再学习"/>
+            <outline title="新生大学" xmlUrl="http://127.0.0.1:2102/weixin?id=xinshengdaxue" type="rss" text="新生大学"/>
+            <outline title="分答" xmlUrl="http://127.0.0.1:2102/weixin?id=zaihang360" type="rss" text="分答"/>
+        </outline>
+        <outline title="04-2 WX_经济+投资">
+            <outline title="昆山乐居" xmlUrl="http://127.0.0.1:2102/weixin?id=ksxlljwx" type="rss" text="昆山乐居"/>
+            <outline title="吴晓波频道" xmlUrl="http://127.0.0.1:2102/weixin?id=wuxiaobopd" type="rss" text="吴晓波频道"/>
+        </outline>
+        <outline title="04-3 WX_数据+机器">
+            <outline title="新智元" xmlUrl="http://127.0.0.1:2102/weixin?id=AI_era" type="rss" text="新智元"/>
+            <outline title="大数据文摘" xmlUrl="http://127.0.0.1:2102/weixin?id=BigDataDigest" type="rss" text="大数据文摘"/>
+            <outline title="统计之都" xmlUrl="http://127.0.0.1:2102/weixin?id=CapStat" type="rss" text="统计之都"/>
+            <outline title="数盟" xmlUrl="http://127.0.0.1:2102/weixin?id=DataScientistUnion" type="rss" text="数盟"/>
+            <outline title="机器之心" xmlUrl="http://127.0.0.1:2102/weixin?id=almosthuman2014" type="rss" text="机器之心"/>
+            <outline title="神机喵算" xmlUrl="http://127.0.0.1:2102/weixin?id=bigdata_ny" type="rss" text="神机喵算"/>
+            <outline title="大数据实验室" xmlUrl="http://127.0.0.1:2102/weixin?id=bigdatalab" type="rss" text="大数据实验室"/>
+            <outline title="九次方大数据" xmlUrl="http://127.0.0.1:2102/weixin?id=bj-jusfoun" type="rss" text="九次方大数据"/>
+            <outline title="云创大数据" xmlUrl="http://127.0.0.1:2102/weixin?id=cStor_cn" type="rss" text="云创大数据"/>
+            <outline title="CDA数据分析师" xmlUrl="http://127.0.0.1:2102/weixin?id=cdacdacda" type="rss" text="CDA数据分析师"/>
+            <outline title="CSDN大数据" xmlUrl="http://127.0.0.1:2102/weixin?id=csdnbigdata" type="rss" text="CSDN大数据"/>
+            <outline title="数据分析" xmlUrl="http://127.0.0.1:2102/weixin?id=ecshujufenxi" type="rss" text="数据分析"/>
+            <outline title="数据玩家" xmlUrl="http://127.0.0.1:2102/weixin?id=fbigdata" type="rss" text="数据玩家"/>
+            <outline title="机器学习研究会" xmlUrl="http://127.0.0.1:2102/weixin?id=gh_5906530d307c" type="rss" text="机器学习研究会"/>
+            <outline title="大数据" xmlUrl="http://127.0.0.1:2102/weixin?id=hzdashuju" type="rss" text="大数据"/>
+            <outline title="ResysChina" xmlUrl="http://127.0.0.1:2102/weixin?id=resyschina" type="rss" text="ResysChina"/>
+            <outline title="数据分析精选" xmlUrl="http://127.0.0.1:2102/weixin?id=sjfxjx" type="rss" text="数据分析精选"/>
+            <outline title="小蚊子数据分析" xmlUrl="http://127.0.0.1:2102/weixin?id=wzdata" type="rss" text="小蚊子数据分析"/>
+            <outline title="学术帮" xmlUrl="http://127.0.0.1:2102/weixin?id=xueshubang" type="rss" text="学术帮"/>
+        </outline>
+        <outline title="04-4 WX_IOT">
+            <outline title="车云" xmlUrl="http://127.0.0.1:2102/weixin?id=cheyunwang" type="rss" text="车云"/>
+        </outline>
+        <outline title="04-6 WX_Music">
+            <outline title="欧美经典音乐" xmlUrl="http://127.0.0.1:2102/weixin?id=MusicClassic" type="rss" text="欧美经典音乐"/>
+            <outline title="环球音乐榜" xmlUrl="http://127.0.0.1:2102/weixin?id=hiyinyue" type="rss" text="环球音乐榜"/>
+            <outline title="淘漉音乐" xmlUrl="http://127.0.0.1:2102/weixin?id=taolumusic" type="rss" text="淘漉音乐"/>
+        </outline>
+        <outline title="04-C WX_Hkc">
+            <outline title="阿里聚安全-安全资讯" xmlUrl="http://127.0.0.1:2102/jaq_news" type="rss" text="阿里聚安全-安全资讯"/>
+            <outline title="阿里聚安全-技术研究" xmlUrl="http://127.0.0.1:2102/jaq_tech" type="rss" text="阿里聚安全-技术研究"/>
+            <outline title="安在" xmlUrl="http://127.0.0.1:2102/weixin?id=AnZer_SH" type="rss" text="安在"/>
+            <outline title="安全圈" xmlUrl="http://127.0.0.1:2102/weixin?id=ChinaAnQuan" type="rss" text="安全圈"/>
+            <outline title="计算机与网络安全" xmlUrl="http://127.0.0.1:2102/weixin?id=Computer-network" type="rss" text="计算机与网络安全"/>
+            <outline title="E安全" xmlUrl="http://127.0.0.1:2102/weixin?id=EAQapp" type="rss" text="E安全"/>
+            <outline title="T00ls" xmlUrl="http://127.0.0.1:2102/weixin?id=T00lsNet" type="rss" text="T00ls"/>
+            <outline title="阿里安全应急响应中心" xmlUrl="http://127.0.0.1:2102/weixin?id=alisrc" type="rss" text="阿里安全应急响应中心"/>
+            <outline title="棱安全" xmlUrl="http://127.0.0.1:2102/weixin?id=arrisec" type="rss" text="棱安全"/>
+            <outline title="bigsec岂安科技" xmlUrl="http://127.0.0.1:2102/weixin?id=bigsec" type="rss" text="bigsec岂安科技"/>
+            <outline title="malwarebenchmark" xmlUrl="http://127.0.0.1:2102/weixin?id=gh_01202b41c2f7" type="rss" text="malwarebenchmark"/>
+            <outline title="飓风网络安全" xmlUrl="http://127.0.0.1:2102/weixin?id=gh_183f818a07dc" type="rss" text="飓风网络安全"/>
+            <outline title="互联网漏洞应急响应中心" xmlUrl="http://127.0.0.1:2102/weixin?id=gh_7c4ae6394108" type="rss" text="互联网漏洞应急响应中心"/>
+            <outline title="看雪学院" xmlUrl="http://127.0.0.1:2102/weixin?id=ikanxue" type="rss" text="看雪学院"/>
+            <outline title="MottoIN" xmlUrl="http://127.0.0.1:2102/weixin?id=mottoin" type="rss" text="MottoIN"/>
+            <outline title="360企业安全" xmlUrl="http://127.0.0.1:2102/weixin?id=qiyeanquan360" type="rss" text="360企业安全"/>
+            <outline title="RoarTalk" xmlUrl="http://127.0.0.1:2102/weixin?id=roartalk" type="rss" text="RoarTalk"/>
+        </outline>
+        <outline title="04-S WX_CIty">
+            <outline title="上海全知道" xmlUrl="http://127.0.0.1:2102/weixin?id=iknow021" type="rss" text="上海全知道"/>
+            <outline title="魔都上海" xmlUrl="http://127.0.0.1:2102/weixin?id=modu20" type="rss" text="魔都上海"/>
+            <outline title="上海发布" xmlUrl="http://127.0.0.1:2102/weixin?id=shanghaifabu" type="rss" text="上海发布"/>
+            <outline title="上海楼典" xmlUrl="http://127.0.0.1:2102/weixin?id=shanghailord" type="rss" text="上海楼典"/>
+            <outline title="ShanghaiWOW" xmlUrl="http://127.0.0.1:2102/weixin?id=shanghaiwow520" type="rss" text="ShanghaiWOW"/>
+            <outline title="微上海" xmlUrl="http://127.0.0.1:2102/weixin?id=weish021" type="rss" text="微上海"/>
+            <outline title="周末做啥" xmlUrl="http://127.0.0.1:2102/weixin?id=zhoumozuosha" type="rss" text="周末做啥"/>
+        </outline>
+        <outline title="05 0XDrozerIOS">
+            <outline title="看雪安全论坛 - 『Android 安全』" xmlUrl="http://bbs.pediy.com/external.php?type=RSS2&amp;f=161" type="rss" text="看雪安全论坛 - 『Android 安全』"/>
+            <outline title="看雪安全论坛 - 『iOS安全』" xmlUrl="http://bbs.pediy.com/external.php?type=RSS2&amp;f=166" type="rss" text="看雪安全论坛 - 『iOS安全』"/>
+            <outline title="吾爱破解『逆向资源区』" xmlUrl="http://www.52pojie.cn/forum.php?mod=rss&amp;fid=4&amp;auth=0" type="rss" text="吾爱破解『逆向资源区』"/>
+            <outline title="吾爱破解『移动安全区』" xmlUrl="http://www.52pojie.cn/forum.php?mod=rss&amp;fid=65&amp;auth=0" type="rss" text="吾爱破解『移动安全区』"/>
+            <outline title="怜直节生来瘦，自许高材老更刚。" xmlUrl="http://www.cnblogs.com/goodhacker/rss" type="rss" text="怜直节生来瘦，自许高材老更刚。"/>
+            <outline title="DroidSec.cn" xmlUrl="http://www.droidsec.cn/feed" type="rss" text="DroidSec.cn"/>
+            <outline title="看雪安全论坛 - 『Android 安全』" xmlUrl="http://www.kanxue.com/bbs/external.php?type=RSS2&amp;forumids=161" type="rss" text="看雪安全论坛 - 『Android 安全』"/>
+            <outline title="看雪安全论坛 - 『iOS安全』" xmlUrl="http://www.kanxue.com/bbs/external.php?type=RSS2&amp;forumids=166" type="rss" text="看雪安全论坛 - 『iOS安全』"/>
+            <outline title="逆向未来技术社区 - Android安全" xmlUrl="http://www.pd521.com/forum.php?mod=rss&amp;fid=37&amp;auth=0672mTC80FTw08UVfL0eXjzlBZkuzttbSS5MV2pk9LzW4p256DZ%2FjfFVRbQh" type="rss" text="逆向未来技术社区 - Android安全"/>
+            <outline title="逆向未来技术社区 - IOS安全" xmlUrl="http://www.pd521.com/forum.php?mod=rss&amp;fid=47&amp;auth=d3e6KfVlpTQTE31Jdqcsn6mf4AdXiOOfpOQKYqZR3SDdxGjFpMFv%2F3KN8txV" type="rss" text="逆向未来技术社区 - IOS安全"/>
+            <outline title="精易论坛 - App数据分析" xmlUrl="http://xdcloudzz.appspot.com/bbs.125.la/forum.php?mod=rss&amp;fid=206&amp;auth=0" type="rss" text="精易论坛 - App数据分析"/>
+            <outline title="TesterHome 社区 移动安全测试 节点" xmlUrl="https://testerhome.com/topics/node34/feed" type="rss" text="TesterHome 社区 移动安全测试 节点"/>
+        </outline>
+        <outline title="06 0XHkC">
+            <outline title="K8拉登哥哥" xmlUrl="http://blog.163.com/qqhack8/rss" type="rss" text="K8拉登哥哥"/>
+            <outline title="知道创宇" xmlUrl="http://blog.knownsec.com/feed/" type="rss" text="知道创宇"/>
+            <outline title="malerisch.net" xmlUrl="http://blog.malerisch.net/feeds/posts/default" type="rss" text="malerisch.net"/>
+            <outline title="绿盟科技博客" xmlUrl="http://blog.nsfocus.net/feed/" type="rss" text="绿盟科技博客"/>
+            <outline title="Zimperium Blog" xmlUrl="http://blog.zimperium.com/feed/" type="rss" text="Zimperium Blog"/>
+            <outline title="360安全播报 - 最新知识" xmlUrl="http://bobao.360.cn/rss?type=learning" type="rss" text="360安全播报 - 最新知识"/>
+            <outline title="WooYun知识库" xmlUrl="http://drops.wooyun.org/feed" type="rss" text="WooYun知识库"/>
+            <outline title="Irongeek's Security Site" xmlUrl="http://feeds.feedburner.com/IrongeeksSecuritySite" type="rss" text="Irongeek's Security Site"/>
+            <outline title="Technolust since 2005" xmlUrl="http://hak5.org/feed" type="rss" text="Technolust since 2005"/>
+            <outline title="Insight-labs" xmlUrl="http://insight-labs.org/?feed=rss2" type="rss" text="Insight-labs"/>
+            <outline title="LOnils风迷 's Blog" xmlUrl="http://metasploit.lofter.com/rss" type="rss" text="LOnils风迷 's Blog"/>
+            <outline title="Openwall Community Wiki" xmlUrl="http://openwall.info/wiki/feed.php" type="rss" text="Openwall Community Wiki"/>
+            <outline title="pentestmonkey" xmlUrl="http://pentestmonkey.net/feed" type="rss" text="pentestmonkey"/>
+            <outline title="SecurityXploded Tools" xmlUrl="http://securityxploded.com/rss-tools.xml" type="rss" text="SecurityXploded Tools"/>
+            <outline title="simeon技术专栏-51CTO技术博客" xmlUrl="http://simeon.blog.51cto.com/rss.php?uid=18680" type="rss" text="simeon技术专栏-51CTO技术博客"/>
+            <outline title="Sky's自留地" xmlUrl="http://www.03sec.com/feed/" type="rss" text="Sky's自留地"/>
+            <outline title="0x7c" xmlUrl="http://www.0x7c.com/?feed=rss2" type="rss" text="0x7c"/>
+            <outline title="91Ri.org" xmlUrl="http://www.91ri.org/feed" type="rss" text="91Ri.org"/>
+            <outline title="安全工具箱" xmlUrl="http://www.92aq.com/feed" type="rss" text="安全工具箱"/>
+            <outline title="安天365安全技术论坛 - Web安全{The Web Security}" xmlUrl="http://www.antian365.com/forum.php?mod=rss&amp;fid=2&amp;auth=0" type="rss" text="安天365安全技术论坛 - Web安全{The Web Security}"/>
+            <outline title="backion渗透测试研究中心" xmlUrl="http://www.backlion.com/feed/" type="rss" text="backion渗透测试研究中心"/>
+            <outline title="Seay博客 渗透 编程 创业 代码安全审计 致力于更专业的网络安全博客" xmlUrl="http://www.cnseay.com/feed" type="rss" text="Seay博客 渗透 编程 创业 代码安全审计 致力于更专业的网络安全博客"/>
+            <outline title="Fooying" xmlUrl="http://www.fooying.com/feed/" type="rss" text="Fooying"/>
+            <outline title="安全参考" xmlUrl="http://www.hackcto.com/rss" type="rss" text="安全参考"/>
+            <outline title="网络空间安全学术论坛4月22日清华开幕 - InForSec视频直播页" xmlUrl="http://www.inforsec.org/wp/?feed=rss2" type="rss" text="网络空间安全学术论坛4月22日清华开幕 - InForSec视频直播页"/>
+            <outline title="jinglingshu的博客" xmlUrl="http://www.jinglingshu.org/?feed=rss2" type="rss" text="jinglingshu的博客"/>
+            <outline title="离别歌" xmlUrl="http://www.leavesongs.com/rss.php" type="rss" text="离别歌"/>
+            <outline title="李劼杰的博客" xmlUrl="http://www.lijiejie.com/feed/" type="rss" text="李劼杰的博客"/>
+            <outline title="七行者博客" xmlUrl="http://www.qxzxp.com/feed" type="rss" text="七行者博客"/>
+            <outline title="独自等待-信息安全博客" xmlUrl="http://www.waitalone.cn/feed" type="rss" text="独自等待-信息安全博客"/>
+            <outline title="xorl %eax, %eax" xmlUrl="http://xorl.wordpress.com/feed/" type="rss" text="xorl %eax, %eax"/>
+            <outline title="Yaseng" xmlUrl="http://yaseng.me/feed" type="rss" text="Yaseng"/>
+            <outline title="Metasploit" xmlUrl="https://community.rapid7.com/community/metasploit/blog/feeds/posts" type="rss" text="Metasploit"/>
+            <outline title="feed/https://www.trustedsec.com/feed/" xmlUrl="https://www.trustedsec.com/feed/" type="rss" text="feed/https://www.trustedsec.com/feed/"/>
+        </outline>
+        <outline title="07 0X鲜活资讯">
+            <outline title="360安全播报 - 最新资讯" xmlUrl="http://bobao.360.cn/rss?type=news" type="rss" text="360安全播报 - 最新资讯"/>
+            <outline title="安全牛网" xmlUrl="http://www.aqniu.com/feed" type="rss" text="安全牛网"/>
+            <outline title="Exploit-DB updates" xmlUrl="http://www.exploit-db.com/rss.xml" type="rss" text="Exploit-DB updates"/>
+            <outline title="FreebuF.COM" xmlUrl="http://www.freebuf.com/feed" type="rss" text="FreebuF.COM"/>
+            <outline title="安全脉搏" xmlUrl="http://www.secpulse.com/feed" type="rss" text="安全脉搏"/>
+            <outline title="wooyun.org 最新公开漏洞" xmlUrl="http://www.wooyun.org/feeds/public" type="rss" text="wooyun.org 最新公开漏洞"/>
+            <outline title="wooyun.org 最新提交漏洞" xmlUrl="http://www.wooyun.org/feeds/submit" type="rss" text="wooyun.org 最新提交漏洞"/>
+        </outline>
+        <outline title="14 数据+机器">
+            <outline title="好东西论坛" xmlUrl="http://forum.memect.com/feed/" type="rss" text="好东西论坛"/>
+        </outline>
+        <outline title="1A App-le">
+            <outline title="威锋论坛 - Mac OSX 软件游戏分享区" xmlUrl="http://bbs.feng.com/forum.php?auth=0&amp;fid=19&amp;mod=rss" type="rss" text="威锋论坛 - Mac OSX 软件游戏分享区"/>
+            <outline title="威锋论坛 - 限时免费" xmlUrl="http://bbs.feng.com/forum.php?auth=0&amp;fid=406&amp;mod=rss" type="rss" text="威锋论坛 - 限时免费"/>
+            <outline title="MyProductiveMac Blog - MyProductiveMac" xmlUrl="http://feeds.feedburner.com/MyproductivemacFeed-Myproductivemac" type="rss" text="MyProductiveMac Blog - MyProductiveMac"/>
+            <outline title="Mac Torrent Download" xmlUrl="http://feeds.feedburner.com/mactorrentdownload" type="rss" text="Mac Torrent Download"/>
+            <outline title="反斗限免 » 反斗限免" xmlUrl="http://free.apprcn.com/feed/" type="rss" text="反斗限免 » 反斗限免"/>
+            <outline title="Page to Page" xmlUrl="http://irising.me/feed/" type="rss" text="Page to Page"/>
+            <outline title="越狱指南" xmlUrl="http://jbguide.me/rss/" type="rss" text="越狱指南"/>
+            <outline title="少数派" xmlUrl="http://sspai.com/feed" type="rss" text="少数派"/>
+            <outline title="苹果软件下载" xmlUrl="http://www.chinamac.com/index.php?c=rss&amp;m=content&amp;rssid=10" type="rss" text="苹果软件下载"/>
+            <outline title="苹果软件硬件应用教程" xmlUrl="http://www.chinamac.com/index.php?c=rss&amp;m=content&amp;rssid=7" type="rss" text="苹果软件硬件应用教程"/>
+            <outline title="Mac|FCPX资源顶级分享站 RSS Feed" xmlUrl="http://www.fcpx.top/feed" type="rss" text="Mac|FCPX资源顶级分享站 RSS Feed"/>
+            <outline title="果迷网" xmlUrl="http://www.guomii.com/feed" type="rss" text="果迷网"/>
+            <outline title="玩转苹果" xmlUrl="http://www.ifunmac.com/feed/" type="rss" text="玩转苹果"/>
+            <outline title="Mac志" xmlUrl="http://www.isofts.org/feed/" type="rss" text="Mac志"/>
+            <outline title="MacX 麦克叉 - Mac软件使用" xmlUrl="http://www.macx.cn/forum.php?mod=rss&amp;fid=2000&amp;auth=0" type="rss" text="MacX 麦克叉 - Mac软件使用"/>
+            <outline title="www.maczapp.com -  Apps" xmlUrl="http://www.maczapp.com/rss.php" type="rss" text="www.maczapp.com -  Apps"/>
+            <outline title="麦芽地-软件/Soft" xmlUrl="http://www.maiyadi.org/forum.php?mod=rss&amp;fid=38&amp;auth=0" type="rss" text="麦芽地-软件/Soft"/>
+            <outline title="麦芽地-游戏" xmlUrl="http://www.maiyadi.org/forum.php?mod=rss&amp;fid=39&amp;auth=0" type="rss" text="麦芽地-游戏"/>
+            <outline title="史蒂芬周的博客" xmlUrl="http://www.sdifenzhou.com/feed/" type="rss" text="史蒂芬周的博客"/>
+            <outline title="Mac玩儿法" xmlUrl="http://www.waerfa.com/feed" type="rss" text="Mac玩儿法"/>
+            <outline title="爱情守望者" xmlUrl="http://www.waitsun.com/feed" type="rss" text="爱情守望者"/>
+            <outline title="AppKed" xmlUrl="https://www.macbed.com/feed/" type="rss" text="AppKed"/>
+            <outline title="MacStories" xmlUrl="https://www.macstories.net/feed/" type="rss" text="MacStories"/>
+        </outline>
+        <outline title="1B IT_利器">
+            <outline title="小众软件" xmlUrl="http://feed.appinn.com/" type="rss" text="小众软件"/>
+            <outline title="谷奥——探寻谷歌的奥秘" xmlUrl="http://feed.google.org.cn/" type="rss" text="谷奥——探寻谷歌的奥秘"/>
+            <outline title="异次元软件世界" xmlUrl="http://feed.iplaysoft.com/" type="rss" text="异次元软件世界"/>
+            <outline title="善用佳软" xmlUrl="http://feed.xbeta.info/" type="rss" text="善用佳软"/>
+            <outline title="重灌狂人" xmlUrl="http://feeds.feedburner.com/briian" type="rss" text="重灌狂人"/>
+            <outline title="電腦玩物" xmlUrl="http://feeds.feedburner.com/playpc" type="rss" text="電腦玩物"/>
+            <outline title="免費資源網路社群" xmlUrl="http://feeds.freegroup.org/freegroup/" type="rss" text="免費資源網路社群"/>
+            <outline title="Chrome迷" xmlUrl="http://feeds2.feedburner.com/chromi" type="rss" text="Chrome迷"/>
+            <outline title="GDaily" xmlUrl="http://gdaily.org/feed" type="rss" text="GDaily"/>
+            <outline title="LinuxTOY" xmlUrl="http://linuxtoy.org/feed/" type="rss" text="LinuxTOY"/>
+            <outline title="利器" xmlUrl="http://liqi.io/feed/" type="rss" text="利器"/>
+            <outline title="OneNote爱好者" xmlUrl="http://onenoter.com/feed" type="rss" text="OneNote爱好者"/>
+            <outline title="“反”斗软件" xmlUrl="http://www.apprcn.com/feed" type="rss" text="“反”斗软件"/>
+            <outline title="Chrome迷" xmlUrl="http://www.chromi.org/feed" type="rss" text="Chrome迷"/>
+            <outline title="精品绿色便携软件" xmlUrl="http://www.portablesoft.org/feed/" type="rss" text="精品绿色便携软件"/>
+            <outline title="且行资源" xmlUrl="http://www.qiexing.com/rss.xml" type="rss" text="且行资源"/>
+            <outline title="首页 软件  VeryCD电驴大全 - 电驴资源订阅" xmlUrl="http://www.verycd.com/sto/software/feed" type="rss" text="首页 软件  VeryCD电驴大全 - 电驴资源订阅"/>
+        </outline>
+        <outline title="1L 生活+Tech">
+            <outline title="A Life of Productivity" xmlUrl="http://alifeofproductivity.com/feed/" type="rss" text="A Life of Productivity"/>
+            <outline title="可能吧" xmlUrl="http://feeds.kenengba.com/kenengbarss" type="rss" text="可能吧"/>
+            <outline title="编程随想的博客" xmlUrl="http://feeds2.feedburner.com/programthink" type="rss" text="编程随想的博客"/>
+            <outline title="锋科技- 最新RSS订阅" xmlUrl="http://tech.feng.com/rss.xml" type="rss" text="锋科技- 最新RSS订阅"/>
+            <outline title="TECH2IPO/创见" xmlUrl="http://tech2ipo.com/feed" type="rss" text="TECH2IPO/创见"/>
+            <outline title="天涯小筑" xmlUrl="http://tvfantasy.net/feed/" type="rss" text="天涯小筑"/>
+            <outline title="互联网的那点事" xmlUrl="http://www.alibuybuy.com/feed" type="rss" text="互联网的那点事"/>
+            <outline title="发现一个" xmlUrl="http://www.faxianyige.com/feed" type="rss" text="发现一个"/>
+            <outline title="极客公园-GeekPark" xmlUrl="http://www.geekpark.net/rss" type="rss" text="极客公园-GeekPark"/>
+            <outline title="PingWest品玩" xmlUrl="http://www.pingwest.com/feed/" type="rss" text="PingWest品玩"/>
+            <outline title="iPhone" xmlUrl="http://www.poppur.com/e/web/?type=rss2&amp;classid=12" type="rss" text="iPhone"/>
+            <outline title="Next" xmlUrl="http://www.poppur.com/e/web/?type=rss2&amp;classid=43" type="rss" text="Next"/>
+            <outline title="VR" xmlUrl="http://www.poppur.com/e/web/?type=rss2&amp;classid=6" type="rss" text="VR"/>
+            <outline title="钛媒体：网罗天下创新事" xmlUrl="http://www.tmtpost.com/rss.xml" type="rss" text="钛媒体：网罗天下创新事"/>
+            <outline title="理想生活实验室" xmlUrl="http://www.toodaylab.com/feed" type="rss" text="理想生活实验室"/>
+            <outline title="Wareable" xmlUrl="http://www.wareable.com/rss" type="rss" text="Wareable"/>
+            <outline title="月光博客" xmlUrl="http://www.williamlong.info/rss.xml" type="rss" text="月光博客"/>
+            <outline title="最美应用" xmlUrl="http://zuimeia.com/feed/" type="rss" text="最美应用"/>
+        </outline>
+        <outline title="1T 编程技术|博客">
+            <outline title="一般般" xmlUrl="http://1banban.net/rss" type="rss" text="一般般"/>
+            <outline title="阿小信的博客" xmlUrl="http://axiaoxin.com/feeds/" type="rss" text="阿小信的博客"/>
+            <outline title="Binuxの杂货铺" xmlUrl="http://blog.binux.me/atom.xml" type="rss" text="Binuxの杂货铺"/>
+            <outline title="文章 – 伯乐在线" xmlUrl="http://blog.jobbole.com/feed/" type="rss" text="文章 – 伯乐在线"/>
+            <outline title="寫程式是良心事業" xmlUrl="http://ijecorp.blogspot.com/feeds/posts/default" type="rss" text="寫程式是良心事業"/>
+            <outline title="博客园_Thinkbond" xmlUrl="http://www.cnblogs.com/thinkbond/rss" type="rss" text="博客园_Thinkbond"/>
+            <outline title="编程派 | Coding Python" xmlUrl="http://www.codingpy.com/feed/" type="rss" text="编程派 | Coding Python"/>
+            <outline title="樂天笔记" xmlUrl="http://www.letiantian.me/atom.xml" type="rss" text="樂天笔记"/>
+            <outline title="Linux Story" xmlUrl="http://www.linuxstory.org/feed" type="rss" text="Linux Story"/>
+            <outline title="V2EX - 无要点" xmlUrl="http://www.v2ex.com/feed/pointless.xml" type="rss" text="V2EX - 无要点"/>
+            <outline title="WonderHowTo" xmlUrl="http://www.wonderhowto.com/rss.xml" type="rss" text="WonderHowTo"/>
+            <outline title="我可以" xmlUrl="http://www.zreading.cn/ican/feed/" type="rss" text="我可以"/>
+            <outline title="IceHoney Blog" xmlUrl="https://blog.icehoney.me/feed" type="rss" text="IceHoney Blog"/>
+            <outline title="s/Title//g" xmlUrl="https://doomzhou.github.io/feed.xml" type="rss" text="s/Title//g"/>
+            <outline title="Smile阿伟的博客" xmlUrl="https://smileawei.com/feed/" type="rss" text="Smile阿伟的博客"/>
+        </outline>
+        <outline title="5S SecEn">
+            <outline title="Secret Base" xmlUrl="http://brieflyx.me/atom.xml" type="rss" text="Secret Base"/>
+            <outline title="MacSparky" xmlUrl="http://macsparky.com/blog?format=rss" type="rss" text="MacSparky"/>
+            <outline title="Netcraft" xmlUrl="http://news.netcraft.com/feed/" type="rss" text="Netcraft"/>
+            <outline title="Weblog | Sijmen Ruwhof" xmlUrl="http://sijmen.ruwhof.net/weblog/feed" type="rss" text="Weblog | Sijmen Ruwhof"/>
+            <outline title="VX Heaven" xmlUrl="http://vxheaven.org/forum/extern.php?action=feed&amp;type=rss" type="rss" text="VX Heaven"/>
+            <outline title="Count Upon Security" xmlUrl="https://countuponsecurity.com/feed" type="rss" text="Count Upon Security"/>
+            <outline title="khr@sh#:  echo $GREETING" xmlUrl="https://khr0x40sh.wordpress.com/feed/" type="rss" text="khr@sh#:  echo $GREETING"/>
+            <outline title="Updated vulnerabilities with exploits  (Execute Code,Overflow,File Inclusion,Gain Privilege,SQL Injection,Directory Traversal,Memory Corruption,Bypass,Gain Information) (CVSS score &gt;= 7)" xmlUrl="https://www.cvedetails.com/vulnerability-feed.php?vendor_id=0&amp;product_id=0&amp;version_id=0&amp;hasexp=1&amp;opec=1&amp;opov=1&amp;opfileinc=1&amp;opgpriv=1&amp;opsqli=1&amp;opdirt=1&amp;opmemc=1&amp;opbyp=1&amp;opginf=1&amp;orderby=2&amp;cvssscoremin=7" type="rss" text="Updated vulnerabilities with exploits  (Execute Code,Overflow,File Inclusion,Gain Privilege,SQL Injection,Directory Traversal,Memory Corruption,Bypass,Gain Information) (CVSS score &gt;= 7)"/>
+        </outline>
+        <outline title="6X Relax">
+            <outline title="Cao Liu" xmlUrl="http://feeds.feedburner.com/cao-liu-she-qu" type="rss" text="Cao Liu"/>
+            <outline title="干货集中营" xmlUrl="http://gank.io/feed" type="rss" text="干货集中营"/>
+            <outline title="看大图" xmlUrl="http://www.kdatu.com/feed" type="rss" text="看大图"/>
+            <outline title="喷嚏图卦" xmlUrl="http://www.pentitugua.com/rss.xml" type="rss" text="喷嚏图卦"/>
+            <outline title="沙扬娜拉" xmlUrl="http://www.shayangnala.com/rss.php" type="rss" text="沙扬娜拉"/>
+            <outline title="有意思吧" xmlUrl="http://www.u148.net/rss/" type="rss" text="有意思吧"/>
+        </outline>
+    </body>
+</opml>
