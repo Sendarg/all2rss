@@ -11,5 +11,5 @@ RUN pip install -r requirements.txt
 ## Start
 #ENTRYPOINT ["python"]
 #CMD start.py
-#EXPOSE 2202
+EXPOSE 2202
 CMD ["python","start.py"]

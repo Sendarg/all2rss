@@ -19,8 +19,8 @@ docker run -d --name rss-neo4j -p 7474:7474 -p 7687:7687 --volume=$HOME/neo4j/da
 
 # Start Python
 docker build -t all2rss .
-#docker run -d --name all2rss -p 2202:2202 --link rss-neo4j --link rss-redis all2rss
-docker run -d --name all2rss --net=host all2rss
+docker run -d --name all2rss -p 2202:2202 --link rss-neo4j --link rss-redis all2rss
+#docker run -d --name all2rss --net=host all2rss
 
 # base config
 curl -H "Content-Type: application/json" -X POST -d '{"password":"neo4321"}' -u neo4j:neo4j http://localhost:7474/user/neo4j/password
