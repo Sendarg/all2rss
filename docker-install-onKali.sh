@@ -1,5 +1,10 @@
 #!/bin/bash
 
+cat > /etc/apt/sources.list <<'EOF'
+deb http://mirrors.neusoft.edu.cn/kali kali-rolling main non-free contrib
+EOF
+
+
 # update apt-get
 export DEBIAN_FRONTEND="noninteractive"
 sudo apt-get update
@@ -30,3 +35,4 @@ sudo service docker restart
 
 # set Docker to auto-launch on startup
 sudo systemctl enable docker
+/lib/systemd/systemd-sysv-install enable docker

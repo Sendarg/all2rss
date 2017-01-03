@@ -36,12 +36,13 @@ class MainHandler(tornado.web.RequestHandler):
 		            RSS_URL=PUB_CACHE_URL_WX)
 	
 	def prepare(self):
-		verifyIP = MainHandler.verifyLocalhost(self)
-		if verifyIP != "Pass":
-			# todo: can't use host need some auth like basic
-			pass
-			# self.write("Not Allowed:\t%s" % verifyIP)
-			# self.finish()
+		# todo: can't use host need some auth like basic
+		pass
+		
+		# verifyIP = MainHandler.verifyLocalhost(self)
+		# if verifyIP != "Pass":
+		# 	# self.write("Not Allowed:\t%s" % verifyIP)
+		# 	# self.finish()
 
 
 class UpdateHandler(MainHandler):
