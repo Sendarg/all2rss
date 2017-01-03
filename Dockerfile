@@ -1,5 +1,5 @@
 ## Python Image
-FROM python:2
+FROM python:2.7
 
 ## Prepare
 COPY . /app
@@ -10,5 +10,5 @@ RUN pip install -r requirements.txt --proxy=192.168.199.213:1087
 ## Start
 #ENTRYPOINT ["python"]
 #CMD start.py
-EXPOSE 2202
+#EXPOSE 2202
 CMD ["python","start.py"]
