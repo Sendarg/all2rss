@@ -90,5 +90,5 @@ redisDB = Redis(password="vr2MD#a886d")
 # redisDB = Redis(host='rss-redis', password="vr2MD#a886d") # use in docker bridge network
 
 from py2neo import Graph
-neo4j=Graph(user='neo4j', password='neo4j')
+neo4j=Graph(user='neo4j', password='neo4321')
 # neo4j=Graph(host='rss-neo4j',user='neo4j', password='neo4j')

@@ -22,6 +22,5 @@ docker build -t all2rss .
 #docker run -d --name all2rss -p 2202:2202 --link rss-neo4j --link rss-redis all2rss
 docker run -d --name all2rss --net=host all2rss
 
-
 # base config
-curl -H "Content-Type: application/json" -X POST -d '{"password":"neo4j"}' -u neo4j:neo4j http://localhost:7474/user/neo4j/password
+curl -H "Content-Type: application/json" -X POST -d '{"password":"neo4321"}' -u neo4j:neo4j http://localhost:7474/user/neo4j/password
