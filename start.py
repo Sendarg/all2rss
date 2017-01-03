@@ -32,6 +32,7 @@ class Application(web.Application):
 
 
 application = Application(
+	# debug=True,
 	handlers=urls,
 	static_path=os.path.join(basedir, 'static'),
 	template_loader=JinjaLoader(os.path.join(basedir, 'templates'),

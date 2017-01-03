@@ -158,7 +158,7 @@ class WeixinBaseHandler(BaseHandler):
 		# 第一次生成后,永久存储,之后判断是否有
 		# self.page_size = WEIXIN_PAGE_SIZE
 		# if self.redisDB.hasKey(self.key):
-		if manage_WX_ID().count_WX_MSG(self.wid)  > 10:
+		if manage_WX_ID().count_WX_MSG(self.wid)  > 50:
 			self.page_count = 1
 		else:
 			self.page_count = WEIXIN_PAGE_COUNT

@@ -87,7 +87,10 @@ class manage_WX_ID(object):
 		'''
 		opml = listparser.parse(opemlFile_or_Content_or_URL)
 		for feed in opml.feeds:
-			wx_id=re.findall("weixin\?id=(\S+)$", feed.url)[0]
+			try:
+				wx_id=re.findall("weixin\?id=(\S+)$", feed.url)[0]
+			except IndexError:
+				print "---- WX_ID Paste Error!%s"%feed.url
 			if not self.is_WX_ID_Exists(wx_id):
 				WX_ID = Node("WX_ID")
 				info = {
