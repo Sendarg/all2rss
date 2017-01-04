@@ -42,8 +42,7 @@ application = Application(
 
 if __name__ == "__main__":
 	application.listen(PORT,Server_IP)
-	## first start
-	## init data
+	## first start init some basic  data (cyber)
 	if len(manage_WX_ID().list_WX_ID()) == 0:
 		File_rss = "opml/Subscriptions.opml"
 		if manage_WX_ID().mass_Import_WX_ID_from_opml(File_rss):

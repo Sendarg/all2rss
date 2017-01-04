@@ -4,7 +4,7 @@ WEIBO_URL = 'http://service.weibo.com/widget/widget_blog.php?uid={uid}'
 WEIBO_LINK = 'http://weibo.com/u/{uid}'
 
 ZHIHU_URL = 'http://news.at.zhihu.com/api/1.2/news/latest'
-ZHIHU_HEAD = {'User-Agent': "ZhihuNotMoe/2333",}
+ZHIHU_HEAD = {'User-Agent': "ZhihuNotMoe/2333", }
 
 # Old Sougou
 # WEIXIN_KEY = 'http://weixin.sogou.com/gzh?openid={id}'
@@ -22,7 +22,7 @@ WEIXIN_GS_Name_URL = 'http://www.gsdata.cn/query/wx?q={name}'
 WEIXIN_GS_Article_URL_PAGE = 'http://www.gsdata.cn/Query/article?q={id}&post_time=0&sort=-1&date=&search_field=4&page={page}'
 
 # http://www.gsdata.cn/query/article?q=iknow021&search_field=4&post_time=0&sort=-1&read_num=0&page=3
-WEIXIN_GS_COVER_URL = 'http://img1.gsdata.cn/index.php/rank/getImageUrl?callback=&hash={hash}&_=' # remove only , image not clear enough
+WEIXIN_GS_COVER_URL = 'http://img1.gsdata.cn/index.php/rank/getImageUrl?callback=&hash={hash}&_='  # remove only , image not clear enough
 # Page to cache at first time # only sync 5
 # All history page will store by single sub process
 # store max 50 is good no large 599
@@ -45,10 +45,7 @@ JAQ_URL = 'http://jaq.alibaba.com/community/category?spm=&catid={catid}'
 JAQ_ARTICLE = 'http://jaq.alibaba.com/community/art/show?spm=&articleid={articleid}'
 
 # pediy
-PEDIY_URL='http://bbs.pediy.com/forumdisplay.php?f={fid}'
-
-
-
+PEDIY_URL = 'http://bbs.pediy.com/forumdisplay.php?f={fid}'
 
 _HEADERS = {
 	'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:43.0) Gecko/20100101 Firefox/43.0',
@@ -74,21 +71,31 @@ Server_IP = '127.0.0.1'
 PORT = '2102'
 BASE_URL = 'http://%s:%s' % (Server_IP, PORT)
 
-
-PUB_IP='180.169.101.117'
-PUB_NAT_IP='172.31.16.20'
+PUB_IP = '180.169.101.117'
+PUB_NAT_IP = '172.31.16.20'
 # Feeds
 # PUB_CACHE_URL_WX = 'http://%s:%s/weixin?id={id}' % (PUB_IP, PUB_PORT)
 PUB_CACHE_URL_WX = 'http://%s:%s/weixin?id={id}' % (Server_IP, PORT)
 PUB_CACHE_URL = 'http://%s:%s/{key}' % (Server_IP, PORT)
-CACHE_PERIODIC = ((6 * 60) + 5 * 60) * 1000  # sync every 4 hours 5min
+CACHE_PERIODIC = (4 * 60) * 60 * 1000
+# CACHE_PERIODIC = ((4 * 60) + 5 )* 60 * 1000  # sync every 4 hours 5min
 
 
 from  redis import Redis
+
 # many redis can listen to 1 port,so you need kill
 redisDB = Redis(password="vr2MD#a886d")
 # redisDB = Redis(host='rss-redis', password="vr2MD#a886d") # use in docker bridge network
 
-from py2neo import Graph
-neo4j=Graph(user='neo4j', password='neo4321')
-# neo4j=Graph(host='rss-neo4j',user='neo4j', password='neo4321')
+
+neo4j_Host = "localhost:7474"
+from py2neo import Graph, authenticate
+
+
+class neo4j():
+	def neo4j(self):
+		# set up authentication parameters
+		authenticate(neo4j_Host, "neo4j", "neo4321")
+		neo4j=Graph("http://%s/db/data/"%neo4j_Host)
+		# neo4j=Graph(host='rss-neo4j',user='neo4j', password='neo4321')
+		return neo4j

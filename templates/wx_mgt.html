@@ -29,9 +29,9 @@
     <form action="/wx_mgt/update" method="post">
         <input type="submit" value="更新微信ID信息"/> |
     </form>
-    <form action="/wx_mgt/feeds" method="post">
+    <form action="/wx_mgt/feeds.opml" method="get">
         <select name="group" style="width: 70px">
-            <option value="All">All</option>
+            <option value="">All</option>
             {% for g in group %}
                 <option value="{{ g['name'] }}">{{ g['name'] }}</option>
             {% endfor %}

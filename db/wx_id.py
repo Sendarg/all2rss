@@ -8,7 +8,7 @@ import listparser,re
 
 class manage_WX_ID(object):
 	def __init__(self):
-		self.neo4j = neo4j
+		self.neo4j = neo4j().neo4j()
 	
 	
 	def list_Groups(self):
@@ -24,7 +24,7 @@ class manage_WX_ID(object):
 			return False
 	
 	def export_Feeds(self, group):
-		if group == "All":
+		if not group :
 			cyber = 'MATCH (w:WX_ID) return w.name,w.wx_id,w.group,w.desc'
 		else:
 			cyber = 'MATCH (w:WX_ID) where w.group="%s"  return w.name,w.wx_id,w.group,w.desc ' % (group)

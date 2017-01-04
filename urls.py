@@ -10,7 +10,7 @@ urls=[
     (r"/wx_mgt/add", wx_mgt.AddHandler),
     (r"/wx_mgt/group", wx_mgt.GroupHandler),
     (r"/wx_mgt/import", wx_mgt.ImportHandler),
-    (r"/wx_mgt/feeds", wx_mgt.FeedsHandler),
+    (r"/wx_mgt/feeds.opml", wx_mgt.FeedsHandler),
     (r"/weibo", weibo.WeiboHandler),
     (r"/weixin", weixin_gs.WeixinHandler),
     (r"/weixin_", weixin.WeixinHandler),

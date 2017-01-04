@@ -76,17 +76,21 @@ class ImportHandler(MainHandler):
 
 class FeedsHandler(MainHandler):
 	def post(self):
-		self.group = self.request.arguments['group'][0]
-		feeds = manage_WX_ID().export_Feeds(self.group)
-		if not feeds:
-			self.write(js_alert_refresh("获取Feeds失败!!!Group:%s" % (self.group)))
+		if self.request.arguments.has_key("group"):
+			self.group = self.request.arguments['group'][0]
 		else:
-			print "==== Render RSS Feeds Success! Group:\t%s" % self.group
-			self.set_header("Content-Type", "application/xml")
-			self.render("feeds.xml",
-			            feeds=feeds,
-			            CACHE_URL_WX=PUB_CACHE_URL_WX)
-
+			self.group = ""
+		
+		feeds = manage_WX_ID().export_Feeds(self.group)
+		print "==== Render RSS Feeds Success! Group:\t%s" % self.group
+		self.set_header("Content-Type", "application/opml+xml")
+		self.render("feeds.opml",
+		            feeds=feeds,
+		            CACHE_URL_WX=PUB_CACHE_URL_WX)
+		# self.write(js_alert_refresh("获取Feeds失败!!!Group:%s" % (self.group)))
+			
+		
+	get=post # same as post
 
 class DelHandler(MainHandler):
 	def post(self):

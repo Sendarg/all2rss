@@ -29,6 +29,6 @@ def sync_rss_feeds():
 
 
 # sync all feed history to db
-@tornado.gen.coroutine
-def sync_feeds_history(history=50):
-	pass
+# @tornado.gen.coroutine
+# def sync_feeds_history(history=50):
+# 	pass
