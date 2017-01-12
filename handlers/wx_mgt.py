@@ -90,7 +90,7 @@ class FeedsHandler(MainHandler):
 		# self.write(js_alert_refresh("获取Feeds失败!!!Group:%s" % (self.group)))
 			
 		
-	get=post # same as post
+	get=post # You still need get if you want access the page, because access the page using browser request with GET method.
 
 class DelHandler(MainHandler):
 	def post(self):

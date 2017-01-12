@@ -59,7 +59,7 @@ TIMEOUT = 600.0
 缓存DB的结果都有过期时间,过期后则再次爬去最新的内容
 '''
 ZHIHU_EXPIRES = 4 * 60 * 60  # 知乎日报内容缓存3小时
-WEIXIN_EXPIRES = 6 * 60 * 60  # 微信公众号内容缓存3小时
+WEIXIN_EXPIRES = 5 * 60 * 60  # 微信公众号内容缓存3小时
 JAQ_EXPIRES = 24 * 60 * 60  # 阿里聚安全内容缓存3小时
 PEDIY_EXPIRES = 4 * 60 * 60  # 缓存3小时 http://bbs.pediy.com/forumdisplay.php?f=161
 
@@ -77,7 +77,7 @@ PUB_NAT_IP = '172.31.16.20'
 # PUB_CACHE_URL_WX = 'http://%s:%s/weixin?id={id}' % (PUB_IP, PUB_PORT)
 PUB_CACHE_URL_WX = 'http://%s:%s/weixin?id={id}' % (Server_IP, PORT)
 PUB_CACHE_URL = 'http://%s:%s/{key}' % (Server_IP, PORT)
-CACHE_PERIODIC = (4 * 60) * 60 * 1000
+CACHE_PERIODIC = 25 * 60 * 1000 # 65min
 # CACHE_PERIODIC = ((4 * 60) + 5 )* 60 * 1000  # sync every 4 hours 5min
 
 

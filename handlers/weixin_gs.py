@@ -52,6 +52,7 @@ class WeixinHandler(WeixinBaseHandler):
 			urls=[WEIXIN_GS_Article_URL_PAGE.format(id=id, page=p + 1) for p in range(self.page_count)]
 			# todo: NOW GS page need login session
 			client_gs=getAClient(max_clients=100)
+			# listResponses=yield [client_gs.fetch(r) for r in reqsBuilder(urls)]
 			listResponses=yield [client_gs.fetch(r) for r in reqsBuilder(urls,_HEADERS=GS_Session_HEADERS)]
 			# listResponses=iHttpClient()
 			# listResponses = yield [client_gs.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=31))]

@@ -12,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from configs import _HEADERS, TIMEOUT,GS_Session_HEADERS
 
-from requests import get
+from requests import get,post
 from BeautifulSoup import BeautifulStoneSoup
 
 
@@ -128,6 +128,13 @@ def get1_GS(url):
 	response.close()
 	return r
 
+
+def post_GS(url,data=None):
+	response = post(url=url, headers=GS_Session_HEADERS,data=data)
+	r = response.content
+	
+	response.close()
+	return r
 
 
 def fetch_url_g_error(url):
