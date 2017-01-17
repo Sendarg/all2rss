@@ -128,9 +128,18 @@ class WeixinHandler(WeixinBaseHandler):
 				'''
 				# 爬取每篇文章的内容
 				client_wx = getAClient(max_clients=400)
-				# msg_data_all=simplejson.loads("[%s]"%msg_data_all[0])
-				msg_data_all=[json.loads(msg.replace("'", "\"")) for msg in msg_data_all]
-				msg_url_all=[msg["url"] for msg in msg_data_all]
+				
+				## get URL from metadata[url、pic、text]
+				msg_data_json=[]
+				for msg in msg_data_all:
+					out=msg.replace("\"", "\\\"").replace("'", "\"") #  when replace to  " first care exits "
+					try:
+						out=json.loads(out)
+						msg_data_json.append(out)
+					except ValueError as e:
+						print "---- JSON ERROR:\t%s\n%s\n%s"%(e.message,msg,out)
+					
+				msg_url_all=[msg["url"] for msg in msg_data_json]
 				responses = yield [client_wx.fetch(u) for u in reqsBuilder(msg_url_all)]
 				# warn_count = 0  # 排除删除的文章
 				for i, response in enumerate(responses):
@@ -148,16 +157,16 @@ class WeixinHandler(WeixinBaseHandler):
 						# 因为信息可能重复,暂且不管process_list输出的重复信息
 						full_info = wx_info().get_full_info_by_html(html)
 						# 存储到数据库和数组
-						storeMsg().create_WX_MSG_FULL(full_info)
-						items.append(full_info)
-						# print LED
-						print "++++\tGet items\t++++"
-						print full_info['wx_id']+"\t"+full_info['name']
-						print full_info['msg_createdtime']
-						print full_info['msg_title']
-						print full_info['msg_desc']
-						print full_info['msg_link']
-						print "_____________________ single msg split\t%s\t_____________________" % str(i + 1)
+						if storeMsg().create_WX_MSG_FULL(full_info):
+							items.append(full_info)
+							# print LED
+							print "++++\tGet items\t++++"
+							print full_info['wx_id']+"\t"+full_info['name']
+							print full_info['msg_createdtime']
+							print full_info['msg_title']
+							print full_info['msg_desc']
+							print full_info['msg_link']
+							print "_____________________ single msg split\t%s\t_____________________" % str(i + 1)
 
 
 				'''

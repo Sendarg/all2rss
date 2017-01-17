@@ -162,8 +162,8 @@ class wx_info(object):
 				'''
 		wx_obj = {}
 
-		# wx id & desc,some id not set weixin ID so use user_name
-		wx_id = re.findall("profile_meta_value\"\s?>(.*)<\s?\/", r) # 功能介绍 一样的标签,可能用空格
+		# wx id & desc,some id not set weixin ID so use user_name。 master match many space
+		wx_id = re.findall("profile_meta_value\"\s*>\s*(\S+)\s*<\s*\/span", r) # 功能介绍 一样的标签,可能用空格
 		if len(wx_id) == 2:
 			wx_obj['wx_id'] = wx_id[0].strip()
 			if  not wx_obj['wx_id']:
@@ -171,7 +171,7 @@ class wx_info(object):
 			wx_obj['desc'] = wx_id[1].strip()
 		elif len(wx_id) == 1:
 			wx_obj['wx_id'] = re.findall("user_name\s?=\s?\"(\S+)\"\;", r)[0].strip()
-			wx_obj['desc'] = re.findall("profile_meta_value\"\s?>(\S+)<\s?\/", r)[-1].strip()
+			wx_obj['desc'] = re.findall("profile_meta_value\"\s?>\n?(\S+)<\s?\/", r)[-1].strip()
 		else:
 			return False
 		# nickname

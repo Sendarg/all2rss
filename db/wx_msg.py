@@ -54,7 +54,7 @@ class storeMsg(object):
 		WX_MSG = self.neo4j.find_one("WX_MSG", property_key="msg_link", property_value=wx_info['msg_link'])
 		if WX_MSG:
 			# print "---- WX_MSG exists:\t%s" % WX_MSG["msg_link"]# too much useless info
-			return False
+			return True
 		else:
 			# msg=PropertyDict(wx_info)
 			news1 = Node("WX_MSG")
