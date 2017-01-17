@@ -2,13 +2,14 @@
 import tornado.gen
 from utils.iHttpLib import getAClient,reqsBuilder
 import tornado.web
+from tornado.web import HTTPError
 from configs import WEIXIN_GS_Article_URL, WEIXIN_GS_Article_URL_PAGE,GS_Session_HEADERS
 
 from base import WeixinBaseHandler
 from db.wx_data_lib import wx_info
 from db.wx_msg import storeMsg
 from db.wx_id import manage_WX_ID
-import re
+import re,json
 
 
 
@@ -27,7 +28,7 @@ class WeixinHandler(WeixinBaseHandler):
 		if manage_WX_ID().check_ID(id):
 
 			# 访问api url,获取公众号文章列表\基本信息,同步逐个获取
-			msg_urls_all = []
+			msg_data_all = []
 			## method 1 ,long
 			# for p in range(self.page_size):# 读取X页结果,第一次获取5页结果,第二次获取一页结果?
 			#     url = WEIXIN_URL_PAGE.format(id=id,page=p)  # 生成api url
@@ -52,12 +53,20 @@ class WeixinHandler(WeixinBaseHandler):
 			urls=[WEIXIN_GS_Article_URL_PAGE.format(id=id, page=p + 1) for p in range(self.page_count)]
 			# todo: NOW GS page need login session
 			client_gs=getAClient(max_clients=100)
-			# listResponses=yield [client_gs.fetch(r) for r in reqsBuilder(urls)]
 			listResponses=yield [client_gs.fetch(r) for r in reqsBuilder(urls,_HEADERS=GS_Session_HEADERS)]
-			# listResponses=iHttpClient()
-			# listResponses = yield [client_gs.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=31))]
-			# listResponses = yield [client_gs.fetch(WEIXIN_GS_URL_PAGE.format(id=id, page=p + 1))
-			#                        for p in range(self.page_count)]
+			
+			# ## for catch except
+			# def gs_fetch(urls):
+			# 	for r in reqsBuilder(urls, _HEADERS=GS_Session_HEADERS):
+			# 		try:
+			# 			response = client_gs.fetch(r)
+			# 		except HTTPError:
+			# 			print "---- Tornado HTTPError:\t%s" % r
+			# 			response = None
+			# 		yield response
+			#
+			# listResponses = gs_fetch(urls=urls)
+			
 
 			for p, response in enumerate(listResponses):
 				gs_url = response.request.url
@@ -65,8 +74,12 @@ class WeixinHandler(WeixinBaseHandler):
 				# local_url = '%s&page=%d' % (self.url, p + 1) # not useful
 				if response.code == 200:
 					rc = response.body.decode('utf-8')
-					msg_urls = re.findall(r"'url':'(\S+)'", rc)
-					msg_urls_all.extend(msg_urls)
+					# msg_urls = re.findall(r"'url':'(\S+)'", rc)
+					'''
+					data="{'url':'http://mp.weixin.qq.com/s?__biz=MzA5NzQ3NDA2OA==&mid=2457549036&idx=1&sn=8742f93466f5c6ef183622ead6e634a9&chksm=872fdb97b05852812f85d0f8f8688b80cb5180919539012c39492f15720e4666631ced0ec466&scene=4#wechat_redirect','pic':'aHR0cDovL21tYml6LnFwaWMuY24vbW1iaXpfanBnL3BRRjRjend6MHpPVnhvS2ljdjB6V09mUWlhZjB6azJ5SmJCcFBHbGljWDVpYnFXRW1ZaWMxVDRQa3QxalhzV0l2aWFpY1BPMkFOSU9pYnBxMm1ZVkNUWkVTaWJiaWNpYkEvMD93eF9mbXQ9anBlZ3w1NDQ5MTlhZjE3YWUwZWU5MjRjNzY2ZmZmMzNjZTA4Ng==','text':'以“用户为中心”的画布工具是什么?怎么用?价值在哪？'}">
+					'''
+					msg_data = re.findall(r'data="(\{.*\})">', rc)
+					msg_data_all.extend(msg_data)
 					print "====	Success URL\t[%s] ----" % gs_url
 
 				else:
@@ -74,7 +87,7 @@ class WeixinHandler(WeixinBaseHandler):
 					
 			# 访问微信信息url,获取全部内容
 			items = []
-			if msg_urls_all and len(msg_urls_all) > 5:  # 随机抽取校验是否合法结果
+			if msg_data_all :  #  and len(msg_data_all) > 5 随机抽取校验是否合法结果
 				# 获取每一个文章的封面
 				# for xinshengdaxue on openshift Code 500? ???
 				# TODO error in feed,no reach store step
@@ -115,7 +128,10 @@ class WeixinHandler(WeixinBaseHandler):
 				'''
 				# 爬取每篇文章的内容
 				client_wx = getAClient(max_clients=400)
-				responses = yield [client_wx.fetch(u) for u in reqsBuilder(msg_urls_all)]
+				# msg_data_all=simplejson.loads("[%s]"%msg_data_all[0])
+				msg_data_all=[json.loads(msg.replace("'", "\"")) for msg in msg_data_all]
+				msg_url_all=[msg["url"] for msg in msg_data_all]
+				responses = yield [client_wx.fetch(u) for u in reqsBuilder(msg_url_all)]
 				# warn_count = 0  # 排除删除的文章
 				for i, response in enumerate(responses):
 					if response.code == 200:
@@ -153,7 +169,7 @@ class WeixinHandler(WeixinBaseHandler):
 
 				'''
 				# check item's <description><![CDATA[]]></description>
-				if type(items[1]) == dict and items[1].has_key('msg_content') and items[1]['msg_content']:
+				if type(items[0]) == dict and items[0].has_key('msg_content') and items[0]['msg_content']:
 					pubdate = items[0]['msg_createdtime']
 					title = items[0]['name']
 					description = items[0]['desc']
