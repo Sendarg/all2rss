@@ -6,7 +6,7 @@ pytz==2016.6.1
 redis==2.10.5
 requests==2.11.1
 selenium==2.53.6
-tornado==4.4.1
+tornado==6.3.2
 BeautifulSoup==3.2.1
 pycrypto==2.6.1
 python_memcached==1.58
