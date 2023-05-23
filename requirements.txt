@@ -4,7 +4,7 @@ lxml==3.6.4
 py2neo==3.1.2
 pytz==2016.6.1
 redis==2.10.5
-requests==2.11.1
+requests==2.31.0
 selenium==2.53.6
 tornado==4.4.1
 BeautifulSoup==3.2.1
