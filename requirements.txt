@@ -11,3 +11,4 @@ BeautifulSoup==3.2.1
 pycrypto==2.6.1
 python_memcached==1.58
 listparser==0.18
+gevent>=23.9.0 # not directly required, pinned by Snyk to avoid a vulnerability
